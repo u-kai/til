@@ -14,3 +14,5 @@
         const data = "use const";
         const data = "use const";
         ```
+
+-   ヤンクした文字で検索する方法は検索モードにして ctrl+r"で可能
