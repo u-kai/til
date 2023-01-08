@@ -128,3 +128,9 @@ impl Generator for ConcriteGenerator {
 }
 
 ```
+
+## Stack Overflow より
+
+-   https://stackoverflow.com/questions/53085270/how-do-i-implement-a-trait-with-a-generic-method
+-   type parameter は実装者ではなくメソッドの呼び出し元によって決定される
+-   実装者に特定の型を選択させたい場合は、代わりに関連する型で具体化する必要があります。
