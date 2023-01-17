@@ -1,36 +1,18 @@
-trait Convertor {
-    fn convert(&self, str: &str) -> String;
-}
+use std::io::stdin;
 
-struct ConcreteConvertor {}
-impl Convertor for ConcreteConvertor {
-    fn convert(&self, str: &str) -> String {
-        format!("!!{}!!", str)
-    }
-}
-
-trait Generator {
-    fn gen<T: Convertor>(&self, c: T) -> String;
-    fn gen_original(&self) -> String;
-}
-
-struct ConcriteGenerator {
-    data: String,
-}
-
-impl Generator for ConcriteGenerator {
-    fn gen<T: Convertor>(&self, c: T) -> String {
-        c.convert(&self.data)
-    }
-    fn gen_original(&self) -> String {
-        self.data.clone()
-    }
-}
 fn main() {
-    let generator = ConcriteGenerator {
-        data: "Error".to_string(),
-    };
-    let convertor = ConcreteConvertor {};
-    println!("can complie case : {}", generator.gen(convertor));
-    println!("can not complie case : {}", generator.gen_original());
+    let etos = [
+        "子", "丑", "寅", "卯", "辰", "🐍", "午", "未", "申", "酉", "戌", "亥",
+    ];
+    let mut s = String::new();
+    stdin().read_line(&mut s).unwrap();
+    s.remove(s.len() - 1);
+    while s.parse::<usize>().is_err() || s.parse::<usize>().unwrap() < 1900 {
+        println!("1900 以上を入れてください");
+        s.clear();
+        std::io::stdin().read_line(&mut s).unwrap();
+        s.remove(s.len() - 1);
+    }
+    let mod_ = (s.parse::<usize>().unwrap() - 1900) % 12;
+    println!("{}", etos[mod_]);
 }
