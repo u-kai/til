@@ -1,18 +1,52 @@
-use std::io::stdin;
+//use actix_web::{web, App, HttpResponse, HttpServer, Responder};
+use std::error::Error;
 
-fn main() {
-    let etos = [
-        "子", "丑", "寅", "卯", "辰", "🐍", "午", "未", "申", "酉", "戌", "亥",
-    ];
-    let mut s = String::new();
-    stdin().read_line(&mut s).unwrap();
-    s.remove(s.len() - 1);
-    while s.parse::<usize>().is_err() || s.parse::<usize>().unwrap() < 1900 {
-        println!("1900 以上を入れてください");
-        s.clear();
-        std::io::stdin().read_line(&mut s).unwrap();
-        s.remove(s.len() - 1);
-    }
-    let mod_ = (s.parse::<usize>().unwrap() - 1900) % 12;
-    println!("{}", etos[mod_]);
+//#[actix_web::get("/")]
+//async fn hello() -> impl Responder {
+//HttpResponse::Ok().body("Hello world!")
+//}
+
+//#[actix_web::post("/echo")]
+//async fn echo(req_body: String) -> impl Responder {
+//HttpResponse::Ok().body(req_body)
+//}
+
+//async fn manual_hello() -> impl Responder {
+//HttpResponse::Ok().body("Hey there!")
+//}
+//#[actix_web::main]
+//async fn main() -> std::io::Result<()> {
+//HttpServer::new(|| {
+//App::new()
+//.service(hello)
+//.service(echo)
+//.route("/hey", web::get().to(manual_hello))
+//})
+//.bind(("127.0.0.1", 8080))?
+//.run()
+//.await
+//}
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+    let url = "https://jsonplaceholder.typicode.com/posts/1";
+
+    let client = reqwest::Client::new();
+
+    let mut headers = reqwest::header::HeaderMap::new();
+    headers.insert(
+        reqwest::header::USER_AGENT,
+        reqwest::header::HeaderValue::from_static("reqwest-tokio-example"),
+    );
+
+    let res = client
+        .get(url)
+        .headers(headers)
+        .send()
+        .await?
+        .text()
+        .await?;
+
+    println!("{}", res);
+
+    Ok(())
 }
