@@ -6,6 +6,13 @@ marp: true
 
 ---
 
+# 注意事項
+
+- 本発表は自組織とは全く関係がありません.
+- Rust にバイアスがかかった発表内容かもしれません.
+
+---
+
 # 目次
 
 - 本日の狙い
@@ -18,6 +25,7 @@ marp: true
 # 本日の狙い
 
 - 一人でも多くの方に Rust に興味持ってもらう!
+  - よくわからんけど，なんかすごそう！試してみよう！と思ってもらえるように資料を作成しました！
 - あわよくば弊社 Rust の輪を広げる!
   - Rust で書きたいんです...🙇
 
@@ -55,89 +63,86 @@ marp: true
 
 ---
 
-# 堅牢な型システム
+# 1.堅牢でスマートな型システム
 
-- Rust は静的型付け言語の中でも強い型整合性が必要
-- 型整合性さえクリアすればコードが動くと自信を持てる！
-- 自信を持てるからどんどん書きたくなる!
-- twada さんのず
-- 型が多くを語ってくれるため，可読性が高いコードができる
-  - 実装やコメントでは無く，型を見れば OK となることも！
-
----
-
-# 型の紹介: mut 型
-
-- 値が変更するか否かに対しても型がつけられています!
+- Rust は静的型付け言語の中でも強い型整合性でいろんな種類の型がある
+- 型整合性さえクリアすればコードが動くと自信を持てる！💪
+- 型が多くを語ってくれるため，可読性が高いコードができる!👍
 
 ```rust
-fn add_str(data:&mut String,added:&str){
-  data.push_str(&added);
+fn bin_to_hex(bin:&str)->Result<String,Error> {
+  // 名前から察するに2進数を16進数に変更するのかな？
+  // 引数は文字列なのね
+  // 失敗するかもしれないのね！確かにbinに01以外のものがあれば失敗するよね
 }
-
-let mut h = String::from("Hello")
-
-// hが書き変わっていることが明白
-add_str(&mut h,"world")
-
-println!("{}",h);
-// Hello world
 ```
 
-- データが知らないうちに変更されている...っていうのが型レベルで明確になる!
-
----
-
-# 型の紹介: Result,Option 型
-
-- 失敗しうるものや，存在しない可能性があるものに対する型があります
-- チェックしてあげないとコンパイルすら通らない
-- チェックを強制してくれるので，安全なコードが書ける!
+- 型推論がエグいから，定義以外で型を書くことはほとんどない！🥰
 
 ```rust
-let data = [1,2,3];
-println!("{}",data[3]);
-// error: ...
-// index out of bounds: the length is 3 but the index is 3
-
-let maybe_d3:Option<&usize> = data.get(3);
-
-//error[E0369]: cannot add `{integer}` to `Option<&{integer}>`
-let sum = maybe_d + 3;
-
-// Option型やResult型などの展開を援助してくれるmatch(本当はもっとすごいです！)
-let sum = match maybe_d3 {
-    Some(d) => d + 3,
-    None    => 0
-}
+let data:String = String::from("data")
+// わざわざ型を書かなくてもOK
+let data = String::from("data")
 ```
 
 ---
 
-# 柔軟な trait 境界
-
-- 他の言語だと interface にあたるものとして Rust には trait があります
-
-```typescript
-// typescript
-interface Printable {
-  print: () => void;
-}
-```
+# でも型の整合性が強いと柔軟性がなくならない？？🤔
 
 ```rust
-// rust
-trait Printable {
-    fn print(&self)->();
+fn my_print(data:&str){
+  println!("{}",data);
 }
+// OK
+my_print("Hello world!");
 
+// NG
+my_print(100);
+
+// NG
+// Rustはたくさんの文字列表現の型があります．．．
+my_print(String::from("Hello world!"));
 ```
-
-- interface や trait を使った抽象化によって柔軟なシステムが作成できます
 
 ---
 
-# test が言語仕様に組み込まれている
+# trait やジェネリクスによる柔軟性
+
+```rust
+// traitを定義
+trait Printable:Debug {}
+
+// ジェネリクスを使って関数の引数を定義
+// このPはPrintableを実装していれば何でもOK!
+fn my_print_use_generic<P:Printable>(data:P){
+  println!("{}",data);
+}
+
+// traitのすごいところは型の定義よりも後に実装を行うこと!
+// 語弊を恐れずに言うなら，どんな型でも定義を変更せずに後から振る舞いを変えられると言うこと
+impl usize for Printable {}
+impl String for Printable {}
+impl str for Printable {}
+impl MyStruct for Printable{}
+// Third partyが定義した型にも独自の振る舞いを追加できる
+// interfaceではできない(はず．．．)
+impl LibraryStruct for Printable{}
+
+// All OK
+my_print_use_generic("Hello world!");
+my_print_use_generic(String::from("Hello world!"));
+my_print_use_generic(100 as usize);
+my_print_use_generic(MyStruct::new());
+my_print_use_generic(LibraryStruct::new());
+// NG
+// -100は型推論されるとi32型
+// i32型にPrintableは実装されていないのでNG
+my_print_use_generic(-100)
+```
+
+---
+
+# 2.test が言語仕様に組み込まれている
 
 - 多くの言語はテストライブラリのインストールが必要
 - Rust だと下のようにコードを書いて cargo test で OK
@@ -160,15 +165,17 @@ fn test_add(){
 
 ---
 
-# コンパイラや標準パッケージが優しい
+# 3. コンパイラや標準機能が優しい
 
-- ペアプロしているみたい
-- コンパイラさえ通ればうまく行く安心感がある
-- 安心感があるからもっと書きたくなる！
+- 標準機能のほとんどに doctest が記入されているので迷うことがない!
+- コンパイラが丁寧に教えてくれる！
+
+  - コンパイラの指示に従っていればあらかた上手くいく！
+  - ペアプロしているみたい
 
 ---
 
-# macro が面白すぎる！
+# 4.macro が面白い！
 
 - 名前の後ろに!がついているもの
 
@@ -190,24 +197,20 @@ let groups:Vec<&str> = vec!["tic","it","dict"];
 
 ```rust
 // define of macro
-macro_rules! impl_node_trait_for_statement {
-    ($($statement:ident),*) => {
-       impl Node for Statement {
-            fn string(&self)->String {
-                match self {
-                    $(
-                        Self::$statement(s)=>s.string(),
-                    )*
-                }
-            }
-       }
+macro_rules! fn_time {
+    ($fn:ident,$($args:ident),*) => {
+        let timer = std::time::Instant::now();
+        $fn($($args),*);
+        println!("time = {:?}", timer.elapsed());
     };
 }
 
+fn heavy_calc(sec:usize) {
+    sleep(Duration::from_secs(sec));
+}
 // use of macro
-impl_node_trait_for_statement!(
-    LetStatement,ReturnStatement,ExpressionStatement,BlockStatement,
-);
+fn_time!(heavy_calc,1);
+// time = 1.00002s
 ```
 
 ---
@@ -215,16 +218,15 @@ impl_node_trait_for_statement!(
 # macro が展開された時のイメージ
 
 ```rust
-impl Node for Statement {
-    fn string(&self)->String {
-        match self {
-            Self::LetStatement(s)=>s.string(),
-            Self::ReturnStatement(s)=>s.string(),
-            Self::ExpressionStatement(s)=>s.string(),
-            Self::BlockStatement(s)=>s.string(),
-        }
-    }
-}
+// before
+fn_time!(heavy_calc,1);
+```
+
+```rust
+// after
+let timer = std::time::Instant::now();
+heavy_calc(1);
+println!("time = {:?}", timer.elapsed());
 ```
 
 - 関数では到達困難な表現力！
@@ -269,7 +271,7 @@ impl Node for Statement {
 # 終わりに
 
 - 本日はありがとうございました！
-- もしご興味あればこちらまでご連絡ください！
+- もしご興味あれば私までご連絡ください！
   - Rust の凄さはこれだけでは決してこれだけではありません！笑
 - みなさまが Rust に興味を持っていただけ，挑戦していただけましたら幸いです!
 
@@ -277,14 +279,12 @@ impl Node for Statement {
 
 # 補足：伝えるか悩んだ項目
 
-- if 式の便利さ
-- 型推論の便利さ
-- if let ,let else の便利さ
-- trait のヤバさ
-- イテレーターの便利さ
-- パターンマッチの便利さ
-- 手続きマクロのヤバさ
-- 所有権という Rust の核となる考え方とその凄さ
+- if 式
+- if let ,let else
+- イテレーター
+- パターンマッチ
+- 手続きマクロ
+- 所有権
 - ライフタイム
 - Rust を学ぶと嬉しい副次効果
 
@@ -429,3 +429,64 @@ fn get_child_from_class(class:Class,name:String)->Option<Child>{
 - しかもその Child は存在しない場合があるから，その際のことも考えよう！
 
 ---
+
+# 便利な機能
+
+- if let/let else
+
+```rust
+if let Some(name) = group.get("kai") {
+  // process use name
+}
+let Some(name) = group.get("kai") else {
+  return
+}
+// process use name
+```
+
+---
+
+# 型の紹介: mut 型
+
+- 値が変更するか否かに対しても型がつけられています!
+
+```rust
+fn add_str(data:&mut String,added:&str){
+  data.push_str(&added);
+}
+
+let mut h = String::from("Hello")
+
+// hが書き変わっていることが明白
+add_str(&mut h,"world")
+
+println!("{} ",h);
+// Hello world
+```
+
+- データが知らないうちに変更されている...っていうのが型レベルで明確になる!
+
+---
+
+# 型の紹介: Result,Option 型
+
+- 失敗しうるものや，存在しない可能性があるものに対する型があります
+- チェックをコンパイラが強制してくれるので，安全なコードが書ける!
+
+```rust
+let data = [1,2,3];
+println!("{}",data[3]);
+// error: ...
+// index out of bounds: the length is 3 but the index is 3
+
+let maybe_d3:Option<&usize> = data.get(3);
+
+//error[E0369]: cannot add `{integer}` to `Option<&{integer}>`
+let sum = maybe_d + 3;
+
+// Option型やResult型などの展開を援助してくれるmatch(本当はもっとすごいです！)
+let sum = match maybe_d3 {
+    Some(d) => d + 3,
+    None    => 0
+}
+```
