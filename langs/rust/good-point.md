@@ -9,7 +9,7 @@ marp: true
 # 注意事項
 
 - 本発表は自組織とは全く関係がありません.
-- Rust にバイアスがかかった発表内容かもしれません.
+- Rust にバイアスがかかった発表内容かもしれません.ご了承ください.
 
 ---
 
@@ -115,18 +115,18 @@ trait Printable:Debug {}
 // ジェネリクスを使って関数の引数を定義
 // このPはPrintableを実装していれば何でもOK!
 fn my_print_use_generic<P:Printable>(data:P){
-  println!("{}",data);
+  println!("{:#?}",data);
 }
 
 // traitのすごいところは型の定義よりも後に実装を行うこと!
 // 語弊を恐れずに言うなら，どんな型でも定義を変更せずに後から振る舞いを変えられると言うこと
-impl usize for Printable {}
-impl String for Printable {}
-impl str for Printable {}
-impl MyStruct for Printable{}
+impl Printable for usize {}
+impl Printable for str{}
+impl Printable for String{}
+impl Printable for MyStruct{}
 // Third partyが定義した型にも独自の振る舞いを追加できる
 // interfaceではできない(はず．．．)
-impl LibraryStruct for Printable{}
+impl Printable for LibraryStruct{}
 
 // All OK
 my_print_use_generic("Hello world!");
@@ -251,49 +251,16 @@ println!("time = {:?}", timer.elapsed());
 
 ---
 
-# Rust を学んでよかったこと
-
-- メモリの割り当てやポインタなど深い知識を身につけることができた
-- 設計力が上がった気がする
-  - 強力な型システム
-  - trait 境界
-  - 所有権
-- test を書きたい欲が強くなった & test の大切さを再認識できた
-
----
-
-# Rust を学んでよくなかったこと
-
-- Rust しか書きたく無くなった 😢
-
----
-
 # 終わりに
 
 - 本日はありがとうございました！
 - もしご興味あれば私までご連絡ください！
-  - Rust の凄さはこれだけでは決してこれだけではありません！笑
+  - Rust の凄さはこれだけでは決してありません！笑
 - みなさまが Rust に興味を持っていただけ，挑戦していただけましたら幸いです!
 
 ---
 
-# 補足：伝えるか悩んだ項目
-
-- if 式
-- if let ,let else
-- イテレーター
-- パターンマッチ
-- 手続きマクロ
-- 所有権
-- ライフタイム
-- Rust を学ぶと嬉しい副次効果
-
----
-
-# 補足：今後やりたいこと
-
-- Rust で大規模開発
-- wasm
+# ありがとうございました！
 
 ---
 
@@ -315,6 +282,43 @@ println!("time = {:?}", timer.elapsed());
 - 多機能ゆえにコードの統制が難しいかも
   - for 文を使うのかイテレーターのメソッドを積極的に使うのか？
   - macro を使ってコード量を減らすのか愚直に書いて可読性を上げるのか
+
+---
+
+# 補足：伝えるか悩んだ項目
+
+- if 式
+- if let ,let else
+- イテレーター
+- パターンマッチ
+- 手続きマクロ
+- 所有権
+- ライフタイム
+- Rust を学ぶと嬉しい副次効果
+
+---
+
+# Rust を学んでよかったこと
+
+- メモリの割り当てやポインタなど深い知識を身につけることができた
+- 設計力が上がった気がする
+  - 強力な型システム
+  - trait 境界
+  - 所有権
+- test を書きたい欲が強くなった & test の大切さを再認識できた
+
+---
+
+# Rust を学んでよくなかったこと
+
+- Rust しか書きたく無くなった 😢
+
+---
+
+# 補足：今後やりたいこと
+
+- Rust で大規模開発
+- wasm
 
 ---
 
