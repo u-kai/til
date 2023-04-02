@@ -14,6 +14,10 @@ macro_rules! calc_time {
     };
 }
 fn main() {
+    let v = vec![None, Some(1), Some(2), None, None];
+    let mut exist_users = v.into_iter().filter_map(|s| s);
+    let num = exist_users.by_ref().count() as i32;
+    let ave: i32 = exist_users.fold(0, |acc, user| acc + user) / num;
     fn parallel_print(len: usize) {
         let mut handler = Vec::new();
         for _ in 0..len {

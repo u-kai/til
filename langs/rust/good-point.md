@@ -100,7 +100,7 @@ my_print("Hello world!");
 my_print(100);
 
 // NG
-// Rustはたくさんの文字列表現の型があります．．．
+// Rustにはたくさんの文字列を表現する型があります．．．
 my_print(String::from("Hello world!"));
 ```
 
@@ -124,7 +124,7 @@ impl Printable for usize {}
 impl Printable for str{}
 impl Printable for String{}
 impl Printable for MyStruct{}
-// Third partyが定義した型にも独自の振る舞いを追加できる
+// Third partyが定義した型にも独自の振る舞いを追加できる(逆もまた然り)
 // interfaceではできない(はず．．．)
 impl Printable for LibraryStruct{}
 
@@ -269,6 +269,25 @@ println!("time = {:?}", timer.elapsed());
 - 型システムによって型安全で品質の高いシステムが作りやすい
 - テストが実装の近くに書けることや高度な型システムなどのおかげで，可読性や保守性が高いコードになりやすい
 - 宣言的にかける API が多く，うまくかければ可読性の高いものにできる
+
+```python
+user_data = get_users()
+age_sum = 0
+user_num = 0
+for user in user_data:
+  if user.age is None:
+    continue
+  age_sum += user.age
+  user_num += 1
+```
+
+```rust
+let user_data:Vec<User> = get_users();
+let users_holding_age = user_data.iter().filter_map(|user|user.age);
+let count =  users_holding_age.by_ref().count();
+let ave = users_holding_age.fold(0,|acc,user|acc+user.age) / count;
+```
+
 - 実行時間が早いことや，メモリ消費量を抑えられることから計算リソースの節約が可能
 
 ---
