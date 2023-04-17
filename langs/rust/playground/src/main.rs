@@ -37,7 +37,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
         reqwest::header::USER_AGENT,
         reqwest::header::HeaderValue::from_static("reqwest-tokio-example"),
     );
-
+    let data = Some("test");
+    let data = data.take();
     let res = client
         .get(url)
         .headers(headers)
