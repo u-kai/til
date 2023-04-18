@@ -6,7 +6,7 @@ marp: true
 
 ---
 
-# 注意事項
+# はじめに
 
 - 本発表は自組織とは関係がなく，個人の意見です.
 - Rust にバイアスがかかった発表内容かもしれません.ご了承ください.
@@ -117,24 +117,22 @@ my_print(String::from("Hello world!"));
 
 ---
 
-# trait やジェネリクスによる柔軟性
+# trait や Generic による柔軟性
 
 ```rust
 // traitを定義
 trait Printable:Debug {}
-// ジェネリクスを使って関数の引数を定義
+// Genericを使って関数の引数を定義
 // このPはPrintableを実装していれば何でもOK!
 fn my_print_use_generic<P:Printable>(data:P){
   println!("{:#?}",data);
 }
 // traitのすごいところは型の定義よりも後に実装を行うこと!
-// 誤解を恐れずに言うなら，どんな型でも定義を変更せずに振る舞いを追加できるということ
 impl Printable for usize {}
 impl Printable for str{}
 impl Printable for String{}
 impl Printable for MyStruct{}
 // Third partyが定義した型にも独自の振る舞いを追加できる(逆もまた然り)
-// interfaceではできない(はず．．．)
 impl Printable for LibraryStruct{}
 // All OK
 my_print_use_generic("Hello world!");
@@ -142,8 +140,7 @@ my_print_use_generic(String::from("Hello world!"));
 my_print_use_generic(100 as usize);
 my_print_use_generic(MyStruct::new());
 my_print_use_generic(LibraryStruct::new());
-// NG
-// -100(i32型)にPrintableは実装されていないのでNG
+// NG -100(i32型)にPrintableは実装されていないのでNG
 my_print_use_generic(-100)
 ```
 
@@ -177,7 +174,7 @@ fn test_add() {
 - 型システムによって高速なフィードバックが得られる&型安全で品質の高いシステムが作りやすい
 - テストが実装の近くに書けることや高度な型システムなどのおかげで，可読性や保守性が高いコードになりやすい
 - 実行時間が早いことや，メモリ消費量を抑えられることから計算リソースの節約が可能
-- 宣言的にかける API が多く，うまくかければ可読性の高いものにできる
+- 宣言的に書きやすく，うまくかければ可読性の高いものにできる
 
 ---
 
