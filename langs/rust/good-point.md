@@ -17,7 +17,7 @@ marp: true
 
 - 本日の狙い
 - Rust とは？
-- 私の推しポイント
+- 推しポイント
 - おすすめの Rust コンテンツについて
 
 ---
@@ -30,7 +30,7 @@ marp: true
 
 ---
 
-# Rust とは
+# Rust とは?
 
 ---
 
@@ -76,19 +76,14 @@ marp: true
 
 ---
 
-# 1.堅牢でスマートな型システム
+# 堅牢でスマートな型システム
 
 - Rust は静的型付け言語の中でも強い型整合
-  - Result 型や Option 型など便利な型が多い!👍
   - 型の整合さえクリアすればコードが動くと自信を持てる！💪
   - 型が多くを語ってくれるため，可読性が高いコードができる!👍
 
 ```rust
-fn bin_to_hex(bin:&str)->Result<String,Error> {
-  // 名前から察するに2進数を16進数に変更するのかな？
-  // 引数は文字列なのね
-  // 失敗するかもしれないのね！確かにbinに01以外のものがあれば失敗するよね
-}
+fn bin_to_hex(bin:&str)->Result<String,Error> {...}
 ```
 
 - 型推論が賢いから，定義以外で型を書くことはほとんどない！🥰
@@ -99,6 +94,16 @@ fn make_rand(seed:usize) -> usize {...}
 // わざわざ型を書かなくてもOK
 let rand_data = make_rand(0);
 ```
+
+---
+
+# 便利な型とよくデザインされているメソッド群
+
+- 失敗を表せる Result や 存在しない可能性を表せる Option など便利な型が多い
+- そしてそれらの型にはよくデザインされたメソッドがたくさん備えられている
+  ![width:520](ok_methods.png)
+- 尚且つそのメソッドの振る舞いが doctest によって示されている
+  ![width:520](doctest.png)
 
 ---
 
@@ -126,15 +131,13 @@ my_print(String::from("Hello world!"));
 ```rust
 // traitを定義
 trait Printable:Debug {}
-
 // ジェネリクスを使って関数の引数を定義
 // このPはPrintableを実装していれば何でもOK!
 fn my_print_use_generic<P:Printable>(data:P){
   println!("{:#?}",data);
 }
-
 // traitのすごいところは型の定義よりも後に実装を行うこと!
-// 語弊を恐れずに言うなら，どんな型でも定義を変更せずに後から振る舞いを変えられると言うこと
+// 誤解を恐れずに言うなら，どんな型でも定義を変更せずに振る舞いを追加できるということ
 impl Printable for usize {}
 impl Printable for str{}
 impl Printable for String{}
@@ -142,7 +145,6 @@ impl Printable for MyStruct{}
 // Third partyが定義した型にも独自の振る舞いを追加できる(逆もまた然り)
 // interfaceではできない(はず．．．)
 impl Printable for LibraryStruct{}
-
 // All OK
 my_print_use_generic("Hello world!");
 my_print_use_generic(String::from("Hello world!"));
@@ -150,14 +152,13 @@ my_print_use_generic(100 as usize);
 my_print_use_generic(MyStruct::new());
 my_print_use_generic(LibraryStruct::new());
 // NG
-// -100は型推論されるとi32型
-// i32型にPrintableは実装されていないのでNG
+// -100(i32型)にPrintableは実装されていないのでNG
 my_print_use_generic(-100)
 ```
 
 ---
 
-# 2.test が言語仕様に組み込まれている
+# test が言語仕様に組み込まれている
 
 - 多くの言語はテストライブラリのインストールが必要
 - Rust だと下のようにコードを書いて cargo test で OK
@@ -170,7 +171,7 @@ fn add(left:i32,right:i32) -> i32 {
 
 #[cfg(test)]
 #[test]
-fn test_add(){
+fn test_add() {
     assert_eq!(add(3,4),7);
 }
 ```
@@ -180,78 +181,16 @@ fn test_add(){
 
 ---
 
-# 3. コンパイラや標準機能が優しい
+# 有働的本番プロジェクトで採用する旨み
 
-- 標準機能のほとんどに doctest が記入されているので迷うことがない!
-  ![](doctest.png)
-- コンパイラが丁寧に教えてくれる！
-
-  - コンパイラの指示に従っていればあらかた上手くいく！
-  - ペアプロしているみたい
+- 型システムによって高速なフィードバックが得られる&型安全で品質の高いシステムが作りやすい
+- テストが実装の近くに書けることや高度な型システムなどのおかげで，可読性や保守性が高いコードになりやすい
+- 実行時間が早いことや，メモリ消費量を抑えられることから計算リソースの節約が可能
+- 宣言的にかける API が多く，うまくかければ可読性の高いものにできる
 
 ---
 
-# 4.macro が面白い！
-
-- 名前の後ろに!がついているもの
-
-```rust
-
-println!("{}",data);
-assert_eq!(1,1);
-
-// Rustは型に厳しいので関数で可変長引数は受け取れない．
-// マクロでは可変長引数を受け取れるように設計可能
-let concat:String = format!("{}/{}"month,day);
-let groups:Vec<&str> = vec!["tic","it","dict"];
-```
-
-- 関数と似ているけど違うもの
-  - 関数のように振る舞うものも多いが実態は違う
-- 関数は実行時にコードが実行されるが macro はコンパイル時にコードとして展開される
-- コードが生成されるイメージ!
-
----
-
-# macro の定義例
-
-```rust
-// define of macro
-macro_rules! fn_time {
-    ($fn:ident,$($args:ident),*) => {
-        let timer = std::time::Instant::now();
-        $fn($($args),*);
-        println!("time = {:?}", timer.elapsed());
-    };
-}
-
-fn heavy_calc(sec:usize) {
-    sleep(Duration::from_secs(sec));
-}
-// use of macro
-fn_time!(heavy_calc,1);
-// time = 1.00002s
-```
-
----
-
-# macro が展開された時のイメージ
-
-```rust
-// before
-fn_time!(heavy_calc,1);
-```
-
-```rust
-// after
-let timer = std::time::Instant::now();
-heavy_calc(1);
-println!("time = {:?}", timer.elapsed());
-```
-
-- 関数では到達困難な表現力！
-- ただし，可読性は低くなりがちなので，本番プロジェクトではやりすぎ注意！
-- 遊ぶ分には最高のおもちゃ！！
+# 他にもたくさん魅力がありますが今日はここまで！
 
 ---
 
@@ -261,21 +200,25 @@ println!("time = {:?}", timer.elapsed());
   - 無料の Web コンテンツ
   - 基本的なことが丁寧に解説されている
   - https://doc.rust-jp.rs/book-ja/
-- プログラミング Rust 第 2 版
-  - 詳しくわかりやすく説明されている
-  - 本格的に始めるならおすすめです
 - rust playground
-  - rust の web 実行環境
+  - Rust の web 実行環境
   - 公開されているライブラリも使うことができる!
   - https://play.rust-lang.org/?version=stable&mode=debug&edition=2021
+- プログラミング Rust 第 2 版
+  - 詳しくわかりやすく説明されている
+    ![width:100](rust-book.jpg)
 
 ---
 
 # 終わりに
 
 - 本日はありがとうございました！
-- もしご興味あれば私までご連絡ください！
-  - Rust の凄さはこれだけでは決してありません！笑
+- Rust の凄さはこれだけでは決してありません！
+  - 本当は所有権について話すべきだったのですが，うまく説明できる自信がなかったです...
+- もしご興味あれば,可能な範囲でご相談に乗らせていただきます!
+
+  - ただ，私もそこまで詳しいわけではないので一緒に勉強できたら嬉しいです!
+
 - みなさまが Rust に興味を持っていただけ，挑戦していただけましたら幸いです!
 
 ---
@@ -286,40 +229,77 @@ println!("time = {:?}", timer.elapsed());
 
 ---
 
-# 補足：本番プロジェクトで採用する旨み(予想)
+# おまけ：紹介しようとして時間がなかった macro
 
-- 型システムによって型安全で品質の高いシステムが作りやすい
-- テストが実装の近くに書けることや高度な型システムなどのおかげで，可読性や保守性が高いコードになりやすい
-- 宣言的にかける API が多く，うまくかければ可読性の高いものにできる
+- 名前の後ろに!がついているもの
+- 標準で用意されているものも多いが，自分で作成することも可能
 
-- 実行時間が早いことや，メモリ消費量を抑えられることから計算リソースの節約が可能
+```rust
+println!("{}",data);
+assert_eq!(1,1);
+
+// Rustは型に厳しいので関数で可変長引数は受け取れない．
+// マクロでは可変長引数を受け取れるように設計可能
+let concat:String = format!("{}/{}"month,day);
+let groups:Vec<&str> = vec!["tic","it","dict"];
+```
+
+- 関数と似ているけど違うもの
+  - 関数 -> 実行時にコードが実行
+  - macro -> コンパイル時にコードとして展開される
+- コンパイル前にコードが生成されるイメージ!
 
 ---
 
-- 手続き的なコード
-
-```python
-user_data = get_users()
-age_sum = 0
-user_num = 0
-for user in user_data:
-  if user.age is None:
-    continue
-  age_sum += user.age
-  user_num += 1
-ave = age_sum / user_num
-print(f"平均年齢は:{ave}")
-```
-
-- 宣言的な Rust の コード
+# 自作 macro の例
 
 ```rust
-let user_data:Vec<User> = get_users();
-let users_holding_age = user_data.iter().filter_map(|user|user.age);
-let count =  users_holding_age.by_ref().count();
-let ave = users_holding_age.fold(0,|acc,user|acc+user.age) / count;
-println!("平均年齢は:{}",ave);
+// マクロの定義
+macro_rules! fn_time {
+    ($fn:ident,$($args:ident),*) => {
+        // timerを起動
+        let timer = std::time::Instant::now();
+        // ???
+        $fn($($args),*);
+        // このコードに到達するまでにかかった時間を出力
+        println!("time = {:?}", timer.elapsed());
+    };
+}
+
+// 引数の秒数だけ処理をsleepさせる模擬コード
+fn heavy_calc(sec:usize) {
+    sleep(Duration::from_secs(sec));
+}
+// マクロの実行
+fn_time!(heavy_calc,1);
+// time = 1.00002s
 ```
+
+---
+
+# macro が展開された時のイメージ
+
+```rust
+// 実際のコード
+fn_time!(heavy_calc,1);
+
+// 説明用に定義を再掲
+// macro_rules! fn_time {
+//     ($fn:ident,$($args:ident),*) => {
+//         let timer = std::time::Instant::now();
+//         $fn($($args),*);
+//         println!("time = {:?}", timer.elapsed());
+//     };
+// }
+
+// コンパイル前のコード展開イメージ
+let timer = std::time::Instant::now();
+heavy_calc(1);
+println!("time = {:?}", timer.elapsed());
+```
+
+- 関数では到達困難な表現力！
+  - コードの間に任意のコードを差し込むことは関数では難しいはず
 
 ---
 
@@ -531,3 +511,16 @@ let sum = match maybe_d3 {
     None    => 0
 }
 ```
+
+---
+
+# 3. コンパイラや標準機能が優しい
+
+- 標準機能のほとんどに doctest が記入されているので迷うことがない!
+  ![](doctest.png)
+- コンパイラが丁寧に教えてくれる！
+
+  - コンパイラの指示に従っていればあらかた上手くいく！
+  - ペアプロしているみたい
+
+---
