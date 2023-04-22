@@ -128,7 +128,31 @@ marp: true
 
 # OAuth のスタート
 
-![](oauth-flow1.png)
+![width:900](oauth-flow1.png)
+
+---
+
+# 認可サーバでユーザー認証と認可委譲の許可
+
+![width:900](oauth-flow2.png)
+
+---
+
+# 認可委譲後の Client へのリダイレクト
+
+![width:900](oauth-flow3.png)
+
+---
+
+# 認可コードを使ったアクセストークンの取得
+
+![width:900](oauth-flow4.png)
+
+---
+
+# アクセストークンを使ったリソースへのアクセス
+
+![width:900](oauth-flow5.png)
 
 ---
 
