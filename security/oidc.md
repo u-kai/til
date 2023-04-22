@@ -126,6 +126,12 @@ marp: true
 
 ---
 
+# OAuth のスタート
+
+![](oauth-flow1.png)
+
+---
+
 参考: https://qiita.com/TakahikoKawasaki/items/f2a0d25a4f05790b3baa
 
 ---
