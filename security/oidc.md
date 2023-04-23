@@ -57,7 +57,7 @@ marp: true
     - 僕的に Client だとユーザーっぽく感じてややこしい...
 
 - Resource Server
-  - アクセストークンを発行するサーバ
+  - Resource Owner のリソースを管理しているサーバ
 
 ---
 
@@ -69,7 +69,7 @@ marp: true
 
 ---
 
-# 登場人物がわかったところで，使った架空のアプリケーションで OAuth を説明します
+# 登場人物がわかったところで，架空のアプリケーションで OAuth を説明します
 
 ---
 
@@ -157,6 +157,7 @@ marp: true
 ---
 
 参考: https://qiita.com/TakahikoKawasaki/items/f2a0d25a4f05790b3baa
+https://logmi.jp/tech/articles/325889
 
 ---
 
