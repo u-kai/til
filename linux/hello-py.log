@@ -1,0 +1,1703 @@
+execve("./hello.py", ["./hello.py"], 0x7ffc56f64a90 /* 41 vars */) = 0
+brk(NULL)                               = 0x558e10902000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffeba154cb0) = -1 EINVAL (Invalid argument)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37038, ...}) = 0
+mmap(NULL, 37038, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5c2bc000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300A\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f2f5c2ba000
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f2f5c0c8000
+mmap(0x7f2f5c0ea000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7f2f5c0ea000
+mmap(0x7f2f5c262000, 319488, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7f2f5c262000
+mmap(0x7f2f5c2b0000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7f2f5c2b0000
+mmap(0x7f2f5c2b6000, 13920, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f2f5c2b6000
+close(3)                                = 0
+arch_prctl(ARCH_SET_FS, 0x7f2f5c2bb580) = 0
+mprotect(0x7f2f5c2b0000, 16384, PROT_READ) = 0
+mprotect(0x558e0ec70000, 4096, PROT_READ) = 0
+mprotect(0x7f2f5c2f3000, 4096, PROT_READ) = 0
+munmap(0x7f2f5c2bc000, 37038)           = 0
+brk(NULL)                               = 0x558e10902000
+brk(0x558e10923000)                     = 0x558e10923000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3035952, ...}) = 0
+mmap(NULL, 3035952, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5bde2000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=2996, ...}) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=252, ...}) = 0
+mmap(NULL, 252, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5c2f2000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=27002, ...}) = 0
+mmap(NULL, 27002, PROT_READ, MAP_SHARED, 3, 0) = 0x7f2f5c2bf000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=23, ...}) = 0
+mmap(NULL, 23, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5c2be000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=47, ...}) = 0
+mmap(NULL, 47, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5c2bd000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=131, ...}) = 0
+mmap(NULL, 131, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5c2bc000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=62, ...}) = 0
+mmap(NULL, 62, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5bde1000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=34, ...}) = 0
+mmap(NULL, 34, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5bde0000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=48, ...}) = 0
+mmap(NULL, 48, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5bddf000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=270, ...}) = 0
+mmap(NULL, 270, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5bdde000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=1518110, ...}) = 0
+mmap(NULL, 1518110, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5bc6b000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3360, ...}) = 0
+mmap(NULL, 3360, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5bc6a000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=50, ...}) = 0
+mmap(NULL, 50, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5bc69000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=201272, ...}) = 0
+mmap(NULL, 201272, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2f5bc37000
+close(3)                                = 0
+execve("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/shims/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.vscode-server/bin/b7886d7461186a5eac768481578c1d7ca80e2d21/bin/remote-cli/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/bin/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.nvm/versions/node/v18.12.1/bin/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.cargo/bin/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/local/sbin/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/local/bin/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/sbin/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/bin/bash", ["bash", "/home/kai/.pyenv/shims/python", "./hello.py"], 0x7ffeba154db0 /* 41 vars */) = 0
+brk(NULL)                               = 0x55c38496a000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7fff16d91530) = -1 EINVAL (Invalid argument)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37038, ...}) = 0
+mmap(NULL, 37038, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a5444000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libtinfo.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\240\346\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=192032, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fc6a5442000
+mmap(NULL, 194944, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fc6a5412000
+mmap(0x7fc6a5420000, 61440, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xe000) = 0x7fc6a5420000
+mmap(0x7fc6a542f000, 57344, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1d000) = 0x7fc6a542f000
+mmap(0x7fc6a543d000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2a000) = 0x7fc6a543d000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 \22\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=18848, ...}) = 0
+mmap(NULL, 20752, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fc6a540c000
+mmap(0x7fc6a540d000, 8192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0x7fc6a540d000
+mmap(0x7fc6a540f000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7fc6a540f000
+mmap(0x7fc6a5410000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7fc6a5410000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300A\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fc6a521a000
+mmap(0x7fc6a523c000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7fc6a523c000
+mmap(0x7fc6a53b4000, 319488, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7fc6a53b4000
+mmap(0x7fc6a5402000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7fc6a5402000
+mmap(0x7fc6a5408000, 13920, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fc6a5408000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fc6a5217000
+arch_prctl(ARCH_SET_FS, 0x7fc6a5217740) = 0
+mprotect(0x7fc6a5402000, 16384, PROT_READ) = 0
+mprotect(0x7fc6a5410000, 4096, PROT_READ) = 0
+mprotect(0x7fc6a543d000, 16384, PROT_READ) = 0
+mprotect(0x55c382ca7000, 16384, PROT_READ) = 0
+mprotect(0x7fc6a547b000, 4096, PROT_READ) = 0
+munmap(0x7fc6a5444000, 37038)           = 0
+openat(AT_FDCWD, "/dev/tty", O_RDWR|O_NONBLOCK) = 3
+close(3)                                = 0
+brk(NULL)                               = 0x55c38496a000
+brk(0x55c38498b000)                     = 0x55c38498b000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3035952, ...}) = 0
+mmap(NULL, 3035952, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a4f31000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=2996, ...}) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=252, ...}) = 0
+mmap(NULL, 252, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a547a000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=27002, ...}) = 0
+mmap(NULL, 27002, PROT_READ, MAP_SHARED, 3, 0) = 0x7fc6a5447000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=23, ...}) = 0
+mmap(NULL, 23, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a5446000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=47, ...}) = 0
+mmap(NULL, 47, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a5445000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=131, ...}) = 0
+mmap(NULL, 131, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a5444000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=62, ...}) = 0
+mmap(NULL, 62, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a4f30000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=34, ...}) = 0
+mmap(NULL, 34, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a4f2f000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=48, ...}) = 0
+mmap(NULL, 48, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a4f2e000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=270, ...}) = 0
+mmap(NULL, 270, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a4f2d000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=1518110, ...}) = 0
+mmap(NULL, 1518110, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a4dba000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3360, ...}) = 0
+mmap(NULL, 3360, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a4db9000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=50, ...}) = 0
+mmap(NULL, 50, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a4db8000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=201272, ...}) = 0
+mmap(NULL, 201272, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc6a4d86000
+close(3)                                = 0
+getuid()                                = 1000
+getgid()                                = 1000
+geteuid()                               = 1000
+getegid()                               = 1000
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+ioctl(-1, TIOCGPGRP, 0x7fff16d91384)    = -1 EBADF (Bad file descriptor)
+sysinfo({uptime=64591, loads=[9216, 16768, 15488], totalram=4029149184, freeram=542646272, sharedram=274432, bufferram=118824960, totalswap=1073741824, freeswap=650182656, procs=1026, totalhigh=0, freehigh=0, mem_unit=1}) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7fc6a525d090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, 8) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, 8) = 0
+rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, 8) = 0
+rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, 8) = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, 8) = 0
+uname({sysname="Linux", nodename="kai", ...}) = 0
+stat("/home/kai/til/linux", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/til", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/til/linux", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getpid()                                = 31619
+getppid()                               = 31616
+stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", 0x7fff16d90ff0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/shims/bash", 0x7fff16d90ff0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.vscode-server/bin/b7886d7461186a5eac768481578c1d7ca80e2d21/bin/remote-cli/bash", 0x7fff16d90ff0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", 0x7fff16d90ff0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/bin/bash", 0x7fff16d90ff0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.nvm/versions/node/v18.12.1/bin/bash", 0x7fff16d90ff0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.cargo/bin/bash", 0x7fff16d90ff0) = -1 ENOENT (No such file or directory)
+stat("/usr/local/sbin/bash", 0x7fff16d90ff0) = -1 ENOENT (No such file or directory)
+stat("/usr/local/bin/bash", 0x7fff16d90ff0) = -1 ENOENT (No such file or directory)
+stat("/usr/sbin/bash", 0x7fff16d90ff0)  = -1 ENOENT (No such file or directory)
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", X_OK)           = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", R_OK)           = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", X_OK)           = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", R_OK)           = 0
+getpid()                                = 31619
+getpgrp()                               = 31616
+ioctl(2, TIOCGPGRP, [31616])            = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x55c382beda70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7fc6a525d090}, 8) = 0
+prlimit64(0, RLIMIT_NPROC, NULL, {rlim_cur=15353, rlim_max=15353}) = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/shims/python", O_RDONLY) = 3
+stat("/home/kai/.pyenv/shims/python", {st_mode=S_IFREG|0755, st_size=176, ...}) = 0
+ioctl(3, TCGETS, 0x7fff16d91310)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+read(3, "#!/usr/bin/env bash\nset -e\n[ -n "..., 80) = 80
+lseek(3, 0, SEEK_SET)                   = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024*1024, rlim_max=1024*1024}) = 0
+fcntl(255, F_GETFD)                     = -1 EBADF (Bad file descriptor)
+dup2(3, 255)                            = 255
+close(3)                                = 0
+fcntl(255, F_SETFD, FD_CLOEXEC)         = 0
+fcntl(255, F_GETFL)                     = 0x8000 (flags O_RDONLY|O_LARGEFILE)
+fstat(255, {st_mode=S_IFREG|0755, st_size=176, ...}) = 0
+lseek(255, 0, SEEK_CUR)                 = 0
+read(255, "#!/usr/bin/env bash\nset -e\n[ -n "..., 176) = 176
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fc6a525d090}, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7fc6a525d090}, {sa_handler=0x55c382beda70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7fc6a525d090}, 8) = 0
+execve("/home/kai/.pyenv/libexec/pyenv", ["/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x55c384979fc0 /* 40 vars */) = 0
+brk(NULL)                               = 0x555c5a527000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffd53c85180) = -1 EINVAL (Invalid argument)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37038, ...}) = 0
+mmap(NULL, 37038, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b935c7000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300A\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6b935c5000
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6b933d3000
+mmap(0x7f6b933f5000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7f6b933f5000
+mmap(0x7f6b9356d000, 319488, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7f6b9356d000
+mmap(0x7f6b935bb000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7f6b935bb000
+mmap(0x7f6b935c1000, 13920, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6b935c1000
+close(3)                                = 0
+arch_prctl(ARCH_SET_FS, 0x7f6b935c6580) = 0
+mprotect(0x7f6b935bb000, 16384, PROT_READ) = 0
+mprotect(0x555c58e6c000, 4096, PROT_READ) = 0
+mprotect(0x7f6b935fe000, 4096, PROT_READ) = 0
+munmap(0x7f6b935c7000, 37038)           = 0
+brk(NULL)                               = 0x555c5a527000
+brk(0x555c5a548000)                     = 0x555c5a548000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3035952, ...}) = 0
+mmap(NULL, 3035952, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b930ed000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=2996, ...}) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=252, ...}) = 0
+mmap(NULL, 252, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b935fd000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=27002, ...}) = 0
+mmap(NULL, 27002, PROT_READ, MAP_SHARED, 3, 0) = 0x7f6b935ca000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=23, ...}) = 0
+mmap(NULL, 23, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b935c9000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=47, ...}) = 0
+mmap(NULL, 47, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b935c8000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=131, ...}) = 0
+mmap(NULL, 131, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b935c7000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=62, ...}) = 0
+mmap(NULL, 62, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b930ec000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=34, ...}) = 0
+mmap(NULL, 34, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b930eb000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=48, ...}) = 0
+mmap(NULL, 48, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b930ea000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=270, ...}) = 0
+mmap(NULL, 270, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b930e9000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=1518110, ...}) = 0
+mmap(NULL, 1518110, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b92f76000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3360, ...}) = 0
+mmap(NULL, 3360, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b92f75000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=50, ...}) = 0
+mmap(NULL, 50, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b92f74000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=201272, ...}) = 0
+mmap(NULL, 201272, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6b92f42000
+close(3)                                = 0
+execve("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/shims/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.vscode-server/bin/b7886d7461186a5eac768481578c1d7ca80e2d21/bin/remote-cli/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.nvm/versions/node/v18.12.1/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.cargo/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/local/sbin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/local/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/sbin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv", "exec", "python", "./hello.py"], 0x7ffd53c85290 /* 40 vars */) = 0
+brk(NULL)                               = 0x563a836e4000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7fffebc9dc50) = -1 EINVAL (Invalid argument)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37038, ...}) = 0
+mmap(NULL, 37038, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f957676b000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libtinfo.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\240\346\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=192032, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9576769000
+mmap(NULL, 194944, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9576739000
+mmap(0x7f9576747000, 61440, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xe000) = 0x7f9576747000
+mmap(0x7f9576756000, 57344, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1d000) = 0x7f9576756000
+mmap(0x7f9576764000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2a000) = 0x7f9576764000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 \22\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=18848, ...}) = 0
+mmap(NULL, 20752, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9576733000
+mmap(0x7f9576734000, 8192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0x7f9576734000
+mmap(0x7f9576736000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f9576736000
+mmap(0x7f9576737000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f9576737000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300A\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9576541000
+mmap(0x7f9576563000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7f9576563000
+mmap(0x7f95766db000, 319488, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7f95766db000
+mmap(0x7f9576729000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7f9576729000
+mmap(0x7f957672f000, 13920, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f957672f000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f957653e000
+arch_prctl(ARCH_SET_FS, 0x7f957653e740) = 0
+mprotect(0x7f9576729000, 16384, PROT_READ) = 0
+mprotect(0x7f9576737000, 4096, PROT_READ) = 0
+mprotect(0x7f9576764000, 16384, PROT_READ) = 0
+mprotect(0x563a8190b000, 16384, PROT_READ) = 0
+mprotect(0x7f95767a2000, 4096, PROT_READ) = 0
+munmap(0x7f957676b000, 37038)           = 0
+openat(AT_FDCWD, "/dev/tty", O_RDWR|O_NONBLOCK) = 3
+close(3)                                = 0
+brk(NULL)                               = 0x563a836e4000
+brk(0x563a83705000)                     = 0x563a83705000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3035952, ...}) = 0
+mmap(NULL, 3035952, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9576258000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=2996, ...}) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=252, ...}) = 0
+mmap(NULL, 252, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f95767a1000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=27002, ...}) = 0
+mmap(NULL, 27002, PROT_READ, MAP_SHARED, 3, 0) = 0x7f957676e000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=23, ...}) = 0
+mmap(NULL, 23, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f957676d000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=47, ...}) = 0
+mmap(NULL, 47, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f957676c000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=131, ...}) = 0
+mmap(NULL, 131, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f957676b000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=62, ...}) = 0
+mmap(NULL, 62, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9576257000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=34, ...}) = 0
+mmap(NULL, 34, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9576256000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=48, ...}) = 0
+mmap(NULL, 48, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9576255000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=270, ...}) = 0
+mmap(NULL, 270, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9576254000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=1518110, ...}) = 0
+mmap(NULL, 1518110, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f95760e1000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3360, ...}) = 0
+mmap(NULL, 3360, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f95760e0000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=50, ...}) = 0
+mmap(NULL, 50, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f95760df000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=201272, ...}) = 0
+mmap(NULL, 201272, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f95760ad000
+close(3)                                = 0
+getuid()                                = 1000
+getgid()                                = 1000
+geteuid()                               = 1000
+getegid()                               = 1000
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+ioctl(-1, TIOCGPGRP, 0x7fffebc9daa4)    = -1 EBADF (Bad file descriptor)
+sysinfo({uptime=64591, loads=[9216, 16768, 15488], totalram=4029149184, freeram=542318592, sharedram=274432, bufferram=118833152, totalswap=1073741824, freeswap=650182656, procs=1026, totalhigh=0, freehigh=0, mem_unit=1}) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+uname({sysname="Linux", nodename="kai", ...}) = 0
+stat("/home/kai/til/linux", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/til", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/til/linux", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getpid()                                = 31619
+getppid()                               = 31616
+stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", 0x7fffebc9d710) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/shims/bash", 0x7fffebc9d710) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.vscode-server/bin/b7886d7461186a5eac768481578c1d7ca80e2d21/bin/remote-cli/bash", 0x7fffebc9d710) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", 0x7fffebc9d710) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/bin/bash", 0x7fffebc9d710) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.nvm/versions/node/v18.12.1/bin/bash", 0x7fffebc9d710) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.cargo/bin/bash", 0x7fffebc9d710) = -1 ENOENT (No such file or directory)
+stat("/usr/local/sbin/bash", 0x7fffebc9d710) = -1 ENOENT (No such file or directory)
+stat("/usr/local/bin/bash", 0x7fffebc9d710) = -1 ENOENT (No such file or directory)
+stat("/usr/sbin/bash", 0x7fffebc9d710)  = -1 ENOENT (No such file or directory)
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", X_OK)           = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", R_OK)           = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", X_OK)           = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", R_OK)           = 0
+getpid()                                = 31619
+getpgrp()                               = 31616
+ioctl(2, TIOCGPGRP, [31616])            = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, 8) = 0
+prlimit64(0, RLIMIT_NPROC, NULL, {rlim_cur=15353, rlim_max=15353}) = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/libexec/pyenv", O_RDONLY) = 3
+stat("/home/kai/.pyenv/libexec/pyenv", {st_mode=S_IFREG|0755, st_size=3187, ...}) = 0
+ioctl(3, TCGETS, 0x7fffebc9da30)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+read(3, "#!/usr/bin/env bash\nset -e\n\nif ["..., 80) = 80
+lseek(3, 0, SEEK_SET)                   = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024*1024, rlim_max=1024*1024}) = 0
+fcntl(255, F_GETFD)                     = -1 EBADF (Bad file descriptor)
+dup2(3, 255)                            = 255
+close(3)                                = 0
+fcntl(255, F_SETFD, FD_CLOEXEC)         = 0
+fcntl(255, F_GETFL)                     = 0x8000 (flags O_RDONLY|O_LARGEFILE)
+fstat(255, {st_mode=S_IFREG|0755, st_size=3187, ...}) = 0
+lseek(255, 0, SEEK_CUR)                 = 0
+read(255, "#!/usr/bin/env bash\nset -e\n\nif ["..., 3187) = 3187
+openat(AT_FDCWD, "/dev/null", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3
+fcntl(2, F_GETFD)                       = 0
+fcntl(2, F_DUPFD, 10)                   = 10
+fcntl(2, F_GETFD)                       = 0
+fcntl(10, F_SETFD, FD_CLOEXEC)          = 0
+dup2(3, 2)                              = 2
+close(3)                                = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/libexec/../libexec/pyenv-realpath.dylib", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/C.UTF-8/LC_MESSAGES/libc.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/C.utf8/LC_MESSAGES/libc.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/C/LC_MESSAGES/libc.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/C.UTF-8/LC_MESSAGES/libc.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/C.utf8/LC_MESSAGES/libc.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/C/LC_MESSAGES/libc.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/C.UTF-8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/C.utf8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/C/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/C.UTF-8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/C.utf8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/C/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+fstat(2, {st_mode=S_IFCHR|0666, st_rdev=makedev(0x1, 0x3), ...}) = 0
+ioctl(2, TCGETS, 0x7fffebc9ce30)        = -1 ENOTTY (Inappropriate ioctl for device)
+write(2, "/home/kai/.pyenv/libexec/pyenv: "..., 249) = 249
+dup2(10, 2)                             = 2
+fcntl(10, F_GETFD)                      = 0x1 (flags FD_CLOEXEC)
+close(10)                               = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+pipe([3, 4])                            = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, [INT CHLD], [], 8) = 0
+lseek(255, -2005, SEEK_CUR)             = 1182
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f957653ea10) = 31620
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, 8) = 0
+close(4)                                = 0
+read(3, "/usr/bin/readlink\n", 128)     = 18
+read(3, "", 128)                        = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=31620, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 31620
+wait4(-1, 0x7fffebc9bf90, WNOHANG, NULL) = -1 ECHILD (No child processes)
+rt_sigreturn({mask=[]})                 = 0
+close(3)                                = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x563a8184e450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=0x563a8184e450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+read(255, "\nif [ -z \"${PYENV_ROOT}\" ]; then"..., 3187) = 2005
+stat("/home/kai/til/linux", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/til/linux", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+pipe([3, 4])                            = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, [INT CHLD], [], 8) = 0
+lseek(255, -1667, SEEK_CUR)             = 1520
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f957653ea10) = 31623
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=31623, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 31623
+wait4(-1, 0x7fffebc9c510, WNOHANG, NULL) = -1 ECHILD (No child processes)
+rt_sigreturn({mask=[]})                 = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, 8) = 0
+close(4)                                = 0
+read(3, "/home/kai/til/linux\n", 128)   = 20
+read(3, "", 128)                        = 0
+close(3)                                = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x563a8184e450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=0x563a8184e450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+read(255, "export PYENV_DIR\n\n\nshopt -s null"..., 3187) = 1667
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+pipe([3, 4])                            = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, [INT CHLD], [], 8) = 0
+lseek(255, -1598, SEEK_CUR)             = 1589
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f957653ea10) = 31624
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, 8) = 0
+close(4)                                = 0
+read(3, "/home/kai/.pyenv/libexec\n", 128) = 25
+read(3, "", 128)                        = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=31624, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 31624
+wait4(-1, 0x7fffebc9c610, WNOHANG, NULL) = -1 ECHILD (No child processes)
+rt_sigreturn({mask=[]})                 = 0
+close(3)                                = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x563a8184e450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=0x563a8184e450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+read(255, "for plugin_bin in \"${bin_path%/*"..., 3187) = 1598
+openat(AT_FDCWD, "/home/kai/.pyenv/plugins/", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+brk(0x563a83728000)                     = 0x563a83728000
+getdents64(3, /* 9 entries */, 32768)   = 296
+getdents64(3, /* 0 entries */, 32768)   = 0
+brk(0x563a83720000)                     = 0x563a83720000
+close(3)                                = 0
+stat("/home/kai/.pyenv/plugins/pyenv-update", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-update/bin", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/plugins/pyenv-doctor", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-doctor/bin", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/plugins/pyenv-installer", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-installer/bin", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/plugins/python-build", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/python-build/bin", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/plugins/pyenv-which-ext", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-which-ext/bin", 0x7fffebc9d6a0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-virtualenv/bin", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/plugins/", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getdents64(3, /* 9 entries */, 32768)   = 296
+getdents64(3, /* 0 entries */, 32768)   = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/plugins/pyenv-update", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-update/etc", 0x7fffebc9d630) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-doctor", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-doctor/etc", 0x7fffebc9d630) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-installer", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-installer/etc", 0x7fffebc9d630) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/python-build", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/python-build/etc", 0x7fffebc9d630) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-which-ext", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-which-ext/etc", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-virtualenv/etc", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/plugins/pyenv-which-ext/etc", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-which-ext/etc/pyenv.d", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv/etc", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+lstat("/home/kai/.pyenv/plugins/pyenv-virtualenv/etc/pyenv.d", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+pipe([3, 4])                            = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, [INT CHLD], [], 8) = 0
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f957653ea10) = 31628
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=31628, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 31628
+wait4(-1, 0x7fffebc9be50, WNOHANG, NULL) = -1 ECHILD (No child processes)
+rt_sigreturn({mask=[]})                 = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, 8) = 0
+close(4)                                = 0
+read(3, "/home/kai/.pyenv/libexec/pyenv-e"..., 128) = 36
+read(3, "", 128)                        = 0
+close(3)                                = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x563a8184e450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=0x563a8184e450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f9576584090}, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, {sa_handler=0x563a81851a70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f9576584090}, 8) = 0
+execve("/home/kai/.pyenv/libexec/pyenv-exec", ["/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x563a83702520 /* 42 vars */) = 0
+brk(NULL)                               = 0x56000aff0000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7fff9a54ff90) = -1 EINVAL (Invalid argument)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37038, ...}) = 0
+mmap(NULL, 37038, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb5928000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300A\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f2eb5926000
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f2eb5734000
+mmap(0x7f2eb5756000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7f2eb5756000
+mmap(0x7f2eb58ce000, 319488, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7f2eb58ce000
+mmap(0x7f2eb591c000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7f2eb591c000
+mmap(0x7f2eb5922000, 13920, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f2eb5922000
+close(3)                                = 0
+arch_prctl(ARCH_SET_FS, 0x7f2eb5927580) = 0
+mprotect(0x7f2eb591c000, 16384, PROT_READ) = 0
+mprotect(0x56000a8f5000, 4096, PROT_READ) = 0
+mprotect(0x7f2eb595f000, 4096, PROT_READ) = 0
+munmap(0x7f2eb5928000, 37038)           = 0
+brk(NULL)                               = 0x56000aff0000
+brk(0x56000b011000)                     = 0x56000b011000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3035952, ...}) = 0
+mmap(NULL, 3035952, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb544e000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=2996, ...}) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=252, ...}) = 0
+mmap(NULL, 252, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb595e000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=27002, ...}) = 0
+mmap(NULL, 27002, PROT_READ, MAP_SHARED, 3, 0) = 0x7f2eb592b000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=23, ...}) = 0
+mmap(NULL, 23, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb592a000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=47, ...}) = 0
+mmap(NULL, 47, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb5929000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=131, ...}) = 0
+mmap(NULL, 131, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb5928000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=62, ...}) = 0
+mmap(NULL, 62, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb544d000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=34, ...}) = 0
+mmap(NULL, 34, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb544c000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=48, ...}) = 0
+mmap(NULL, 48, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb544b000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=270, ...}) = 0
+mmap(NULL, 270, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb544a000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=1518110, ...}) = 0
+mmap(NULL, 1518110, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb52d7000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3360, ...}) = 0
+mmap(NULL, 3360, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb52d6000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=50, ...}) = 0
+mmap(NULL, 50, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb52d5000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=201272, ...}) = 0
+mmap(NULL, 201272, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2eb52a3000
+close(3)                                = 0
+execve("/home/kai/.pyenv/libexec/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/plugins/python-build/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/plugins/pyenv-virtualenv/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/plugins/pyenv-update/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/plugins/pyenv-installer/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/plugins/pyenv-doctor/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/shims/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.vscode-server/bin/b7886d7461186a5eac768481578c1d7ca80e2d21/bin/remote-cli/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.pyenv/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.nvm/versions/node/v18.12.1/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/home/kai/.cargo/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/local/sbin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/local/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/sbin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = -1 ENOENT (No such file or directory)
+execve("/usr/bin/bash", ["bash", "/home/kai/.pyenv/libexec/pyenv-e"..., "python", "./hello.py"], 0x7fff9a550098 /* 42 vars */) = 0
+brk(NULL)                               = 0x55b0090ca000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffe7148c3a0) = -1 EINVAL (Invalid argument)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37038, ...}) = 0
+mmap(NULL, 37038, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f74943000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libtinfo.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\240\346\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=192032, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1f74941000
+mmap(NULL, 194944, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f1f74911000
+mmap(0x7f1f7491f000, 61440, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xe000) = 0x7f1f7491f000
+mmap(0x7f1f7492e000, 57344, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1d000) = 0x7f1f7492e000
+mmap(0x7f1f7493c000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2a000) = 0x7f1f7493c000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 \22\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=18848, ...}) = 0
+mmap(NULL, 20752, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f1f7490b000
+mmap(0x7f1f7490c000, 8192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0x7f1f7490c000
+mmap(0x7f1f7490e000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f1f7490e000
+mmap(0x7f1f7490f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f1f7490f000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300A\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f1f74719000
+mmap(0x7f1f7473b000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7f1f7473b000
+mmap(0x7f1f748b3000, 319488, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7f1f748b3000
+mmap(0x7f1f74901000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7f1f74901000
+mmap(0x7f1f74907000, 13920, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f1f74907000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1f74716000
+arch_prctl(ARCH_SET_FS, 0x7f1f74716740) = 0
+mprotect(0x7f1f74901000, 16384, PROT_READ) = 0
+mprotect(0x7f1f7490f000, 4096, PROT_READ) = 0
+mprotect(0x7f1f7493c000, 16384, PROT_READ) = 0
+mprotect(0x55b0076f4000, 16384, PROT_READ) = 0
+mprotect(0x7f1f7497a000, 4096, PROT_READ) = 0
+munmap(0x7f1f74943000, 37038)           = 0
+openat(AT_FDCWD, "/dev/tty", O_RDWR|O_NONBLOCK) = 3
+close(3)                                = 0
+brk(NULL)                               = 0x55b0090ca000
+brk(0x55b0090eb000)                     = 0x55b0090eb000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3035952, ...}) = 0
+mmap(NULL, 3035952, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f74430000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=2996, ...}) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=252, ...}) = 0
+mmap(NULL, 252, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f74979000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=27002, ...}) = 0
+mmap(NULL, 27002, PROT_READ, MAP_SHARED, 3, 0) = 0x7f1f74946000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=23, ...}) = 0
+mmap(NULL, 23, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f74945000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=47, ...}) = 0
+mmap(NULL, 47, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f74944000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=131, ...}) = 0
+mmap(NULL, 131, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f74943000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=62, ...}) = 0
+mmap(NULL, 62, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f7442f000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=34, ...}) = 0
+mmap(NULL, 34, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f7442e000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=48, ...}) = 0
+mmap(NULL, 48, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f7442d000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=270, ...}) = 0
+mmap(NULL, 270, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f7442c000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=1518110, ...}) = 0
+mmap(NULL, 1518110, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f742b9000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3360, ...}) = 0
+mmap(NULL, 3360, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f742b8000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=50, ...}) = 0
+mmap(NULL, 50, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f742b7000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=201272, ...}) = 0
+mmap(NULL, 201272, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1f74285000
+close(3)                                = 0
+getuid()                                = 1000
+getgid()                                = 1000
+geteuid()                               = 1000
+getegid()                               = 1000
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+ioctl(-1, TIOCGPGRP, 0x7ffe7148c1f4)    = -1 EBADF (Bad file descriptor)
+sysinfo({uptime=64591, loads=[9216, 16768, 15488], totalram=4029149184, freeram=541712384, sharedram=274432, bufferram=118833152, totalswap=1073741824, freeswap=650182656, procs=1026, totalhigh=0, freehigh=0, mem_unit=1}) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+uname({sysname="Linux", nodename="kai", ...}) = 0
+stat("/home/kai/til/linux", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/til", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/til/linux", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getpid()                                = 31619
+getppid()                               = 31616
+stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/libexec/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/python-build/bin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv/bin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-update/bin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-installer/bin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-doctor/bin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/shims/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.vscode-server/bin/b7886d7461186a5eac768481578c1d7ca80e2d21/bin/remote-cli/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/plugins/pyenv-virtualenv/shims/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/bin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.nvm/versions/node/v18.12.1/bin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.cargo/bin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/usr/local/sbin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/usr/local/bin/bash", 0x7ffe7148be60) = -1 ENOENT (No such file or directory)
+stat("/usr/sbin/bash", 0x7ffe7148be60)  = -1 ENOENT (No such file or directory)
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", X_OK)           = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", R_OK)           = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", X_OK)           = 0
+stat("/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1183448, ...}) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/bash", R_OK)           = 0
+getpid()                                = 31619
+getpgrp()                               = 31616
+ioctl(2, TIOCGPGRP, [31616])            = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x55b00763aa70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, 8) = 0
+prlimit64(0, RLIMIT_NPROC, NULL, {rlim_cur=15353, rlim_max=15353}) = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/libexec/pyenv-exec", O_RDONLY) = 3
+stat("/home/kai/.pyenv/libexec/pyenv-exec", {st_mode=S_IFREG|0755, st_size=1179, ...}) = 0
+ioctl(3, TCGETS, 0x7ffe7148c180)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+read(3, "#!/usr/bin/env bash\n#\n# Summary:"..., 80) = 80
+lseek(3, 0, SEEK_SET)                   = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024*1024, rlim_max=1024*1024}) = 0
+fcntl(255, F_GETFD)                     = -1 EBADF (Bad file descriptor)
+dup2(3, 255)                            = 255
+close(3)                                = 0
+fcntl(255, F_SETFD, FD_CLOEXEC)         = 0
+fcntl(255, F_GETFL)                     = 0x8000 (flags O_RDONLY|O_LARGEFILE)
+fstat(255, {st_mode=S_IFREG|0755, st_size=1179, ...}) = 0
+lseek(255, 0, SEEK_CUR)                 = 0
+read(255, "#!/usr/bin/env bash\n#\n# Summary:"..., 1179) = 1179
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+pipe([3, 4])                            = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, [INT CHLD], [], 8) = 0
+lseek(255, -540, SEEK_CUR)              = 639
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f1f74716a10) = 31629
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x55b00763aa70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, {sa_handler=0x55b00763aa70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, 8) = 0
+close(4)                                = 0
+read(3, "3.10.9\n", 128)                = 7
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=31629, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 31629
+wait4(-1, 0x7ffe7148ad50, WNOHANG, NULL) = -1 ECHILD (No child processes)
+rt_sigreturn({mask=[]})                 = 7
+read(3, "", 128)                        = 0
+close(3)                                = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x55b007637450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=0x55b007637450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+read(255, "PYENV_COMMAND=\"$1\"\n\nif [ -z \"$PY"..., 1179) = 540
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+pipe([3, 4])                            = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, [INT CHLD], [], 8) = 0
+lseek(255, -370, SEEK_CUR)              = 809
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f1f74716a10) = 31634
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x55b00763aa70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, {sa_handler=0x55b00763aa70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, 8) = 0
+close(4)                                = 0
+read(3, "/home/kai/.pyenv/versions/3.10.9"..., 128) = 44
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=31634, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 31634
+wait4(-1, 0x7ffe7148ad50, WNOHANG, NULL) = -1 ECHILD (No child processes)
+rt_sigreturn({mask=[]})                 = 44
+read(3, "", 128)                        = 0
+close(3)                                = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x55b007637450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=0x55b007637450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+read(255, "PYENV_BIN_PATH=\"${PYENV_COMMAND_"..., 1179) = 370
+pipe([3, 4])                            = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, [INT CHLD], [], 8) = 0
+lseek(255, -274, SEEK_CUR)              = 905
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f1f74716a10) = 31651
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x55b00763aa70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, {sa_handler=0x55b00763aa70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, 8) = 0
+close(4)                                = 0
+read(3, "/home/kai/.pyenv/pyenv.d/exec/pi"..., 128) = 46
+read(3, "", 128)                        = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=31651, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 31651
+wait4(-1, 0x7ffe7148ad90, WNOHANG, NULL) = -1 ECHILD (No child processes)
+rt_sigreturn({mask=[]})                 = 0
+close(3)                                = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x55b007637450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=0x55b007637450, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+read(255, "IFS=\"$OLDIFS\"\nfor script in \"${s"..., 1179) = 274
+openat(AT_FDCWD, "/home/kai/.pyenv/pyenv.d/exec/pip-rehash.bash", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=533, ...}) = 0
+read(3, "PYENV_PIP_REHASH_ROOT=\"${BASH_SO"..., 533) = 533
+close(3)                                = 0
+rt_sigprocmask(SIG_BLOCK, NULL, [], 8)  = 0
+faccessat(AT_FDCWD, "/home/kai/.pyenv/pyenv.d/exec/pip-rehash/python", X_OK) = -1 ENOENT (No such file or directory)
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f1f7475c090}, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, {sa_handler=0x55b00763aa70, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1f7475c090}, 8) = 0
+execve("/home/kai/.pyenv/versions/3.10.9/bin/python", ["/home/kai/.pyenv/versions/3.10.9"..., "./hello.py"], 0x55b0090e31f0 /* 42 vars */) = 0
+brk(NULL)                               = 0x5617e841b000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7fffbf38f720) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f28f39c5000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/tls/haswell/avx512_1/x86_64/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/tls/haswell/avx512_1/x86_64", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/tls/haswell/avx512_1/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/tls/haswell/avx512_1", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/tls/haswell/x86_64/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/tls/haswell/x86_64", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/tls/haswell/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/tls/haswell", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/tls/avx512_1/x86_64/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/tls/avx512_1/x86_64", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/tls/avx512_1/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/tls/avx512_1", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/tls/x86_64/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/tls/x86_64", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/tls/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/tls", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/haswell/avx512_1/x86_64/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/haswell/avx512_1/x86_64", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/haswell/avx512_1/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/haswell/avx512_1", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/haswell/x86_64/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/haswell/x86_64", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/haswell/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/haswell", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/avx512_1/x86_64/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/avx512_1/x86_64", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/avx512_1/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/avx512_1", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/x86_64/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/x86_64", 0x7fffbf38e970) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/libpython3.10.so.1.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260\236\6\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=23076632, ...}) = 0
+mmap(NULL, 4036208, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f28f35eb000
+mmap(0x7f28f364a000, 2400256, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5f000) = 0x7f28f364a000
+mmap(0x7f28f3894000, 987136, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2a9000) = 0x7f28f3894000
+mmap(0x7f28f3985000, 237568, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x399000) = 0x7f28f3985000
+mmap(0x7f28f39bf000, 22128, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f28f39bf000
+close(3)                                = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37038, ...}) = 0
+mmap(NULL, 37038, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f28f35e1000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300A\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f28f33ef000
+mmap(0x7f28f3411000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7f28f3411000
+mmap(0x7f28f3589000, 319488, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7f28f3589000
+mmap(0x7f28f35d7000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7f28f35d7000
+mmap(0x7f28f35dd000, 13920, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f28f35dd000
+close(3)                                = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220q\0\0\0\0\0\0"..., 832) = 832
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0{E6\364\34\332\245\210\204\10\350-\0106\343="..., 68, 824) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=157224, ...}) = 0
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0{E6\364\34\332\245\210\204\10\350-\0106\343="..., 68, 824) = 68
+mmap(NULL, 140408, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f28f33cc000
+mmap(0x7f28f33d2000, 69632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0x7f28f33d2000
+mmap(0x7f28f33e3000, 24576, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x17000) = 0x7f28f33e3000
+mmap(0x7f28f33e9000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c000) = 0x7f28f33e9000
+mmap(0x7f28f33eb000, 13432, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f28f33eb000
+close(3)                                = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 \22\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=18848, ...}) = 0
+mmap(NULL, 20752, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f28f33c6000
+mmap(0x7f28f33c7000, 8192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0x7f28f33c7000
+mmap(0x7f28f33c9000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f28f33c9000
+mmap(0x7f28f33ca000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f28f33ca000
+close(3)                                = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/libutil.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libutil.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340\23\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=14880, ...}) = 0
+mmap(NULL, 16656, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f28f33c1000
+mmap(0x7f28f33c2000, 4096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0x7f28f33c2000
+mmap(0x7f28f33c3000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7f28f33c3000
+mmap(0x7f28f33c4000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7f28f33c4000
+close(3)                                = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/libm.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300\323\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=1369384, ...}) = 0
+mmap(NULL, 1368336, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f28f3272000
+mmap(0x7f28f327f000, 684032, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xd000) = 0x7f28f327f000
+mmap(0x7f28f3326000, 626688, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xb4000) = 0x7f28f3326000
+mmap(0x7f28f33bf000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x14c000) = 0x7f28f33bf000
+close(3)                                = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f28f3270000
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f28f326d000
+arch_prctl(ARCH_SET_FS, 0x7f28f326d740) = 0
+mprotect(0x7f28f35d7000, 16384, PROT_READ) = 0
+mprotect(0x7f28f33bf000, 4096, PROT_READ) = 0
+mprotect(0x7f28f33c4000, 4096, PROT_READ) = 0
+mprotect(0x7f28f33ca000, 4096, PROT_READ) = 0
+mprotect(0x7f28f33e9000, 4096, PROT_READ) = 0
+mprotect(0x7f28f3985000, 20480, PROT_READ) = 0
+mprotect(0x5617e6e87000, 4096, PROT_READ) = 0
+mprotect(0x7f28f39f4000, 4096, PROT_READ) = 0
+munmap(0x7f28f35e1000, 37038)           = 0
+set_tid_address(0x7f28f326da10)         = 31619
+set_robust_list(0x7f28f326da20, 24)     = 0
+rt_sigaction(SIGRTMIN, {sa_handler=0x7f28f33d2bf0, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x7f28f33e0420}, NULL, 8) = 0
+rt_sigaction(SIGRT_1, {sa_handler=0x7f28f33d2c90, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART|SA_SIGINFO, sa_restorer=0x7f28f33e0420}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+brk(NULL)                               = 0x5617e841b000
+brk(0x5617e843c000)                     = 0x5617e843c000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3035952, ...}) = 0
+mmap(NULL, 3035952, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f28f2f87000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=2996, ...}) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=201272, ...}) = 0
+mmap(NULL, 201272, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f28f2f55000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=27002, ...}) = 0
+mmap(NULL, 27002, PROT_READ, MAP_SHARED, 3, 0) = 0x7f28f35e4000
+close(3)                                = 0
+futex(0x7f28f35dc954, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+getcwd("/home/kai/til/linux", 4096)     = 20
+getrandom("\xd5\xa0\x01\xa1\x86\xf7\x7d\x71\xaf\x65\x2e\xc0\xa9\xc4\x76\xa1\xc7\x24\x06\xf1\xd2\x61\x43\x1b", 24, GRND_NONBLOCK) = 24
+mmap(NULL, 1048576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f28f2e55000
+brk(0x5617e845d000)                     = 0x5617e845d000
+brk(0x5617e8482000)                     = 0x5617e8482000
+readlink("/home/kai/.pyenv/versions/3.10.9/bin/python", "python3.10", 4096) = 10
+readlink("/home/kai/.pyenv/versions/3.10.9/bin/python3.10", 0x7fffbf389f70, 4096) = -1 EINVAL (Invalid argument)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/bin/pyvenv.cfg", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/pyvenv.cfg", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/bin/Modules/Setup.local", 0x7fffbf38af10) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/bin/lib/python3.10/os.py", 0x7fffbf38ae00) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/bin/lib/python3.10/os.pyc", 0x7fffbf38ae00) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/os.py", {st_mode=S_IFREG|0644, st_size=39557, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/bin/pybuilddir.txt", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/bin/lib/python3.10/lib-dynload", 0x7fffbf389f00) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/lib-dynload", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+mmap(NULL, 1048576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f28f2d55000
+sysinfo({uptime=64592, loads=[9216, 16768, 15488], totalram=4029149184, freeram=539951104, sharedram=274432, bufferram=118833152, totalswap=1073741824, freeswap=650182656, procs=1026, totalhigh=0, freehigh=0, mem_unit=1}) = 0
+brk(0x5617e84a3000)                     = 0x5617e84a3000
+brk(0x5617e84a2000)                     = 0x5617e84a2000
+openat(AT_FDCWD, "/etc/localtime", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=309, ...}) = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=309, ...}) = 0
+read(3, "TZif2\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\4\0\0\0\4\0\0\0\0"..., 4096) = 309
+lseek(3, -176, SEEK_CUR)                = 133
+read(3, "TZif2\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\4\0\0\0\4\0\0\0\0"..., 4096) = 176
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python310.zip", 0x7fffbf38d7b0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python310.zip", 0x7fffbf38d5c0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getdents64(3, /* 207 entries */, 32768) = 6880
+getdents64(3, /* 0 entries */, 32768)   = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/__init__.cpython-310-x86_64-linux-gnu.so", 0x7fffbf38d9d0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/__init__.abi3.so", 0x7fffbf38d9d0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/__init__.so", 0x7fffbf38d9d0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/__init__.py", {st_mode=S_IFREG|0644, st_size=5620, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/__init__.py", {st_mode=S_IFREG|0644, st_size=5620, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/__pycache__/__init__.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fcntl(3, F_GETFD)                       = 0x1 (flags FD_CLOEXEC)
+fstat(3, {st_mode=S_IFREG|0644, st_size=3903, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38dd90)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=3903, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256c\364\25\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 3904) = 3903
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/codecs.py", {st_mode=S_IFREG|0644, st_size=36714, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/codecs.py", {st_mode=S_IFREG|0644, st_size=36714, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/codecs.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=33247, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38cf90)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=33247, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256cj\217\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 33248) = 33247
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getdents64(3, /* 125 entries */, 32768) = 4224
+getdents64(3, /* 0 entries */, 32768)   = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/aliases.py", {st_mode=S_IFREG|0644, st_size=15677, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/aliases.py", {st_mode=S_IFREG|0644, st_size=15677, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/__pycache__/aliases.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=10949, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38c930)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=10949, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256c==\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 10950) = 10949
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/utf_8.py", {st_mode=S_IFREG|0644, st_size=1005, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/utf_8.py", {st_mode=S_IFREG|0644, st_size=1005, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/encodings/__pycache__/utf_8.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=1625, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38ddf0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=1625, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256c\355\3\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 1626) = 1625
+read(3, "", 1)                          = 0
+close(3)                                = 0
+rt_sigaction(SIGPIPE, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK, sa_restorer=0x7f28f3432090}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGXFSZ, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK, sa_restorer=0x7f28f3432090}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGHUP, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGINT, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGQUIT, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGILL, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTRAP, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGABRT, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGBUS, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGFPE, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGKILL, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGUSR1, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGSEGV, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGUSR2, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGPIPE, NULL, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK, sa_restorer=0x7f28f3432090}, 8) = 0
+rt_sigaction(SIGALRM, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTERM, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGSTKFLT, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGCHLD, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGCONT, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGSTOP, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTSTP, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTTIN, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTTOU, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGURG, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGXCPU, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGXFSZ, NULL, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK, sa_restorer=0x7f28f3432090}, 8) = 0
+rt_sigaction(SIGVTALRM, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGPROF, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGWINCH, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGIO, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGPWR, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGSYS, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_2, NULL, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_3, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_4, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_5, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_6, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_7, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_8, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_9, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_10, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_11, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_12, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_13, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_14, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_15, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_16, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_17, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_18, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_19, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_20, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_21, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_22, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_23, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_24, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_25, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_26, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_27, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_28, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_29, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_30, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_31, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGRT_32, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x7f28f38713a0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK, sa_restorer=0x7f28f3432090}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+fstat(0, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x15), ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/io.py", {st_mode=S_IFREG|0644, st_size=4196, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/io.py", {st_mode=S_IFREG|0644, st_size=4196, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/io.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3691, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38ded0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=3691, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256cd\20\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 3692) = 3691
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/abc.py", {st_mode=S_IFREG|0644, st_size=6522, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/abc.py", {st_mode=S_IFREG|0644, st_size=6522, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/abc.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=6779, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38d0d0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=6779, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256cz\31\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 6780) = 6779
+read(3, "", 1)                          = 0
+close(3)                                = 0
+dup(0)                                  = 3
+close(3)                                = 0
+fstat(0, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x15), ...}) = 0
+ioctl(0, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+lseek(0, 0, SEEK_CUR)                   = -1 ESPIPE (Illegal seek)
+ioctl(0, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+dup(1)                                  = 3
+close(3)                                = 0
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x15), ...}) = 0
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+lseek(1, 0, SEEK_CUR)                   = -1 ESPIPE (Illegal seek)
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+dup(2)                                  = 3
+close(3)                                = 0
+fstat(2, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x15), ...}) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+lseek(2, 0, SEEK_CUR)                   = -1 ESPIPE (Illegal seek)
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site.py", {st_mode=S_IFREG|0644, st_size=22587, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site.py", {st_mode=S_IFREG|0644, st_size=22587, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/site.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=17408, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38ded0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=17408, ...}) = 0
+brk(0x5617e84c3000)                     = 0x5617e84c3000
+read(3, "o\r\r\n\0\0\0\0\27>\256c;X\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 17409) = 17408
+read(3, "", 1)                          = 0
+close(3)                                = 0
+brk(0x5617e84bf000)                     = 0x5617e84bf000
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/os.py", {st_mode=S_IFREG|0644, st_size=39557, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/os.py", {st_mode=S_IFREG|0644, st_size=39557, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/os.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=31627, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38d0d0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=31627, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256c\205\232\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 31628) = 31627
+read(3, "", 1)                          = 0
+close(3)                                = 0
+mmap(NULL, 151552, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f28f2d30000
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/stat.py", {st_mode=S_IFREG|0644, st_size=5485, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/stat.py", {st_mode=S_IFREG|0644, st_size=5485, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/stat.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=4301, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38c2d0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=4301, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256cm\25\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 4302) = 4301
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/_collections_abc.py", {st_mode=S_IFREG|0644, st_size=32284, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/_collections_abc.py", {st_mode=S_IFREG|0644, st_size=32284, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/_collections_abc.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=32953, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38c2d0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=32953, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256c\34~\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 32954) = 32953
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/posixpath.py", {st_mode=S_IFREG|0644, st_size=16223, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/posixpath.py", {st_mode=S_IFREG|0644, st_size=16223, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/posixpath.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=10541, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38c2d0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=10541, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256c_?\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 10542) = 10541
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/genericpath.py", {st_mode=S_IFREG|0644, st_size=4975, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/genericpath.py", {st_mode=S_IFREG|0644, st_size=4975, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/genericpath.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3935, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38b4d0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=3935, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256co\23\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 3936) = 3935
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/_sitebuiltins.py", {st_mode=S_IFREG|0644, st_size=3128, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/_sitebuiltins.py", {st_mode=S_IFREG|0644, st_size=3128, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/__pycache__/_sitebuiltins.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3575, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38d0d0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=3575, ...}) = 0
+read(3, "o\r\r\n\0\0\0\0\27>\256c8\f\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 3576) = 3575
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/bin/pyvenv.cfg", 0x7fffbf38d930) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/pyvenv.cfg", 0x7fffbf38d930) = -1 ENOENT (No such file or directory)
+geteuid()                               = 1000
+getuid()                                = 1000
+getegid()                               = 1000
+getgid()                                = 1000
+stat("/home/kai/.local/lib/python3.10/site-packages", 0x7fffbf38daf0) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getdents64(3, /* 62 entries */, 32768)  = 2424
+getdents64(3, /* 0 entries */, 32768)   = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages/distutils-precedence.pth", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=151, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38d690)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+ioctl(3, TCGETS, 0x7fffbf38d910)        = -1 ENOTTY (Inappropriate ioctl for device)
+read(3, "import os; var = 'SETUPTOOLS_USE"..., 8192) = 151
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/lib-dynload", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/lib-dynload", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/lib-dynload", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/lib-dynload", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 4
+fstat(4, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getdents64(4, /* 77 entries */, 32768)  = 4840
+getdents64(4, /* 0 entries */, 32768)   = 0
+close(4)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 4
+fstat(4, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getdents64(4, /* 62 entries */, 32768)  = 2424
+getdents64(4, /* 0 entries */, 32768)   = 0
+close(4)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages/_distutils_hack/__init__.cpython-310-x86_64-linux-gnu.so", 0x7fffbf38c230) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages/_distutils_hack/__init__.abi3.so", 0x7fffbf38c230) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages/_distutils_hack/__init__.so", 0x7fffbf38c230) = -1 ENOENT (No such file or directory)
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages/_distutils_hack/__init__.py", {st_mode=S_IFREG|0644, st_size=6128, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages/_distutils_hack/__init__.py", {st_mode=S_IFREG|0644, st_size=6128, ...}) = 0
+openat(AT_FDCWD, "/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages/_distutils_hack/__pycache__/__init__.cpython-310.pyc", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=7580, ...}) = 0
+ioctl(4, TCGETS, 0x7fffbf38c5f0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(4, 0, SEEK_CUR)                   = 0
+lseek(4, 0, SEEK_CUR)                   = 0
+fstat(4, {st_mode=S_IFREG|0644, st_size=7580, ...}) = 0
+read(4, "o\r\r\n\0\0\0\0\">\256c\360\27\0\0\343\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 7581) = 7580
+read(4, "", 1)                          = 0
+close(4)                                = 0
+read(3, "", 8192)                       = 0
+close(3)                                = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/lib-dynload", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/lib-dynload", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/.pyenv/versions/3.10.9/lib/python3.10/site-packages", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/home/kai/til/linux/./hello.py", {st_mode=S_IFREG|0755, st_size=52, ...}) = 0
+openat(AT_FDCWD, "/home/kai/til/linux/./hello.py", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0755, st_size=52, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38eba0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+lseek(3, -22, SEEK_END)                 = 30
+lseek(3, 0, SEEK_CUR)                   = 30
+read(3, "n\nprint(\"hello world\")", 4096) = 22
+lseek(3, 0, SEEK_END)                   = 52
+lseek(3, 0, SEEK_CUR)                   = 52
+lseek(3, 0, SEEK_SET)                   = 0
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0755, st_size=52, ...}) = 0
+read(3, "#!/home/kai/.pyenv/shims/python\n"..., 53) = 52
+read(3, "", 1)                          = 0
+close(3)                                = 0
+stat("/home/kai/til/linux/./hello.py", {st_mode=S_IFREG|0755, st_size=52, ...}) = 0
+readlink("./hello.py", 0x7fffbf37e500, 4096) = -1 EINVAL (Invalid argument)
+getcwd("/home/kai/til/linux", 4096)     = 20
+lstat("/home/kai/til/linux/hello.py", {st_mode=S_IFREG|0755, st_size=52, ...}) = 0
+openat(AT_FDCWD, "/home/kai/til/linux/./hello.py", O_RDONLY) = 3
+ioctl(3, FIOCLEX)                       = 0
+fstat(3, {st_mode=S_IFREG|0755, st_size=52, ...}) = 0
+ioctl(3, TCGETS, 0x7fffbf38f4b0)        = -1 ENOTTY (Inappropriate ioctl for device)
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0755, st_size=52, ...}) = 0
+read(3, "#!/home/kai/.pyenv/shims/python\n"..., 4096) = 52
+lseek(3, 0, SEEK_SET)                   = 0
+read(3, "#!/home/kai/.pyenv/shims/python\n"..., 4096) = 52
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+write(1, "hello world\n", 12)           = 12
+rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK, sa_restorer=0x7f28f3432090}, {sa_handler=0x7f28f38713a0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK, sa_restorer=0x7f28f3432090}, 8) = 0
+munmap(0x7f28f2d30000, 151552)          = 0
+exit_group(0)                           = ?
++++ exited with 0 +++
