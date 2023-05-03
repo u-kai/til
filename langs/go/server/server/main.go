@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"sync"
 )
@@ -27,7 +26,6 @@ func main() {
 			}
 			mutex.RUnlock()
 		case http.MethodPost:
-			println("POST")
 			var comment Comment
 			if err := json.NewDecoder(r.Body).Decode(&comment); err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)
@@ -35,8 +33,8 @@ func main() {
 			}
 			mutex.Lock()
 			comments = append(comments, comment)
-			fmt.Printf("%+v\n", comments)
 			mutex.Unlock()
+
 			w.WriteHeader(http.StatusCreated)
 			w.Write([]byte(`{"status":"created"}`))
 
