@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"sync"
+	"time"
 )
 
 type Comment struct {
@@ -43,8 +44,24 @@ func main() {
 			return
 		}
 	})
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		go func() {
+
+			time.Sleep(15 * time.Second)
+			print("hello")
+			w.Write([]byte("Hello World"))
+		}()
+	})
 	println("Server started at http://localhost:8080")
-	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil)
+	println("Server stopped")
+	if err != nil {
+		print("hello")
+		panic(err)
+	}
+	//panic(err)
+
 }
 
 func Hello(w http.ResponseWriter, r *http.Request) {
