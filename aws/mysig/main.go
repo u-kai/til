@@ -3,56 +3,63 @@ package main
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"time"
 
+	v4 "github.com/aws/aws-sdk-go-v2/aws/signer/v4"
 	"github.com/aws/aws-sdk-go-v2/config"
-	v4 "github.com/aws/aws-sdk-go-v2/signer"
 )
 
+// q:aws のv4の署名を作成するにはどうすればいいのか？
+// a: https://docs.aws.amazon.com/ja_jp/general/latest/gr/sigv4-signed-request-examples.html
 func main() {
+
 	ctx := context.Background()
 
-	// AWSの設定を読み込む
-	cfg, err := config.LoadDefaultConfig(ctx)
+	cfg, err := config.LoadDefaultConfig(
+		ctx,
+		config.WithSharedConfigProfile("default"),
+	)
 	if err != nil {
-		panic("unable to load SDK config, " + err.Error())
+		panic(err.Error())
 	}
 
-	// リージョン
-	region := cfg.Region
-
-	// リクエストのURLとHTTPメソッド
-	apiId := "your-api-id"
-	stage := "your-stage"
-	resource := "your-resource-path"
-	url := fmt.Sprintf("https://%s.execute-api.%s.amazonaws.com/%s/%s", apiId, region, stage, resource)
-	method := "GET"
-
-	// リクエストを作成
-	req, _ := http.NewRequest(method, url, nil)
-
-	// 署名の作成
-	signer := v4.NewSigner()
 	credentials, err := cfg.Credentials.Retrieve(ctx)
 	if err != nil {
-		fmt.Printf("Error retrieving credentials: %v\n", err)
-		return
+		panic(err.Error())
 	}
-	_, err = signer.SignHTTP(ctx, credentials, req, []byte{}, "execute-api", region, time.Now())
+
+	req, err := http.NewRequest(
+		http.MethodGet,
+		"https://qapgymcp1k.execute-api.ap-northeast-1.amazonaws.com/prod",
+		nil,
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	hash := "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+	signer := v4.NewSigner()
+	signer.SignHTTP(ctx, credentials, req, hash, "execute-api", "ap-northeast-1", time.Now())
 
 	if err != nil {
-		fmt.Printf("Error signing request: %v\n", err)
-		return
+		panic(err.Error())
 	}
 
-	// 署名付きリクエストの実行
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	httpClient := new(http.Client)
+
+	response, err := httpClient.Do(req)
 	if err != nil {
-		fmt.Printf("Error executing request: %v\n", err)
-		return
-
+		panic(err.Error())
 	}
 
+	defer response.Body.Close()
+
+	responseBody, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Print(string(responseBody))
 }
