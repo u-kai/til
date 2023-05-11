@@ -32,7 +32,7 @@ func main() {
 
 	req, err := http.NewRequest(
 		http.MethodGet,
-		"https://qapgymcp1k.execute-api.ap-northeast-1.amazonaws.com/prod",
+		"https://x.execute-api.ap-northeast-1.amazonaws.com/prod?key=value",
 		nil,
 	)
 	if err != nil {
