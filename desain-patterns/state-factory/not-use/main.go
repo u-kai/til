@@ -28,32 +28,59 @@ func CreateRandomDetectedPublicRepository() *DetectedPublicRepository {
 	}
 }
 
+func fetchPublicOkRepo(r *DetectedPublicRepository) bool {
+	return r.detectedCount == -1
+}
+func detectRepoChange(r *DetectedPublicRepository) *string {
+	s := "change"
+	return &s
+}
+
 type Actor struct {
 	repo *DetectedPublicRepository
 }
 
 // この条件が増えていくと大変
-// Actionのテストも大変になってくる
-// if文の条件を状態として定義するとことで，状態に応じた処理を行うことができる
-// 条件の判断と，それに応じた処理を分離することで，処理の追加が容易になる
-
+// 条件が変わったり，追加された場合は変更が大変
+// また，テストも大変
+// だんだんファットになっていく
 func (a *Actor) Action() {
-	if a.isRegularTime() {
-		return
-	}
-	if a.repo.detectedCount == 0 {
-		Alert("admin", "public repository detected")
-		Alert(a.repo.owner, "public repository detected")
+	if time.Now().Weekday() == time.Saturday || time.Now().Weekday() == time.Sunday {
+		if a.repo.detectedCount == 0 {
+			Alert("admin", "public repository detected")
+			Alert(a.repo.owner, "you are not allowed to create public repository")
+			Alert(a.repo.owner, "and you are not allowed to work on weekend")
+			a.repo.detectedCount++
+			return
+		}
+		if fetchPublicOkRepo(a.repo) {
+			change := detectRepoChange(a.repo)
+			if change != nil {
+				Alert("admin", "public repository has change")
+				Alert("admin", "change: "+*change)
+				a.repo.detectedCount++
+				return
+			}
+			return
+		}
+
+		if a.isRegularTime() {
+			return
+		}
+		if a.repo.detectedCount == 0 {
+			Alert("admin", "public repository detected")
+			Alert(a.repo.owner, "public repository detected")
+			a.repo.detectedCount++
+			return
+		}
+		if a.repo.detectedCount%20 == 0 {
+			Alert("admin", "public repository detected")
+			Alert(a.repo.owner, "forbidden public repository")
+			Alert(a.repo.owner, "your account will be suspended!")
+		}
 		a.repo.detectedCount++
-		return
+		SaveDetectedInfo(a.repo)
 	}
-	if a.repo.detectedCount%20 == 0 {
-		Alert("admin", "public repository detected")
-		Alert(a.repo.owner, "forbidden public repository")
-		Alert(a.repo.owner, "your account will be suspended!")
-	}
-	a.repo.detectedCount++
-	SaveDetectedInfo(a.repo)
 }
 
 func (a *Actor) isRegularTime() bool {

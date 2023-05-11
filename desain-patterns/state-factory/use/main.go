@@ -30,6 +30,13 @@ func CreateRandomDetectedPublicRepository() *DetectedPublicRepository {
 		detectedCount: randInt,
 	}
 }
+func fetchPublicOkRepo(r *DetectedPublicRepository) bool {
+	return r.detectedCount == -1
+}
+func detectRepoChange(r *DetectedPublicRepository) *string {
+	s := "change"
+	return &s
+}
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////
 // パターンを利用したケース
@@ -39,10 +46,13 @@ type Actor interface {
 }
 
 // 以下のxxxActorはActorインターフェースを実装している
-// 具体的な構造体は状態を加味した構造体のため，その状態の時にやるべきことだけを定義すれば良い
-// Actionだけに集中できる
+// 以下の構造体は状態を加味した構造体のため，その状態の時にやるべきことだけを定義すれば良い
+// Actionだけに集中できるため，テストも容易になる
 // その状態かどうかの判断は，別に任せる(今回だとfactory)
 type RegalTimeActor struct {
+}
+type HolidayActor struct {
+	repo *DetectedPublicRepository
 }
 type InitDetectedActor struct {
 	repo *DetectedPublicRepository
@@ -53,8 +63,20 @@ type OnlyIncrementActor struct {
 type SuspendedActor struct {
 	repo *DetectedPublicRepository
 }
+type PublicOkRepoActor struct {
+	repo *DetectedPublicRepository
+}
 
 func (a *RegalTimeActor) Action() {
+}
+func (a *HolidayActor) Action() {
+	if a.repo.detectedCount == 0 {
+		Alert("admin", "public repository detected")
+		Alert(a.repo.owner, "you are not allowed to create public repository")
+		Alert(a.repo.owner, "and you are not allowed to work on weekend")
+		a.repo.detectedCount++
+		return
+	}
 }
 func (a *OnlyIncrementActor) Action() {
 	a.repo.detectedCount++
@@ -73,15 +95,28 @@ func (a *SuspendedActor) Action() {
 	a.repo.detectedCount++
 	SaveDetectedInfo(a.repo)
 }
+func (a *PublicOkRepoActor) Action() {
+	change := detectRepoChange(a.repo)
+	if change != nil {
+		Alert("admin", "public repository has change")
+		Alert("admin", "change: "+*change)
+		a.repo.detectedCount++
+		return
+	}
+}
 
 // factory pattern
 // 生成という責務を全うする(Actor自体は自身の生成方法を気にせずにActionだけに集中できる)
 // actorを使う側は何も考えずにこの関数を呼び出せば良い
-// actorが増えた時に変更が必要だが，actorを使う側は変更の必要がない
 // また，変更がないactorには影響がない
-// また，actorのテストも容易になる
-// さらにactorの生成方法を変更したい場合も，この関数のみを変更すれば良い
+// さらにactorの生成方法を変更したい場合やactorを追加したい場合も，この関数のみを変更すれば良い
 func createActor(r *DetectedPublicRepository) Actor {
+	if time.Now().Weekday() == time.Saturday || time.Now().Weekday() == time.Sunday {
+		return &HolidayActor{repo: r}
+	}
+	if fetchPublicOkRepo(r) {
+		return &PublicOkRepoActor{repo: r}
+	}
 	if time.Now().Hour() <= 17 {
 		return &RegalTimeActor{}
 	}
