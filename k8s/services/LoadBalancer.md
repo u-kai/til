@@ -1,0 +1,1 @@
+- loadBalancerSourceRanges を設定すると k8sNode 側の iptbles を利用してアクセス制御の処理が行われる

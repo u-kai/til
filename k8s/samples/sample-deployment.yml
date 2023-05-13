@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    app: nginx
+    app: sample-app
 
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: nginx
+      app: sample-app
   template:
     metadata:
       labels:
-        app: nginx
+        app: sample-app
 
     spec:
       containers:

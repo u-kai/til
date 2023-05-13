@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-clusterip
+spec:
+  type: ClusterIP
+  ## sample-appのために8080で待ち受ける
+  ## sample-appラベルが付いているPodに転送するためdeploymentでデプロイした複数のsample-app labelが付与されているpodに対してロードバランシングする
+  ports:
+    - name: "http-port"
+      protocol: TCP
+      port: 8080
+      targetPort: 80
+  selector:
+    app: sample-app
