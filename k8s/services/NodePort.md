@@ -1,3 +1,5 @@
+# External IP
+- 特定のk8s NodeのIPアドレス:Portで受信したトラフィックをコンテナに転送する形で外部疎通性を確立するService
 # NodePort
 
 - ExternalIP に類似したもの
