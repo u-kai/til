@@ -20,6 +20,7 @@ nodes:
 ```
 kind create cluster --config kind.yaml --name kindcluster
 kubectl config use-context kind-kindcluster
+kind delete cluster --name CLUSTER_NAME
 ```
 
 - docker container ls でコンテナを確認すると，node の台数分コンテナが確認できる
