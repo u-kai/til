@@ -37,7 +37,6 @@ type NormalFrame struct {
 func NewFlame() *NormalFrame {
 	return &NormalFrame{}
 }
-
 func (f *NormalFrame) Slow(i int) error {
 	if i > 10 {
 		return fmt.Errorf("throw is %d", i)
@@ -52,11 +51,15 @@ func (f *NormalFrame) Slow(i int) error {
 	}
 	return fmt.Errorf("throw is %d", i)
 }
+
+func (f *NormalFrame) IsSpare() bool {
+	return f.firstThrow+f.secondThrow == 10 && !f.IsStrike()
+}
 func (f *NormalFrame) isSecondThrow() bool {
-	return f.throw && !f.isStrike()
+	return f.throw && !f.IsStrike()
 }
 
-func (f *NormalFrame) isStrike() bool {
+func (f *NormalFrame) IsStrike() bool {
 	return f.firstThrow == 10
 }
 
