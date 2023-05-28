@@ -3,66 +3,97 @@ package pkg
 import "fmt"
 
 type Boring struct {
-	flame int
-	score int
+	frames     []Frame
+	frameIndex int
 }
 
 func NewBoring() *Boring {
-	return &Boring{}
+	return &Boring{
+		frames: []Frame{NewFrame()},
+	}
 }
 
-func (b *Boring) Slow(i int) error {
-	if b.flame >= 20 {
-		return fmt.Errorf("flame is %d", b.flame)
+func (b *Boring) Throw(i int) error {
+	if len(b.frames) >= 10 && !b.frames[9].Throwable() {
+		return fmt.Errorf("frame is %d", len(b.frames))
 	}
-	b.flame++
-	b.score += i
+	frame := b.frames[b.frameIndex]
+	if frame.Throwable() {
+		err := frame.Throw(i)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
+	newFrame := NewFrame()
+	err := newFrame.Throw(i)
+	if err != nil {
+		return err
+	}
+	b.frames = append(b.frames, newFrame)
+	b.frameIndex++
 	return nil
 }
 
 func (b *Boring) Score() int {
-	return b.score
+	result := 0
+	for _, frame := range b.frames {
+		result += frame.Score()
+
+	}
+	return result
 }
 
 type Frame interface {
 	Score() int
+	Throw(i int) error
+	Throwable() bool
 }
 
 type NormalFrame struct {
-	firstThrow  int
-	secondThrow int
-	throw       bool
+	firstThrow  *int
+	secondThrow *int
 }
 
-func NewFlame() *NormalFrame {
+func NewFrame() *NormalFrame {
 	return &NormalFrame{}
 }
-func (f *NormalFrame) Slow(i int) error {
+
+func (f *NormalFrame) Throwable() bool {
+	return f.secondThrow == nil && !f.IsStrike()
+}
+func (f *NormalFrame) Throw(i int) error {
 	if i > 10 {
 		return fmt.Errorf("throw is %d", i)
 	}
-	if !f.throw {
-		f.firstThrow = i
-		f.throw = true
+	if f.firstThrow == nil {
+		f.firstThrow = &i
 		return nil
 	}
-	if f.isSecondThrow() {
-		f.secondThrow = i
+	if f.Throwable() {
+		f.secondThrow = &i
+		return nil
 	}
 	return fmt.Errorf("throw is %d", i)
 }
 
 func (f *NormalFrame) IsSpare() bool {
-	return f.firstThrow+f.secondThrow == 10 && !f.IsStrike()
+	return f.firstThrow != nil && f.secondThrow != nil && *f.firstThrow+*f.secondThrow == 10 && !f.IsStrike()
 }
 func (f *NormalFrame) isSecondThrow() bool {
-	return f.throw && !f.IsStrike()
+	return f.secondThrow == nil && !f.IsStrike()
 }
 
 func (f *NormalFrame) IsStrike() bool {
-	return f.firstThrow == 10
+	return f.firstThrow != nil && *f.firstThrow == 10
 }
 
-func (n *NormalFrame) Score() int {
-	return n.firstThrow + n.secondThrow
+func (f *NormalFrame) Score() int {
+	if f.firstThrow == nil {
+		return 0
+	}
+	if f.secondThrow == nil {
+		return *f.firstThrow
+	}
+	return *f.firstThrow + *f.secondThrow
 }
