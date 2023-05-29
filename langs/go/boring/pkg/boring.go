@@ -63,7 +63,7 @@ func (b *Boring) Score() int {
 		// strike bonus, however, if it is not the final frame
 		if b.isStrikeUnderNextIsNotLastFrame(i) {
 			next := b.frames[i+1]
-			if next.IsStrike() && i+2 < len(b.frames) {
+			if b.isNestStrikeUnderNextIsNotLastFrame(i) {
 				nextNext := b.frames[i+2]
 				result += frame.Score() + next.Score() + nextNext.Score()
 				continue
@@ -78,6 +78,9 @@ func (b *Boring) Score() int {
 
 func (b *Boring) isStrikeUnderNextIsNotLastFrame(i int) bool {
 	return b.frames[i].IsStrike() && i+1 < len(b.frames) && i+1 < 9
+}
+func (b *Boring) isNestStrikeUnderNextIsNotLastFrame(i int) bool {
+	return b.frames[i+1].IsStrike() && i+2 < len(b.frames)
 }
 
 func isLast(i int) bool {
