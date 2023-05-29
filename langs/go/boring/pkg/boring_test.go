@@ -37,12 +37,37 @@ import (
 // }
 // }
 
+func TestFirstAndSecondAndThirdBollStrikeAndNextBallAreNot(t *testing.T) {
+	sut := pkg.NewBoring()
+	sut.Throw(10) //30
+	sut.Throw(10) //22
+	sut.Throw(10) //12
+	sut.Throw(1)  //2
+	sut.Throw(1)
+	result := sut.Score()
+
+	if result != 66 {
+		t.Errorf("Expected 64, got %d", result)
+	}
+}
+func TestFirstAndSecondBollStrikeAndNextBallsAreNot(t *testing.T) {
+	sut := pkg.NewBoring()
+	sut.Throw(10) //22
+	sut.Throw(10) //12
+	sut.Throw(1)  //2
+	sut.Throw(1)
+	result := sut.Score()
+
+	if result != 36 {
+		t.Errorf("Expected 14, got %d", result)
+	}
+}
 func TestFirstBollStrikeAndSubsequentBallsAreNot(t *testing.T) {
 	sut := pkg.NewBoring()
-	sut.Throw(10)
+	sut.Throw(10) // 12
+	sut.Throw(1)  // 2
 	sut.Throw(1)
-	sut.Throw(1)
-	sut.Throw(2)
+	sut.Throw(2) // 4
 	sut.Throw(2)
 	result := sut.Score()
 
