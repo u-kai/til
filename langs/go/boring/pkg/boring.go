@@ -47,11 +47,21 @@ func (b *Boring) Throw(i int) error {
 func (b *Boring) Score() int {
 	result := 0
 	for i, frame := range b.frames {
+		// last is not spare or strike bonus
 		if isLast(i) {
 			result += frame.Score()
 			break
 		}
-		if frame.IsStrike() && i+1 < len(b.frames) && i+1 < 9 {
+
+		// spare bonus, however, if it is not the final frame
+		if frame.IsSpare() && i+1 < len(b.frames) {
+			next := b.frames[i+1]
+			result += frame.Score() + next.FirstScore()
+			continue
+		}
+
+		// strike bonus, however, if it is not the final frame
+		if b.isStrikeUnderNextIsNotLastFrame(i) {
 			next := b.frames[i+1]
 			if next.IsStrike() && i+2 < len(b.frames) {
 				nextNext := b.frames[i+2]
@@ -66,12 +76,17 @@ func (b *Boring) Score() int {
 	return result
 }
 
+func (b *Boring) isStrikeUnderNextIsNotLastFrame(i int) bool {
+	return b.frames[i].IsStrike() && i+1 < len(b.frames) && i+1 < 9
+}
+
 func isLast(i int) bool {
 	return i == 9
 }
 
 type Frame interface {
 	Score() int
+	FirstScore() int
 	Throw(i int) error
 	Throwable() bool
 	IsSpare() bool
@@ -95,6 +110,12 @@ func (f *LastFrame) Score() int {
 		result += *f.thirdThrow
 	}
 	return result
+}
+func (f *LastFrame) FirstScore() int {
+	if f.firstThrow == nil {
+		return 0
+	}
+	return *f.firstThrow
 }
 func (f *LastFrame) Throwable() bool {
 	return f.firstThrow == nil || f.secondThrow == nil || f.IsStrike() || f.IsSpare()
@@ -143,6 +164,12 @@ type NormalFrame struct {
 
 func NewFrame() *NormalFrame {
 	return &NormalFrame{}
+}
+func (f *NormalFrame) FirstScore() int {
+	if f.firstThrow == nil {
+		return 0
+	}
+	return *f.firstThrow
 }
 
 func (f *NormalFrame) Throwable() bool {

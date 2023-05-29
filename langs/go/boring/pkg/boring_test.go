@@ -41,6 +41,20 @@ func TestFirstAndSecondBollStrikeAndNextBallsAreNot(t *testing.T) {
 		t.Errorf("Expected 14, got %d", result)
 	}
 }
+func TestCaseSpare(t *testing.T) {
+	sut := pkg.NewBoring()
+	sut.Throw(5) //8
+	sut.Throw(3)
+	sut.Throw(1) //12
+	sut.Throw(9)
+	sut.Throw(2) //4
+	sut.Throw(2)
+	result := sut.Score()
+
+	if result != 24 {
+		t.Errorf("Expected 24, got %d", result)
+	}
+}
 func TestFirstBollStrikeAndSubsequentBallsAreNot(t *testing.T) {
 	sut := pkg.NewBoring()
 	sut.Throw(10) // 12
