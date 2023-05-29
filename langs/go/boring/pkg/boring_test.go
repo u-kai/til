@@ -5,38 +5,17 @@ import (
 	"testing"
 )
 
-//func TestIfGetASpareThenNextThrowScoreWillBeAdded(t *testing.T) {
-//sut := pkg.NewBoring()
-//sut.Throw(1)
-//sut.Throw(9)
-//sut.Throw(1)
-//result := sut.Score()
+func TestAllStrike(t *testing.T) {
+	sut := pkg.NewBoring()
+	for i := 0; i < 12; i++ {
+		sut.Throw(10) //30
+	}
+	result := sut.Score()
 
-//if result != 12 {
-//t.Errorf("Expected 12, got %d", result)
-//}
-//}
-
-//func TestScoreCalculateRequireTheFramesThatAreTwoSpotsInFront(t *testing.T) {
-//first := pkg.NewFrame()
-//first.Throw(1)
-//first.Throw(2)
-
-//second := pkg.FrameFromTwoBefore(nil, first)
-//second.Throw(3)
-//second.Throw(4)
-
-//third := pkg.FrameFromTwoBefore(first, second)
-//third.Throw(3)
-//third.Throw(4)
-
-//result := third.Score()
-
-// if result != 17 {
-// t.Errorf("Expected 17, got %d", result)
-// }
-// }
-
+	if result != 300 {
+		t.Errorf("Expected 300, got %d", result)
+	}
+}
 func TestFirstAndSecondAndThirdBollStrikeAndNextBallAreNot(t *testing.T) {
 	sut := pkg.NewBoring()
 	sut.Throw(10) //30
@@ -47,7 +26,7 @@ func TestFirstAndSecondAndThirdBollStrikeAndNextBallAreNot(t *testing.T) {
 	result := sut.Score()
 
 	if result != 66 {
-		t.Errorf("Expected 64, got %d", result)
+		t.Errorf("Expected 66, got %d", result)
 	}
 }
 func TestFirstAndSecondBollStrikeAndNextBallsAreNot(t *testing.T) {
@@ -72,7 +51,7 @@ func TestFirstBollStrikeAndSubsequentBallsAreNot(t *testing.T) {
 	result := sut.Score()
 
 	if result != 18 {
-		t.Errorf("Expected 14, got %d", result)
+		t.Errorf("Expected 18, got %d", result)
 	}
 }
 
