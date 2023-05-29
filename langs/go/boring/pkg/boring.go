@@ -37,7 +37,26 @@ func (b *Boring) Throw(i int) error {
 
 func (b *Boring) Score() int {
 	result := 0
-	for _, frame := range b.frames {
+	for i, frame := range b.frames {
+		if i >= 2 {
+			beforeOne := b.frames[i-1]
+			beforeTwo := b.frames[i-2]
+			if beforeOne.IsStrike() && beforeTwo.IsStrike() {
+				result += frame.Score() * 3
+				continue
+			}
+			if beforeOne.IsStrike() && !frame.IsStrike() {
+				result += frame.Score() * 2
+				continue
+			}
+		}
+		if i == 1 {
+			beforeOne := b.frames[i-1]
+			if beforeOne.IsStrike() && !frame.IsStrike() {
+				result += frame.Score() * 2
+				continue
+			}
+		}
 		result += frame.Score()
 
 	}
@@ -48,6 +67,8 @@ type Frame interface {
 	Score() int
 	Throw(i int) error
 	Throwable() bool
+	IsSpare() bool
+	IsStrike() bool
 }
 
 type NormalFrame struct {

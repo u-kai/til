@@ -37,6 +37,20 @@ import (
 // }
 // }
 
+func TestFirstBollStrikeAndSubsequentBallsAreNot(t *testing.T) {
+	sut := pkg.NewBoring()
+	sut.Throw(10)
+	sut.Throw(1)
+	sut.Throw(1)
+	sut.Throw(2)
+	sut.Throw(2)
+	result := sut.Score()
+
+	if result != 18 {
+		t.Errorf("Expected 14, got %d", result)
+	}
+}
+
 func TestNoSecondThrowInTheCaseOfAStrike(t *testing.T) {
 	sut := pkg.NewFrame()
 	sut.Throw(10)
