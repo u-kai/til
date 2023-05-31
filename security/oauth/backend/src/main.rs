@@ -22,8 +22,8 @@ async fn callback(query: web::Query<HashMap<String, String>>) -> impl Responder 
     println!("{:#?}", query);
     let body = json!(
     {
-            "client_id": std::env::var("GITHUB_OAUTH_CLIENT_ID").unwrap(),
-            "client_secret":std::env::var("GITHUB_OAUTH_CLIENT_SECRET").unwrap(),
+            "client_id": std::env::var("GITHUB_APP_CLIENT_ID").unwrap(),
+            "client_secret":std::env::var("GITHUB_APP_CLIENT_SECRET").unwrap(),
             "code":query.get("code").unwrap(),
             //"state":query.get("state").unwrap()
     });
@@ -42,7 +42,7 @@ async fn callback(query: web::Query<HashMap<String, String>>) -> impl Responder 
     let token: Res = serde_json::from_str(&res).unwrap();
     println!("{:#?}", token);
     let response = Client::new()
-        .get("https://api.github.com/user/repos")
+        .get("https://api.github.com/user/emails")
         .header(CONTENT_TYPE, "application/json")
         .header(ACCEPT, "application/json")
         .header(USER_AGENT, "rust-program")
