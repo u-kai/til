@@ -1,5 +1,11 @@
 package sig
 
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"strings"
+)
+
 type HttpMethods int
 
 const (
@@ -9,6 +15,12 @@ const (
 	Patch
 	Connect
 )
+
+func V4Sign(payload string) string {
+	result := sha256.Sum256([]byte(payload))
+	hash := strings.ToLower(hex.EncodeToString(result[:]))
+	return hash
+}
 
 func (m HttpMethods) String() string {
 	return []string{"GET", "POST", "DELETE", "PATCH", "CONNECT"}[m]

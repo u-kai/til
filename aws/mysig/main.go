@@ -1,7 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -30,10 +34,18 @@ func main() {
 		panic(err.Error())
 	}
 
+	type Test struct {
+		Id   string `json:"id"`
+		Name string `json:"name"`
+	}
+	data := Test{Id: "1", Name: "test"}
+	b, err := json.Marshal(data)
+	result := sha256.Sum256(b)
+	hash := hex.EncodeToString(result[:])
 	req, err := http.NewRequest(
-		http.MethodGet,
-		"https://x.execute-api.ap-northeast-1.amazonaws.com/prod?key=value",
-		nil,
+		http.MethodPost,
+		"https://x.execute-api.ap-northeast-1.amazonaws.com/prod",
+		bytes.NewReader(b),
 	)
 	if err != nil {
 		panic(err.Error())
