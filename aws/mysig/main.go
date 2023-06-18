@@ -3,12 +3,12 @@ package main
 import (
 	"bytes"
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	sig "mysig/pkg"
 	"net/http"
+	"os"
 	"time"
 
 	v4 "github.com/aws/aws-sdk-go-v2/aws/signer/v4"
@@ -21,10 +21,7 @@ func main() {
 
 	ctx := context.Background()
 
-	cfg, err := config.LoadDefaultConfig(
-		ctx,
-		config.WithSharedConfigProfile("default"),
-	)
+	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -40,18 +37,18 @@ func main() {
 	}
 	data := Test{Id: "1", Name: "test"}
 	b, err := json.Marshal(data)
-	result := sha256.Sum256(b)
-	hash := hex.EncodeToString(result[:])
+	src := string(b)
+	hash := sig.V4Sign(src)
 	req, err := http.NewRequest(
 		http.MethodPost,
-		"https://x.execute-api.ap-northeast-1.amazonaws.com/prod",
-		bytes.NewReader(b),
+		os.Getenv("API_URL"),
+		//hash,
+		bytes.NewReader([]byte(src)),
 	)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	hash := "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 	signer := v4.NewSigner()
 	signer.SignHTTP(ctx, credentials, req, hash, "execute-api", "ap-northeast-1", time.Now())
 
