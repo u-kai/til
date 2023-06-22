@@ -1,10 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	sig "mysig/pkg"
 	"net/http"
+	"os"
 	"time"
 
 	v4 "github.com/aws/aws-sdk-go-v2/aws/signer/v4"
@@ -17,10 +21,7 @@ func main() {
 
 	ctx := context.Background()
 
-	cfg, err := config.LoadDefaultConfig(
-		ctx,
-		config.WithSharedConfigProfile("default"),
-	)
+	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -30,16 +31,24 @@ func main() {
 		panic(err.Error())
 	}
 
+	type Test struct {
+		Id   string `json:"id"`
+		Name string `json:"name"`
+	}
+	data := Test{Id: "1", Name: "test"}
+	b, err := json.Marshal(data)
+	src := string(b)
+	hash := sig.V4Sign(src)
 	req, err := http.NewRequest(
-		http.MethodGet,
-		"https://x.execute-api.ap-northeast-1.amazonaws.com/prod?key=value",
-		nil,
+		http.MethodPost,
+		os.Getenv("API_URL"),
+		//hash,
+		bytes.NewReader([]byte(src)),
 	)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	hash := "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 	signer := v4.NewSigner()
 	signer.SignHTTP(ctx, credentials, req, hash, "execute-api", "ap-northeast-1", time.Now())
 
