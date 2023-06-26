@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>data-management-at-scale.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%E5%A4%A7%E8%A6%8F%E6%A8%A1%E3%83%87%E3%83%BC%E3%82%BF%E7%AE%A1%E7%90%86%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88">大規模データ管理に関するレポート</h1>
+<hr>
+<h1 id="%E7%9B%AE%E6%AC%A1">目次</h1>
+<ul>
+<li>本レポートの目的</li>
+<li>大規模データ管理本のイントロ</li>
+<li>データ管理の崩壊</li>
+<li>これまでとこれからのデータアーキテクチャ</li>
+<li>どうやるのか？どう始めるのか？</li>
+</ul>
+<hr>
+<h1 id="%E6%9C%AC%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E7%9B%AE%E7%9A%84">本レポートの目的</h1>
+<ul>
+<li>大規模データ管理で紹介されていた考え方にや技術的観点について共有する</li>
+<li>IT 推進部として関わるところと部門に委任する境界に関する考え方を提示する</li>
+</ul>
+<hr>
+<h1 id="%E5%A4%A7%E8%A6%8F%E6%A8%A1%E3%83%87%E3%83%BC%E3%82%BF%E7%AE%A1%E7%90%86%E6%9C%AC%E3%82%A4%E3%83%B3%E3%83%88%E3%83%AD">大規模データ管理本イントロ</h1>
+<ul>
+<li>
+<p>筆者は大企業のデータアーキテクチャ計画を推進した際の経験に基づいている</p>
+<ul>
+<li>直近十年の間,企業がデータ駆動になるための完璧なソリューションを探し続けていた</li>
+</ul>
+</li>
+<li>
+<p>データ管理と統合に関する先進的なアプローチが紹介されている</p>
+</li>
+<li>
+<p>筆者が思い描いているのは長期的に使い続けられるような最新の<strong>分散型ドメインベースアーキテクチャ</strong></p>
+</li>
+</ul>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E7%AE%A1%E7%90%86%E3%81%AE%E5%B4%A9%E5%A3%8A">データ管理の崩壊</h1>
+<hr>
+<h2 id="%E7%8F%BE%E5%9C%A8%E6%A9%9F%E8%83%BD%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E4%B8%AD%E5%A4%AE%E9%9B%86%E6%A8%A9%E7%9A%84%E3%81%AA%E3%82%BD%E3%83%AA%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF%E5%B0%86%E6%9D%A5%E7%9A%84%E3%81%AB%E3%81%86%E3%81%BE%E3%81%8F%E6%A9%9F%E8%83%BD%E3%81%97%E3%81%AA%E3%81%8F%E3%81%AA%E3%82%8B">現在機能している中央集権的なソリューションは将来的にうまく機能しなくなる</h2>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E7%AE%A1%E7%90%86%E5%B4%A9%E5%A3%8A%E3%81%AE%E7%90%86%E7%94%B1">データ管理崩壊の理由</h1>
+<ul>
+<li>
+<p>ソフトウェアの提供速度とともにデータの複雑度も増している</p>
+<ul>
+<li>システムの負荷や，プライバシーや法規制についても考える必要が出てきた</li>
+<li>データの管理方法が重要</li>
+</ul>
+</li>
+<li>
+<p>データレイクやデータウェアハウスはデータ消費の要求が急速に高まることは想定してない</p>
+</li>
+<li>
+<p>中央集権モデルは破壊的なトレンドによって失敗する可能性がある</p>
+</li>
+</ul>
+<hr>
+<h1 id="%E4%BC%81%E6%A5%AD%E3%82%92%E6%82%A9%E3%81%BE%E3%81%99%E6%99%82%E4%BB%A3%E9%81%85%E3%82%8C%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3">企業を悩ます時代遅れのデータアーキテクチャ</h1>
+<ul>
+<li>企業のデータ統一は非常に複雑なプロセスで完了するまでに何年もかかる</li>
+<li>統合は関係する全てのチーム間での調整が必要になり，サービスに大量のオプション属性がついてしまう</li>
+<li>データが増えれば増えるほど，また定義の矛盾や不整合が生じれば生じるほど調整が難しくなる</li>
+<li>その結果全ての人のニーズを満たすために妥協した，誰にも特化していないモンスターインターフェイスが出来上がる</li>
+<li>あまりにも汎用的なもので，サービスが正確に何を提供しているのか，何をしているのかが誰にもわからない</li>
+</ul>
+<h3 id="%E3%82%B3%E3%83%B3%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%82%92%E7%B5%B1%E4%B8%80%E3%81%97%E3%81%A6%E3%82%82%E8%AA%B0%E3%81%AB%E3%81%A8%E3%81%A3%E3%81%A6%E3%82%82%E6%84%8F%E5%91%B3%E3%81%AE%E3%81%AA%E3%81%84%E3%82%82%E3%81%AE%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%97%E3%81%BE%E3%81%86">コンテキストを統一しても誰にとっても意味のないものになってしまう!</h3>
+<hr>
+<h1 id="%E3%81%93%E3%82%8C%E3%81%BE%E3%81%A7%E3%81%A8%E3%81%93%E3%82%8C%E3%81%8B%E3%82%89%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3">これまでとこれからのデータアーキテクチャ</h1>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A6%E3%82%A7%E3%82%A2%E3%83%8F%E3%82%A6%E3%82%B9">データウェアハウス</h1>
+<h3 id="%E6%9C%AC%E8%B3%87%E6%96%99%E4%B8%8A%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A6%E3%82%A7%E3%82%A2%E3%83%8F%E3%82%A6%E3%82%B9%E5%AE%9A%E7%BE%A9">本資料上のデータウェアハウス定義</h3>
+<p>RDB などを使い，全てのデータを構造化して統合管理するソリューションのこと</p>
+<h3 id="%E6%AC%A0%E7%82%B9">欠点</h3>
+<ul>
+<li>結合によって生じる多くの依存関係</li>
+<li>アジリティの欠如
+<ul>
+<li>アジリティが欠如すると人は抜け道を探し出し，それが技術的負債になる</li>
+</ul>
+</li>
+<li>データの流通や消費に関する情報は欠如
+<ul>
+<li><strong>データの所有権や出所もわからなくなる</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%82%AF">データレイク</h1>
+<h3 id="%E6%9C%AC%E8%B3%87%E6%96%99%E4%B8%8A%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%82%AF%E5%AE%9A%E7%BE%A9">本資料上のデータレイク定義</h3>
+<p>非構造データなど，ほとんど全てのデータを統合管理するソリューションのことで一般にオブジェクトストレージ環境</p>
+<h3 id="%E5%88%A9%E7%82%B9">利点</h3>
+<ul>
+<li>生データを提供するので迅速</li>
+</ul>
+<h3 id="%E6%AC%A0%E7%82%B9">欠点</h3>
+<ul>
+<li>常にデータの修正が必要なため何度も何度も変換作業が繰り返される</li>
+<li>データのコンテキストを整えるために，他のデータと組み合わせないといけない</li>
+<li>生データはいつでも変化する可能性があり，実験やユースケースを本番環境に導入できない</li>
+</ul>
+<hr>
+<h1 id="%E3%81%A1%E3%81%AA%E3%81%BF%E3%81%AB">ちなみに</h1>
+<h2 id="garther-%E3%81%AE%E3%82%A2%E3%83%8A%E3%83%AA%E3%82%B9%E3%83%88-nick-heudecker-%E3%81%AF%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%82%AF%E5%B0%8E%E5%85%A5%E3%81%AE%E5%A4%B1%E6%95%97%E7%8E%87%E3%81%AF-6-%E5%89%B2%E3%82%92%E8%B6%85%E3%81%88%E3%81%A6%E3%81%84%E3%82%8B%E3%81%A8%E3%83%84%E3%82%A4%E3%83%BC%E3%83%88%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B">Garther のアナリスト Nick Heudecker はデータレイク導入の失敗率は 6 割を超えているとツイートしている</h2>
+<h2 id="techrepubilc-%E3%81%A7%E3%81%AF-85-%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%8C%E5%A4%B1%E6%95%97%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%A8%E5%A0%B1%E5%91%8A%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B">TechRepubilc では 85% のデータプロジェクトが失敗していると報告している</h2>
+<p>https://www.techrepublic.com/article/85-of-big-data-projects-fail-but-your-developers-can-help-yours-succeed/</p>
+<hr>
+<h1 id="%E4%BB%8A%E5%BE%8C%E3%81%AE%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E7%AD%86%E8%80%85%E3%81%AE%E8%80%83%E3%81%88">今後のアーキテクチャ(筆者の考え)</h1>
+<h2 id="%E4%BC%81%E6%A5%AD%E3%81%8C%E5%BF%85%E8%A6%81%E3%81%A8%E3%81%97%E3%81%A6%E3%82%8B%E3%81%AE%E3%81%AF%E3%83%87%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%83%91%E3%82%A4%E3%83%80%E3%83%BC%E3%81%A8%E3%83%87%E3%83%BC%E3%82%BF%E3%82%B3%E3%83%B3%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%9E%E3%82%92%E7%B0%A1%E5%8D%98%E3%81%AB%E6%8E%A5%E7%B6%9A%E3%81%97-%E6%9F%94%E8%BB%9F%E6%80%A7%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E6%8F%90%E4%BE%9B%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%A9%E3%83%96%E3%83%AB%E3%81%A7%E9%AB%98%E5%BA%A6%E3%81%AA%E5%88%86%E6%95%A3%E5%9E%8B%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3">企業が必要としてるのは、データプロパイダーとデータコンシューマを簡単に接続し、 柔軟性、コントロール、インサイトを提供できる、スケーラブルで高度な分散型アーキテクチャ</h2>
+<hr>
+<h1 id="%E3%81%A9%E3%81%86%E3%82%84%E3%82%8B%E3%81%AE%E3%81%8B%E3%81%A9%E3%81%86%E5%A7%8B%E3%82%81%E3%82%8B%E3%81%AE%E3%81%8B">どうやるのか？どう始めるのか？</h1>
+<hr>
+<h1 id="%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%B1%E3%82%A4%E3%83%91%E3%83%93%E3%83%AA%E3%83%86%E3%82%A3%E3%81%B8%E3%83%9E%E3%83%83%E3%83%94%E3%83%B3%E3%82%B0">ビジネスケイパビリティへマッピング!</h1>
+<ul>
+<li>すべての戦略的ビジネス目標をビジネスケイパビリティにマッピング
+<ul>
+<li>空調,エネマネ,ITソリューションの活用,販売経路の拡充,在庫の最適化,...</li>
+</ul>
+</li>
+<li>ビジネスケイパビリティとアプリケーションアーキテクチャの関係を明確にすることで多くのメリットが得られる
+<ul>
+<li>データとその所有者が決まる</li>
+</ul>
+</li>
+</ul>
+<h2 id="%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88ddd-%E3%81%8C%E3%81%8A%E3%81%99%E3%81%99%E3%82%81">ドメイン駆動設計(DDD) がおすすめ!</h2>
+<hr>
+<h1 id="ddd%E3%81%A8%E3%81%AF">DDDとは</h1>
+<ul>
+<li>そもそもドメインとは解決すべき問題領域のこと</li>
+<li>DDDはシステム開発における設計思想のことだが、今回のテーマでは開発というより企業全体のアーキテクチャの考え方として記載されている</li>
+<li>企業に点在するドメインをモデリングして自律的で単一のコンテキストを持ったドメインシステムの集合体にしていくのに便利</li>
+</ul>
+<p><img src="file:///home/kai/til/books/data-management-at-scale/ddd-before.png" alt="width:400"><img src="file:///home/kai/til/books/data-management-at-scale/empt.png" alt="">   <img src="file:///home/kai/til/books/data-management-at-scale/ddd-after.png" alt="width:400"></p>
+<hr>
+<h1 id="%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%97%E3%83%A9%E3%82%A4%E3%82%BA%E8%A6%8F%E6%A8%A1%E3%81%A7%E3%81%AE-ddd">エンタープライズ規模での DDD</h1>
+<ul>
+<li>データ流通にデータウェアハウスのような大きなサイロを使わない</li>
+<li>コンテキスト境界ごとに分離することが大事</li>
+<li>他のコンテキスト境界と通信する場合は必ずデータレイヤーを通して行う必要がある</li>
+<li>DDD ではコンテキスト境界ごとに独自のユビキタス言語が使われている
+<ul>
+<li>コンテキスト境界が変わればユビキタス言語も変わる</li>
+<li>エンタープライズ言語は多くのユビキタス言語の集合体となる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="ddd-%E3%81%AB%E3%82%88%E3%82%8B%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3-%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E5%9B%B3">DDD によるアーキテクチャ イメージ図</h1>
+<p><img src="file:///home/kai/til/books/data-management-at-scale/ddd.png" alt="width:900"></p>
+<hr>
+<h1 id="ddd-%E3%82%A2%E3%83%97%E3%83%AD%E3%83%BC%E3%83%81%E3%81%AE%E8%89%AF%E3%81%95">DDD アプローチの良さ</h1>
+<hr>
+<h1 id="1-%E3%82%A2%E3%82%B8%E3%83%AA%E3%83%86%E3%82%A3%E3%81%8C%E5%A4%A7%E5%B9%85%E3%81%AB%E5%90%91%E4%B8%8A%E3%81%99%E3%82%8B">1. アジリティが大幅に向上する</h1>
+<ul>
+<li>データプロバイダーとデータコンシューがより疎結合になり，データがサイロで統合されるまで待つ必要がないから</li>
+<li>ドメインが持つ依存関係はデータレイヤーのみになる
+<ul>
+<li>論理的なコンテキスト境界内に存在するビジネスドメインはそれぞれ独自の速度で変化できるようになる</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="2%E5%8D%98%E4%B8%80%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%AE%E5%A4%89%E6%8F%9B">2.単一ステップの変換</h1>
+<ul>
+<li>DDD モデルではプロバイダーのコンテキストからコンシューマーのコンテキストへの単一ステップの変換だけでよくなる</li>
+<li>企業全体の単一の統合ソリューションを作る必要がなくなる</li>
+<li>企業レベルの統合をしないことで不整合や情報の複数バージョンが存在することを避けることができる
+<ul>
+<li>これらはデータウェアハウスで問題になっていたこと</li>
+</ul>
+</li>
+</ul>
+<h3 id="%E3%81%9F%E3%81%A0%E3%81%97%E8%AA%B2%E9%A1%8C%E3%81%AF%E3%83%87%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%83%90%E3%82%A4%E3%83%80%E3%83%BC%E3%81%AE%E5%AD%98%E5%9C%A8%E3%82%92%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E5%BF%85%E8%A6%81%E3%81%8C%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8">ただし課題はデータプロバイダーの存在を知っている必要があること</h3>
+<h3 id="%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%82%84%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E3%82%88%E3%82%8B%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AB%E3%83%90%E3%83%AA%E3%81%A7%E8%A7%A3%E6%B1%BA%E3%81%99%E3%82%8B%E5%BE%8C%E8%BF%B0">-&gt; メタデータやメタデータによるサービスディスカバリで解決する!!(後述)</h3>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">データレイヤーについて</h1>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC">データレイヤー</h1>
+<ul>
+<li>
+<p>データ変換を容易にすると同時に，ポイントツーポイントの複雑さを軽減し，データウェアハウスのようなサイロ型を回避できるような新しいモデルがデータレイヤー</p>
+</li>
+<li>
+<p>ドメインが多種多様なパターン(次ページから紹介)を使ってデータを流通できるようにする</p>
+</li>
+<li>
+<p>データレイヤーはデータ流通の基盤となるインフラやプラットフォームを活用して，すべてのデータを補足可能</p>
+</li>
+</ul>
+<h3 id="%E3%81%A4%E3%81%BE%E3%82%8A%E7%AE%A1%E7%90%86%E8%A6%81%E4%BB%B6%E3%81%8C%E5%8D%81%E5%88%86%E3%81%AB%E6%BA%80%E3%81%9F%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8%E3%81%8C%E7%A2%BA%E8%AA%8D%E5%8F%AF%E8%83%BD">つまり管理要件が十分に満たされていることが確認可能</h3>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E5%9B%B3">データレイヤーを利用したアーキテクチャイメージ図</h1>
+<p><img src="file:///home/kai/til/books/data-management-at-scale/10-5.png" alt="width:880"></p>
+<hr>
+<h1 id="api-%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3">API アーキテクチャ</h1>
+<ul>
+<li>書き込み，更新，削除処理を容易にする</li>
+<li>リアルタイムの同期通信を要するユースケース向き</li>
+<li>データとビジネス機能の両方を提供できる</li>
+</ul>
+<hr>
+<h1 id="%E8%AA%AD%E3%81%BF%E5%87%BA%E3%81%97%E5%B0%82%E7%94%A8%E3%83%87%E3%83%BC%E3%82%BF%E3%82%B9%E3%83%88%E3%82%A2%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3rds">読み出し専用データストアアーキテクチャ(RDS)</h1>
+<ul>
+<li>
+<p>Readonly Data Store(RDS)は読み出し最適およびデータが不変なもの</p>
+</li>
+<li>
+<p>データプロバイダーのコンテキストが RDS の設計を決定する</p>
+</li>
+<li>
+<h3 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%83%90%E3%82%A4%E3%83%80%E3%83%BC%E3%81%AF%E3%83%87%E3%83%BC%E3%82%BF%E5%93%81%E8%B3%AA%E8%A8%AD%E8%A8%88rds-%E3%81%B8%E3%81%AE%E9%85%8D%E4%BF%A1%E3%81%AB%E8%B2%AC%E4%BB%BB%E3%82%92%E8%B2%A0%E3%81%86">データプロバイダーは、データ品質、設計、RDS への配信に責任を負う</h3>
+</li>
+<li>
+<h3 id="rds-%E3%81%AF%E5%8D%98%E3%81%AA%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%82%AF%E3%82%84%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A6%E3%82%A7%E3%82%A2%E3%83%8F%E3%82%A6%E3%82%B9%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%8F%E6%97%A2%E5%AD%98%E3%81%AE%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E6%8B%A1%E5%BC%B5%E3%81%97%E3%81%9D%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%82%92%E7%B6%99%E6%89%BF%E3%81%99%E3%82%8B%E3%82%82%E3%81%AE">RDS は単なるデータレイクやデータウェアハウスではなく、既存のアプリケーションを拡張し、そのコンテキストを継承するもの</h3>
+</li>
+</ul>
+<h2 id="%E7%94%A8%E9%80%94">用途</h2>
+<ul>
+<li>大量のデータを扱うユースケース向き(BI や分析など)</li>
+<li>耐久性、受動性、永続性のあるデータを保持、大量に読み出すことに向く</li>
+</ul>
+<hr>
+<h1 id="%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%9F%E3%83%B3%E3%82%B0%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3">ストリーミングアーキテクチャ</h1>
+<ul>
+<li>
+<p>ストリーミングと API が異なるのは非同期であること，高いスループットを重視すること，そしてアプリケーションの状態をコピーするためにも使用できるようにすること</p>
+</li>
+<li>
+<p>リアルタイムにデータを変換し、ほかのアプリケーションに通知する</p>
+</li>
+</ul>
+<hr>
+<h1 id="%E5%86%8D%E6%8E%B2">再掲</h1>
+<p><img src="file:///home/kai/til/books/data-management-at-scale/10-5.png" alt="width:880"></p>
+<h2 id="%E4%B8%8A%E8%A8%98%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E3%81%AF%E5%AE%8C%E5%85%A8%E3%81%AB%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E9%A7%86%E5%8B%95%E5%9E%8B">上記アーキテクチャは完全にメタデータ駆動型!</h2>
+<hr>
+<h1 id="%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF">メタデータ</h1>
+<hr>
+<h1 id="%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF">メタデータとは</h1>
+<ul>
+<li>メタデータはデータ流通やリネージ,API Schema, 消費要件，データの品質，意味などについての情報</li>
+<li>このメタデータを API 経由で公開することで，データプロバイダーとデータコンシューマーはさまざまなアーキテクチャとの相互運用性が高まる</li>
+<li>データレイヤーを利用してもらうことで<strong>どのデータがデータレイヤーをどこからどのように通過するのか補足でき，メタデータとして格納／利用できる</strong></li>
+</ul>
+<hr>
+<h1 id="%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%81%A9%E6%81%B5">メタデータの恩恵</h1>
+<ul>
+<li>メタデータは内部のルーティングや流通の他，意味の把握やデータ完全性の検証にも利用可能</li>
+<li>メタデータからエンドツーエンドのリネージを可視化することができる
+<ul>
+<li>リネージとはデータの作成から現在までの全履歴を追従可能にすること</li>
+</ul>
+</li>
+<li>メタデータからサービスレジストリを作成でき，これにより，サービスの再利用が促進され，API の増殖を避けることができる</li>
+<li>サービスレジストリはすべてのサービスとどの API が誰によって公開されたり，消費されたりするのかを管理する</li>
+<li>さまざまなドメイン間で激しい通信が行われている場合はコンテキスト境界が間違っていることがわかる</li>
+</ul>
+<h2 id="%E3%81%93%E3%81%AE%E3%82%88%E3%81%86%E3%81%AB%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AF%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E3%81%AE%E5%85%A8%E4%BD%93%E3%81%AE%E4%B8%AD%E3%81%A7%E9%87%8D%E8%A6%81%E3%81%AA%E5%BD%B9%E5%89%B2%E3%82%92%E6%8B%85%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B">このようにメタデータはアーキテクチャの全体の中で重要な役割を担っている</h2>
+<hr>
+<h1 id="%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B%E3%81%86%E3%81%88%E3%81%A7%E6%A4%9C%E8%A8%8E%E3%81%99%E3%81%B9%E3%81%8D%E8%A6%B3%E7%82%B9">メタデータを始めるうえで検討すべき観点</h1>
+<ul>
+<li>どのようなビジネスメタデータが重要か</li>
+<li>システムの相互運用に必要なメタデータは何か</li>
+<li>どのような情報を、チームが中央に提供する必要があるか</li>
+</ul>
+<hr>
+<h1 id="%E4%B8%AD%E5%A4%AE%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E8%B2%AC%E5%8B%99">中央チームの責務</h1>
+<hr>
+<h1 id="%E4%B8%AD%E5%A4%AE%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E8%80%83%E3%81%88%E6%96%B9">中央プラットフォームの構築と考え方</h1>
+<ul>
+<li>ほかのドメインがセルフサービス方式でデータを提供・消費できるようにする</li>
+<li>プラットフォームは、繰り返し行われる作業をできるだけ減らすことを求められる</li>
+<li>ドメインに依存しない仕組みを構築する</li>
+<li><strong>特にデータレイヤーやメタデータレジストリの構築が重要!!</strong></li>
+</ul>
+<h2 id="%E4%B8%AD%E5%A4%AE%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AF%E3%81%BB%E3%81%8B%E3%81%AE%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AB%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%82%84%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E6%8E%A1%E7%94%A8%E3%81%97%E3%81%9F%E3%82%8A%E6%A7%8B%E7%AF%89%E3%81%97%E3%81%9F%E3%82%8A%E3%81%97%E3%81%A6%E3%81%AF%E3%81%AA%E3%82%89%E3%81%AA%E3%81%84">中央チームは、ほかのドメインチームのためにビジネスロジックやアプリケーションを採用したり、構築したりしてはならない</h2>
+<hr>
+<h1 id="%E9%87%8D%E8%A6%81%E3%81%AA%E3%81%93%E3%81%A8">重要なこと</h1>
+<ul>
+<li>ドメインに依存しないインフラは、中央プラットフォームチームが提供する</li>
+<li>他にも、中央プラットフォームチームは以下を定義する必要がある
+<ul>
+<li>データ提供/消費のためのパターン</li>
+<li>メタデータの登録方法</li>
+<li>セキュリティとポリシーの適用</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h1>
+<hr>
+<h1 id="%E6%9C%AC%E6%9B%B8%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81">本書のまとめ</h1>
+<ul>
+<li>単一の統合ソリューションやプラットフォームで全てのユースケースに対応できない</li>
+<li>中央集権的なモノリスを取り除くことでドメインやチームが独立してデータを変更・交換できるようになる</li>
+<li>各ドメインは自身のデータについて責任を持つ</li>
+<li>データはデータレイヤーを経由させる</li>
+<li>メタデータによって，様々な恩恵があり，紹介された 3 つのアーキテクチャはメタデータ駆動型</li>
+<li>ドメインチームが依存しないような中央プラットフォームを構築することが重要</li>
+</ul>
+<hr>
+<h1 id="%E5%80%8B%E4%BA%BA%E7%9A%84%E6%84%8F%E8%A6%8B">個人的意見</h1>
+<hr>
+<h1 id="ddd-%E3%81%AB%E3%82%88%E3%82%8B%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%AE%E5%88%86%E5%89%B2%E3%81%AF%E5%A4%A7%E3%81%84%E3%81%AB%E8%B3%9B%E6%88%90">DDD によるドメインの分割は大いに賛成</h1>
+<ul>
+<li>データレイクやデータウェアハウスはデータコンシューマーが大変</li>
+<li>データに意味が付与されていないので誰も使わなそう</li>
+<li>誰かがデータマイニングできたとしても，そのデータが正確なデータなのか，今後も生成され続けるのか，何も保証はない</li>
+<li>ドメイン領域ごとにプロバイダー側が質の良い，コンテキストを保持しているデータを提供することで初めてデータ消費に価値が生まれる</li>
+<li>ドメインは他ドメインや中央プラットフォームに依存しないようにできるので，アジリティ,柔軟性の点においても良いモデル！</li>
+</ul>
+<hr>
+<h1 id="%E3%81%A7%E3%82%82%E9%9B%A3%E3%81%97%E3%81%84">でも難しい...</h1>
+<ul>
+<li>いろんな部署がしっかりとデータ提供できるような IT 部隊が必要不可欠</li>
+<li>また，他部門へのデータ提供に対してプロバイダー側がしっかり投資してくれるのか，協力してくれるのかが難しい気がする</li>
+<li>そもそも適切なドメイン分割が難しい
+<ul>
+<li>ただし，これはまずは始めてしまって，データ流通を観察してから適切なドメインを切り出しても良いかもしれない</li>
+</ul>
+</li>
+<li>各ドメインチーム(うちだと部署？)に IT 専門チームが 10 人ぐらい欲しいところ...</li>
+</ul>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%84%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AF%E8%B3%9B%E6%88%90">データレイヤーやメタデータについては賛成</h1>
+<ul>
+<li>
+<p>データレイヤーで 3 種類の口を用意しておいて，ドメイン側が簡単に接続して，自分たちのサービスを簡単に提供できるようになったら面白そう</p>
+</li>
+<li>
+<p>尚且つそのデータに関する流通はすべてメタデータによって管理されているので，データの流通が透明になるという点でも面白いし，相当有用</p>
+</li>
+<li>
+<p>メタデータによってサービスディスカバリが容易になったり，コンシューマー駆動開発とかできるようになったら面白いし，API 連携による自動化が相当進むと思う</p>
+</li>
+</ul>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%82%84%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%87%B8%E5%BF%B5%E7%82%B9">データレイヤーやメタデータにおける懸念点</h1>
+<ul>
+<li>具体的な方法が書いていなかったので，ドメインとデータレイヤーの具体的な繋ぎ方がわからなかった</li>
+<li>データレイヤーの実装にドメインが依存しないようにしたいが，そのように疎に構築できるのかどうか？</li>
+<li>メタデータについても，どのようなデータをどこの点で取得すればいいのか，メタデータの付与が，結局ドメインに対して依存関係を産んでしまわないかが気になった</li>
+</ul>
+<hr>
+<h1 id="%E5%B0%8F%E3%81%95%E3%81%8F%E5%A7%8B%E3%82%81%E3%82%8B%E3%81%B9%E3%81%8D%E3%81%A0%E3%81%8C">小さく始めるべきだが...</h1>
+<ul>
+<li>そもそも小さくすらどう始めよう．．．</li>
+<li>構築したものの良し悪しの測り方も難しそう</li>
+<li>ひとまずは，何かしらの目的でデータ活用したい，IT 人材もそこそこいる，みたいなところに協力してもらいつつ，小さく始めてみるのが良さそう</li>
+</ul>
+<hr>
+<hr>
+<h1 id="%E8%A3%9C%E5%A1%AB">補填</h1>
+<hr>
+<h1 id="%E9%80%9A%E4%BF%A1%E3%81%A8%E7%B5%B1%E5%90%88%E3%81%AE%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3">通信と統合のパターン</h1>
+<hr>
+<h1 id="%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%83%84%E3%83%BC%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88">ポイントツーポイント</h1>
+<ul>
+<li>アプリケーションから別のアプリケーションへ、直接通信を行うポイントツーポイント</li>
+<li>アプリケーション間が密結合になってしまう</li>
+<li>運用管理も大変</li>
+</ul>
+<p><img src="file:///home/kai/til/books/data-management-at-scale/point-to-point.png" alt=""></p>
+<hr>
+<h1 id="%E3%82%B5%E3%82%A4%E3%83%AD%E5%9E%8B">サイロ型</h1>
+<ul>
+<li>全てのデータとアプリケーションロジックをまとめてサイロを作る</li>
+<li>いくつもの不整合を生み出し，統合作業が膨大となる</li>
+<li>運用管理も大変</li>
+</ul>
+<p><img src="file:///home/kai/til/books/data-management-at-scale/silo.png" alt=""></p>
+<hr>
+<h1 id="%E3%83%8F%E3%83%96%E3%82%B9%E3%83%9D%E3%83%BC%E3%82%AF%E3%83%A2%E3%83%87%E3%83%AB">ハブスポークモデル</h1>
+<ul>
+<li>中央にデータ流通のためのハブを作成して、様々なシステムやアプリケーションのインターフェイスを接続</li>
+<li>アプリケーションはハブに接続するだけで良い</li>
+</ul>
+<p><img src="file:///home/kai/til/books/data-management-at-scale/hub-spoke.png" alt="width:400"></p>
+<hr>
+<h1 id="scaled-architecture-%E5%8E%9F%E5%89%87">Scaled Architecture 原則</h1>
+<hr>
+<h1 id="scaled-architecture-%E5%8E%9F%E5%89%871">Scaled Architecture 原則(1)</h1>
+<ul>
+<li>
+<p>ゴールデンソースから生成されるゴールデンデータセットの流通のみを許可</p>
+<ul>
+<li>ゴールデンソース，ゴールデンデータセットは後述</li>
+</ul>
+</li>
+<li>
+<p>データ変更はゴールデンソースでのみ行う</p>
+</li>
+<li>
+<p>ゴールデンデータセットだけを提供する</p>
+</li>
+<li>
+<p>ゴールデンデータセットとメタデータなどの要素は検索性を高めるために中央に登録される</p>
+<p><strong>ゴールデンソースと所有権メタデータをツールやプラットフォームを通じて中央で利用できるようにすることが重要</strong></p>
+</li>
+</ul>
+<hr>
+<h2 id="%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%94%E3%81%A8%E3%81%AB%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%82%92%E6%8C%81%E3%81%A4">アプリケーションごとにアプリケーションデータベースを持つ</h2>
+<ul>
+<li>アプリケーションは特化したものであり、一意のコンテキストを持つ</li>
+<li>何かのデータを何かのアプリケーションから取得したい場合は，そのアプリケーションに問い合わせる</li>
+<li>アプリケーションでコンテキストを表現するため直接 DB に問い合わせるよりもデータを消費しやすくなる</li>
+</ul>
+<hr>
+<h2 id="%E3%82%B4%E3%83%BC%E3%83%AB%E3%83%87%E3%83%B3%E3%82%BD%E3%83%BC%E3%82%B9">ゴールデンソース</h2>
+<ul>
+<li>権威あるアプリケーション</li>
+<li>すべての信頼できるデータがある特定のコンテキストで管理されている</li>
+<li>一つか複数のゴールデンセットで構成されている</li>
+</ul>
+<hr>
+<h2 id="%E3%82%B4%E3%83%BC%E3%83%AB%E3%83%87%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%83%E3%83%88">ゴールデンデータセット</h2>
+<ul>
+<li>生成された権威あるオリジナルデータのこと</li>
+<li>真正、かつ一意なもので，正確で完全でよく知られていなければいけない</li>
+<li>人間が読むことのできる情報である<strong>データ要素</strong>で構成</li>
+<li>データ要素には識別可能な名前がついており，データガバナンスなど他データ管理主体との接着剤の役割を果たす</li>
+</ul>
+<hr>
+<p><img src="file:///home/kai/til/books/data-management-at-scale/golden-source-golden-set.png" alt=""></p>
+<h3 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E5%AF%BE%E3%81%97%E3%81%A6%E6%AD%A3%E7%A2%BA%E3%81%A7%E4%B8%80%E8%B2%AB%E6%80%A7%E3%82%92%E6%8C%81%E3%81%9F%E3%81%9B%E3%82%8B%E3%81%93%E3%81%A8%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B">データに対して正確で一貫性を持たせることができる</h3>
+<hr>
+<h1 id="%E5%8E%9F%E5%89%87">原則</h1>
+<ul>
+<li>コンテキスト境界はインスタンス化されたビジネスケイパビリティに関係付けられる</li>
+<li>コンテキスト境界は 1 つまたは複数のアプリケーションに関連づけることができる</li>
+<li>コンテキスト境界はインフラストラクチャー，ネットワーク，組織から独立する</li>
+<li>一つのコンテキスト境界は一つのチームに属する</li>
+<li>境界線は厳密にする</li>
+<li>データレイヤーはドメインロジックを含むべきではない</li>
+</ul>
+<hr>
+<h2 id="%E5%8E%9F%E5%89%87">原則</h2>
+<ul>
+<li>抽象的なインターフェイスにしてアプリケーションの技術的な情報を隠す</li>
+<li>インターフェイスには一定の成熟度と安定性が求められる</li>
+<li>コンシューマが意味的に理解できるような形で提供してデータ消費に最適化する</li>
+<li>データプロバイダーとして機能するコンテキスト境界はそれぞれ独自のユビキタス言語を使ってデータを公開する必要があり，データプロバイダーは他のドメインのビジネスロジックを自分のドメインに組み込むべきではない</li>
+</ul>
+<h3 id="%E3%81%93%E3%82%8C%E3%82%89%E3%81%AE%E5%8E%9F%E5%89%87%E3%81%8B%E3%82%89%E7%B5%90%E8%AB%96%E3%81%A5%E3%81%91%E3%82%89%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%AF%E3%83%87%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%83%90%E3%82%A4%E3%83%80%E3%83%BC%E3%81%AF%E3%82%88%E3%82%8A%E4%BD%BF%E3%81%84%E3%82%84%E3%81%99%E3%81%8F%E3%82%88%E3%82%8A%E6%B6%88%E8%B2%BB%E3%81%97%E3%82%84%E3%81%99%E3%81%8F%E8%AB%96%E7%90%86%E7%9A%84%E3%81%AA%E6%96%B9%E6%B3%95%E3%81%A7%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E5%85%AC%E9%96%8B%E3%81%99%E3%81%B9%E3%81%8D%E3%81%A8%E3%81%84%E3%81%86%E3%81%93%E3%81%A8">これらの原則から結論づけられるのはデータプロバイダーはより使いやすく，より消費しやすく，論理的な方法でデータを公開すべきということ</h3>
+<ul>
+<li>生データにつきものの繰り返し作業は避けるべき</li>
+<li>論理ビジネスモデルの抽象版としてデータは表現されるべき</li>
+</ul>
+<hr>
+<h1 id="%E3%81%BE%E3%81%9A%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B%E3%81%B9%E3%81%8D%E3%81%A8%E3%81%93%E3%82%8D">まずまとめるべきところ</h1>
+<ul>
+<li>アプリケーションのリスト</li>
+<li>権威あるデータソース</li>
+<li>データベースとインタフェースのスキーマ</li>
+<li>データの所有権</li>
+<li>セキュリティ</li>
+</ul>
+<hr>
+<hr>
+<h1 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A6%E3%82%A7%E3%82%A2%E3%83%8F%E3%82%A6%E3%82%B9%E3%82%84%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AC%E3%82%A4%E3%82%AF%E3%81%A8%E3%81%AE%E9%81%95%E3%81%84">データウェアハウスやデータレイクとの違い</h1>
+<ul>
+<li>
+<p>分散型で,ドメインベースあること</p>
+<ul>
+<li>ドメインとは，ビジネスの問題領域のこと
+<ul>
+<li>例えば, 顧客情報, 製品, 販売, 物流,財務など</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>分散型なので他のドメインとは疎結合が望ましい</p>
+</li>
+<li>
+<p>緩やかな統合なので小さく始められる</p>
+<ul>
+<li>というか小さく始めるべき!!</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>
