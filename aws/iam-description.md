@@ -275,6 +275,53 @@ AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 
 ---
 
+# ここで疑問
+
+-   AssumeRole を行うにも認証情報が必要そう
+-   そうなると，AssumeRole する元の認証情報は永続的な IAM User じゃないといけないのでは？
+-   そうなると，結局どこかに永続的な認証情報は持っていないといけないのでは？
+
+### この点は IAM Role に指定する信頼関係(何であれば Assume Role することができるか)で解決する
+
+---
+
+# IAM Role の信頼関係
+
+-   IAM Role には信頼関係の記述がマスト
+-   信頼関係とは，誰であればこの Role に対して Assume Role して良いのか，悪いのかが記載されている
+-   以下の例は AWS Lambda が以下の信頼関係を記述している IAM Role に対して Assume Role することができることを意味している
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "lambda.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+```
+
+-   Principal が「誰か？」に当たるもの
+
+---
+
+# Principal の種類
+
+-   AWS アカウント およびルートユーザー
+-   IAM ロール
+-   ロールセッション
+-   IAM ユーザー
+-   フェデレーティッドユーザーセッション
+-   AWS のサービス
+-   すべてのプリンシパル
+
+---
+
 # 補足:IAM User の認証情報一覧
 
 ### 実は IAM User はアクセスキー以外の認証情報も紐づけることができる
@@ -312,5 +359,6 @@ AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
     -   部署移動してもあなたはあなた
     -   どこからアクセスしても，怪しくても，認証突破後はあなたはあなた
 
+**A:性質が異なるものを，分けることで，管理性とセキュリティを向上**
 **A:性質が異なるものを，分けることで，管理性とセキュリティを向上**
 **A:性質が異なるものを，分けることで，管理性とセキュリティを向上**
