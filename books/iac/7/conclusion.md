@@ -1,0 +1,4 @@
+Conclusion Reusing stack projects requires you to be able to configure different instances of a given stack. Configuration should be minimized. If you find that you need different instances of a stack to be radically different from one another, you should define them as different stacks.
+A stack project should define the shape of a stack that is consistent across instances. It’s perfectly fine to have two different stack projects that define something superficially similar — application servers, for example — but with different shapes.
+結論 スタックプロジェクトを再利用するためには、特定のスタックの異なるインスタンスを設定できる能力が必要です。設定は最小限にする必要があります。もし、異なるスタックのインスタンスが互いに大きく異なる必要があると感じた場合は、それらを異なるスタックとして定義するべきです。
+スタックプロジェクトは、インスタンス間で一貫性のあるスタックの形状を定義する必要があります。たとえばアプリケーションサーバーなど、外見上は似ているが異なる形状を持つ2つの異なるスタックプロジェクトを持つことは完全に問題ありません。
