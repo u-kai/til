@@ -17,17 +17,19 @@ func TestAllStrike(t *testing.T) {
 	}
 }
 func TestFirstAndSecondAndThirdBollStrikeAndNextBallAreNot(t *testing.T) {
-	sut := pkg.NewBoring()
-	sut.Throw(10) //30
-	sut.Throw(10) //22
-	sut.Throw(10) //12
-	sut.Throw(1)  //2
-	sut.Throw(1)
-	result := sut.Score()
+	t.Run("FirstAndSecondAndThirdBollStrikeAndNextBallAreNot", func(t *testing.T) {
+		sut := pkg.NewBoring()
+		sut.Throw(10) //30
+		sut.Throw(10) //22
+		sut.Throw(10) //12
+		sut.Throw(1)  //2
+		sut.Throw(1)
+		result := sut.Score()
 
-	if result != 66 {
-		t.Errorf("Expected 66, got %d", result)
-	}
+		if result != 66 {
+			t.Errorf("Expected 66, got %d", result)
+		}
+	})
 }
 func TestFirstAndSecondBollStrikeAndNextBallsAreNot(t *testing.T) {
 	sut := pkg.NewBoring()
