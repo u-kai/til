@@ -1,18 +1,12 @@
 #!/usr/bin/python3
 
-import os
-import sys
+import os, sys
 
 ret = os.fork()
-
-if ret == 0 :
-    print("親プロセス")
-    print("子プロセス:pid={},親プロセス:pid = {}".format(os.getpid(),os.getppid()))
+if ret == 0:
+    print("子プロセス:pid={},親プロセスのpid={}".format(os.getpid(), os.getppid()))
     exit()
-
-if ret > 0 :
-    print("子プロセス")
-    print("子プロセス:pid={},親プロセス:pid = {}".format(ret,os.getpid()))
+elif ret > 0:
+    print("親プロセス:pid={},子プロセスのpid={}".format(os.getpid(), ret))
     exit()
-
 sys.exit(1)

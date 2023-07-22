@@ -4,15 +4,13 @@ where
 {
     match list {
         l if l.len() == 0 => vec![],
-        l => {
-            let mut first = l[0].clone();
-            first.insert(0, x.clone());
-            let rest = l[1..].to_vec();
-            vec![first]
-                .into_iter()
-                .chain(add_to_each(x, rest))
-                .collect()
-        }
+        l => l
+            .into_iter()
+            .map(|mut l| {
+                l.insert(0, x.clone());
+                l
+            })
+            .collect(),
     }
 }
 
