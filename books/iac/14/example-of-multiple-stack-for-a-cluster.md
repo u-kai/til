@@ -1,0 +1,22 @@
+Example of Multiple Stacks for a Cluster Breaking the infrastructure code for a cluster into multiple stacks can improve the reliability and speed of your process for making changes. Aim to design each stack so that you can provision and test it in isolation, rather than needing to provision instances of other stacks. Start by pulling the host node server pool into a separate stack, as in Example 14-3. You can provision and test an instance of this stack without the application cluster. Test that the platform successfully boots servers from your images and that network routes work correctly. You can also test reliability, triggering a problem with one of the servers and proving whether the platform automatically replaces it. Example 14-3. Stack code that defines the server pool of host nodes server_cluster:
+name: "cluster_nodes"
+min_size: 1
+max_size: 3
+vlans: $address_block.host_node_network.vlans
+each_server_node:
+source_image: cluster_node_image
+memory: 8GB
+
+address_block:
+name: host_node_network
+address_range: 10.2.0.0/16"
+vlans: - vlan_a:
+address_range: 10.2.0.0/8 - vlan_b:
+address_range: 10.2.1.0/8 - vlan_c:
+address_range: 10.2.2.0/8 This code adds separate VLANs for the host nodes, unlike the earlier code for the monolithic stack (see Example 14-1). It’s good practice to split the host nodes and the cluster management into different network segments, which you could do within the monolithic stack. Breaking the stacks apart leads us to do this, if only to reduce coupling between the two stacks. Breaking the stacks apart adds a new pipeline for the host node cluster stack, as shown in Figure 14-7.
+Although there are a few more stages in this combined pipeline, they are lighter and faster. The online test stage for the cluster management stack (highlighted in Figure 14-8) only provisions the cluster management infrastructure, which is faster than the online stage in the monolithic stack pipeline. This stack no longer depends on the pipeline for host node server images, and doesn’t include the server nodes. So the tests in this stage can focus on checking that cluster management is configured and secured correctly.
+This revised design joins the pipeline for the host node server stack together with the pipeline for the cluster management stack in a stack integration stage, as shown in Figure 14-9.
+This is an online test stage that provisions and tests instances of both stacks together. These tests can focus on issues that only emerge with this combination, so shouldn’t duplicate testing activities from previous stages. This is the stage where you would deploy a sample application and prove that it runs correctly on the cluster. You could also test reliability and scaling by triggering failures in your test application and creating the conditions needed to add additional instances. You might decide to split this into more stacks; for example, breaking the common networking infrastructure out of the management stack. Chapters 15 and 17 go into more details of decomposing and integrating infrastructure across stacks.
+クラスタのインフラストラクチャコードを複数のスタックに分割することで、変更の信頼性と速度を向上させることができます。各スタックを独立してプロビジョニングおよびテストできるように設計しましょう。他のスタックのインスタンスをプロビジョニングする必要がない場合でも、ホストノードサーバープールを別のスタックに分離して開始します（例14-3参照）。アプリケーションクラスターなしでこのスタックのインスタンスをプロビジョニングおよびテストすることができます。プラットフォームがイメージから正常にサーバーを起動し、ネットワークルートが正しく機能するかどうかをテストします。また、信頼性もテストし、サーバーの1つに問題が発生した場合にプラットフォームが自動的に置き換えるかどうかを確認します（例14-3）。このコードは、モノリシックスタックの以前のコードとは異なり、ホストノード用の別々のVLANを追加しています。ホストノードとクラスター管理を異なるネットワークセグメントに分割するのは良い習慣であり、モノリシックスタック内で行うこともできます。ただし、スタックを分割することは、2つのスタック間の結合を減らすために行うことができます。スタックを分割することで、ホストノードクラスタースタック用の新しいパイプラインが追加されます（図14-7参照）。この組み合わせのパイプラインにはいくつかの追加の段階がありますが、これらは軽量で高速です。クラスター管理スタックのオンラインテストステージ（図14-8で強調表示）は、クラスター管理インフラストラクチャのプロビジョニングのみを行い、モノリシックスタックパイプラインのオンラインステージよりも高速です。このスタックはもはやホストノードサーバーイメージのパイプラインに依存しておらず、サーバーノードも含まれていません。したがって、このステージのテストはクラスター管理が正しく構成およびセキュリティ設定されているかどうかを確認することに焦点を当てることができます。
+この改訂された設計では、ホストノードサーバースタックのパイプラインをクラスター管理スタックのパイプラインとスタック統合ステージで結合します（図14-9参照）。
+これは、両方のスタックのインスタンスを同時にプロビジョニングおよびテストするオンラインテストステージです。これらのテストは、この組み合わせでのみ発生する問題に焦点を当てるため、以前のステージでのテスト活動を重複させることはありません。このステージでは、サンプルアプリケーションを展開し、クラスター上で正常に実行されることを確認することができます。信頼性とスケーリングもテストすることができ、テストアプリケーションで障害を発生させ、追加のインスタンスを追加するために必要な条件を作成することができます。ネットワーキングインフラストラクチャを管理スタックから切り離すなど、さらにスタックを分割することもできます。詳細は第15章と第17章でインフラストラクチャを分解および統合する方法について説明します。
