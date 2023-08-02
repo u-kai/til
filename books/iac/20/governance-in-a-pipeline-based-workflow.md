@@ -4,7 +4,7 @@ Governance channels The infrastructure codebase, and pipelines used to deliver c
 The infrastructure team and the application team join with a pair of Site Reliability Engineers (SREs) and a QA to implement some automated tests that check the performance of the application server stack against the CFRs. They build these tests into the several stages of the pipeline, progressively testing different components of the stack (as per “Progressive Testing”). Once the group has these tests in place, people don’t need to submit infrastructure changes for review by the technical leadership group, SREs, or anyone else. When an engineer changes the networking configuration, for example, the pipeline automatically checks whether the resulting infrastructure still meets the CFRs before they can apply it to production customer instances. If the engineer makes a mistake that breaks a CFR, they find out within minutes when a pipeline stage goes red and can immediately correct it. In some cases, a change may cause a problem with a customer instance that isn’t caught by the automated tests. The group can conduct a blameless postmortem to review what happened. Perhaps the problem was that none of the CFRs covered the situation, so they need to change or add a CFR to their list. Or their testing may have a gap that missed the issue, in which case they improve the test suite. Normalize Your Emergency Fix Process Many teams have a separate process for emergency changes so that they can deliver fixes quickly. Needing a separate process for faster fixes is a sign that the normal change process could be improved. An emergency change process speeds things up in one of two ways. One is to leave out unnecessary steps. The other is to leave out necessary steps. If you can safely leave a step out in an emergency, when the pressure is on and the stakes are high, you can probably leave it out of your normal process. If skipping a step is unacceptably risky, then find a way to handle it more efficiently and do it every time.14
 
 パイプラインベースのワークフローにおけるガバナンス
-ガバナンスは、金融や医療などの規制産業で働く特に大規模な組織を含め、ほとんどの組織にとって懸念事項です。一部の人々は、ガバナンスという言葉を、有用な仕事の進行に不要な摩擦を引き起こすと捉えています。しかし、ガバナンスは単に、組織のポリシーに従って責任を持って事を行うことを意味します。第1章では、品質 - ガバナンスが品質の一側面であることが、デリバリースピードを実現することができるし、変更を迅速に行う能力は品質を向上させることができることを説明しています（「変更の最適化のためにインフラストラクチャをコード化する」を参照）。コンプライアンスのコード化は、このポジティブなループを作動させるために、自動化およびより協業的な作業方法を活用します。
+ガバナンスは、金融や医療などの規制産業で働く特に大規模な組織を含め、ほとんどの組織にとって懸念事項です。一部の人々は、ガバナンスという言葉を、有用な仕事の進行に不要な摩擦を引き起こすと捉えています。しかし、ガバナンスは単に、組織のポリシーに従って責任を持って事を行うことを意味します。第 1 章では、品質 - ガバナンスが品質の一側面であることが、デリバリースピードを実現することができるし、変更を迅速に行う能力は品質を向上させることができることを説明しています（「変更の最適化のためにインフラストラクチャをコード化する」を参照）。コンプライアンスのコード化は、このポジティブなループを作動させるために、自動化およびより協業的な作業方法を活用します。
 
 役割の再配置
 コードとしてシステムを定義することにより、インフラストラクチャに関与する人々の責任を再配置する機会が生まれます（「関係者」にリストされた人々とその人々が業務に関与する方法も同様です）。これらの機会を生み出す要因のいくつかは以下の通りです。
@@ -23,12 +23,19 @@ The infrastructure team and the application team join with a pair of Site Reliab
 インフラストラクチャコードベースと本番インスタンスへの変更の提供に使用されるパイプラインは、それらのガバナンス要件に基づいて組織化することができます。したがって、セキュリティポリシーの変更は、それ以外の敏感でない領域の変更では必ずしも要求されない手続きとしてレビューおよび承認のステップを経る必要があります。システムの管理方法を変更する多くの方法は、プロセス内の責任を左にシフトさせることによって実現されます。
 
 左シフト
-第8章では、自動化されたテストとコード変更を環境に提供するためのパイプラインを実装するための原則と実践について説明しています。左シフトという用語は、これがワークフローやデリバリーの方法にどのように影響するかを示しています。コードは、ほとんどのプロセスダイアグラムに表示される「左」のフローの終わりで厳密にテストされます。そのため、組織は本番コードを適用する直前の「右」のエンドでの重いプロセスに費やす時間を削減することができます。ガバナンスとテストに関与する人々は、実装中に何が起こっているかに焦点を当て、チームと協力して、ツールを提供し、早期かつ頻繁にテストを行うための手法を可能にします。
+第 8 章では、自動化されたテストとコード変更を環境に提供するためのパイプラインを実装するための原則と実践について説明しています。左シフトという用語は、これがワークフローやデリバリーの方法にどのように影響するかを示しています。コードは、ほとんどのプロセスダイアグラムに表示される「左」のフローの終わりで厳密にテストされます。そのため、組織は本番コードを適用する直前の「右」のエンドでの重いプロセスに費やす時間を削減することができます。ガバナンスとテストに関与する人々は、実装中に何が起こっているかに焦点を当て、チームと協力して、ツールを提供し、早期かつ頻繁にテストを行うための手法を可能にします。
 
 ガバナンスを伴ったインフラストラクチャのコード化の例
-ShopSpinnerは再利用可能なスタック（「パターン：再利用可能なスタック」）を持っており、このスタックを使用して顧客のためのアプリケーションサーバーのインフラストラクチャを作成することができます。このスタックのコードが変更されると、全ての顧客に影響を及ぼす可能性があります。アーキテクチャの意思決定に責任を持つ技術リーダーグループは、アプリケーションサーバーのインフラストラクチャがサポートする必要があるCFR（「インフラストラクチャには何をテストすべきか？」で説明）を定義します。これらのCFRには、ユーザーが顧客インスタンスに対して配置できる注文の数と頻度、インターフェースの応答時間、サーバーの障害時の復旧時間などが含まれます。
+ShopSpinner は再利用可能なスタック（「パターン：再利用可能なスタック」）を持っており、このスタックを使用して顧客のためのアプリケーションサーバーのインフラストラクチャを作成することができます。このスタックのコードが変更されると、全ての顧客に影響を及ぼす可能性があります。アーキテクチャの意思決定に責任を持つ技術リーダーグループは、アプリケーションサーバーのインフラストラクチャがサポートする必要がある CFR（「インフラストラクチャには何をテストすべきか？」で説明）を定義します。これらの CFR には、ユーザーが顧客インスタンスに対して配置できる注文の数と頻度、インターフェースの応答時間、サーバーの障害時の復旧時間などが含まれます。
 
-インフラストラクチャチームとアプリケーションチームは、サイト信頼性エンジニア（SRE）のペアとQAと協力して、アプリケーションサーバースタックのパフォーマンスをCFRに対してテストするいくつかの自動化テストを実装します。彼らはこれらのテストをパイプラインの複数のステージに組み込み、スタックの異なるコンポーネントを逐次テストします（「プログレッシブテスト」に従って）。このグループがこれらのテストを導入すると、インフラストラクチャの変更を技術リーダーグループやSREなどにレビューしてもらう必要がありません。例えば、エンジニアがネットワーキングの構成を変更する場合、パイプラインは自動的に生成されたインフラストラクチャがCFRを引き続き満たしているかどうかをチェックします。もしエンジニアがCFRを破るようなミスを comits した場合、パイプラインのステージが赤になると数分以内に知ることができ、すぐに修正できます。いくつかの場合、変更によって自動化テストでは検知できない顧客インスタンスの問題が発生するかもしれません。その場合、グループは問題を見直し、何が起こったかをレビューするための責任を追うことができます。おそらく、問題がCFRにカバーされていなかったためである場合、CFRを変更または追加する必要があります。または、問題を見逃していたテストにギャップがあるかもしれません。その場合は、テストスイートを改善します。
+インフラストラクチャチームとアプリケーションチームは、サイト信頼性エンジニア（SRE）のペアと QA と協力して、アプリケーションサーバースタックのパフォーマンスを CFR に対してテストするいくつかの自動化テストを実装します。彼らはこれらのテストをパイプラインの複数のステージに組み込み、スタックの異なるコンポーネントを逐次テストします（「プログレッシブテスト」に従って）。このグループがこれらのテストを導入すると、インフラストラクチャの変更を技術リーダーグループや SRE などにレビューしてもらう必要がありません。例えば、エンジニアがネットワーキングの構成を変更する場合、パイプラインは自動的に生成されたインフラストラクチャが CFR を引き続き満たしているかどうかをチェックします。もしエンジニアが CFR を破るようなミスを comits した場合、パイプラインのステージが赤になると数分以内に知ることができ、すぐに修正できます。いくつかの場合、変更によって自動化テストでは検知できない顧客インスタンスの問題が発生するかもしれません。その場合、グループは問題を見直し、何が起こったかをレビューするための責任を追うことができます。おそらく、問題が CFR にカバーされていなかったためである場合、CFR を変更または追加する必要があります。または、問題を見逃していたテストにギャップがあるかもしれません。その場合は、テストスイートを改善します。
 
 緊急修正プロセスを正常化する
-多くのチームは、修正を迅速に提供するために別個のプロセスを持っています。緊急修正を迅速に行うためには、通常の変更プロセスを改善する必要があるサインです。緊急修正プロセスは、2つの方法で速度を上げることができます。1つは不要なステップを省くこと、もう1つは必要なステップを省くことです。緊急時に安全にステップを省略できる場合は、通常のプロセスからそれを省略することができます。ステップを省略することが受け入れられないほどリスクが高い場合は、より効率的に取り扱い、毎回行う方法を見つける必要があります。
+多くのチームは、修正を迅速に提供するために別個のプロセスを持っています。緊急修正を迅速に行うためには、通常の変更プロセスを改善する必要があるサインです。緊急修正プロセスは、2 つの方法で速度を上げることができます。1 つは不要なステップを省くこと、もう 1 つは必要なステップを省くことです。緊急時に安全にステップを省略できる場合は、通常のプロセスからそれを省略することができます。ステップを省略することが受け入れられないほどリスクが高い場合は、より効率的に取り扱い、毎回行う方法を見つける必要があります。
+
+- コードはチェックリストより早い！はナイス
+- CFR?
+  - 機能要件？
+- 構成チェックを Pipeline の責務にしているのか
+  - SCP とか自動チェックシステム以外の選択肢
+  - Pipeline ソリューションを標準化しなくてもテストだけこの概念を抽出して展開できればいい
