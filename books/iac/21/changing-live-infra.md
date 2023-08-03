@@ -4,36 +4,43 @@ Infrastructure Surgery Some stack management tools, like Terraform, give you acc
 The ShopSpinner team can use its fictional stack tool to edit its stack data structures. Members of the team will use this to change their production environment to use the three new VLANs. They first create a second instance of their shared-networking-stack with the new version of their code (see Figure 21-11).
 Each of these three stacks’ instances — the application-infrastructure-stack instance, and the old and new instances of the shared-networking-stack — has a data structure that indicates which resources in the infrastructure platform belong to that stack (see Figure 21-12).
 The ShopSpinner team will move main_vlan from the old stack instance’s data structures into the data structure for the new stack instance. The team will then use it to replace appserver_vlan_A. The VLAN in the infrastructure platform won’t change in any way, and the server instances will be completely untouched. These changes are entirely a bookkeeping exercise in the stack tool’s data structures. The team runs the stack tool command to move main_vlan from the old stack into the new stack instance: $ stack datafile move-resource \
-    source-instance=shared-networking-stack-production-old \
-    source-resource=main_vlan \
-    destination-instance=shared-networking-stack-production-new
+ source-instance=shared-networking-stack-production-old \
+ source-resource=main_vlan \
+ destination-instance=shared-networking-stack-production-new
 Success: Resource moved The next step is to remove appserver_vlan_A. How to do this varies depending on the actual stack management tool. The fictional stack command happens to make this operation incredibly simple. Running the following command destroys the VLAN in the infrastructure platform and removes it from the data structure file: $ stack datafile destroy-resource \
-    instance=shared-networking-stack-production-new \
-    resource=appserver_vlan_A
+ instance=shared-networking-stack-production-new \
+ resource=appserver_vlan_A
 Success: Resource destroyed and removed from the datafile Note that the team members have not removed appserver_vlan_A from the stack source code, so if they apply the code to the instance now, it will re-create it. But they won’t do that. Instead, they’ll run a command to rename the main_vlan resource that they moved from the old stack instance:
 $ stack datafile rename-resource \
-    instance=shared-networking-stack-production-new \
-    from=main_vlan \
-    to=appserver_vlan_A
+ instance=shared-networking-stack-production-new \
+ from=main_vlan \
+ to=appserver_vlan_A
 Success: Resource renamed in the datafile When the team applies the shared-networking-stack code to the new instance, it shouldn’t change anything. As far as it’s concerned, everything in the code exists in the instance. Note that the ability to edit and move resources between stacks depends entirely on the stack management tool. Most of the tools provided by cloud vendors, at least as of this writing, don’t expose the ability to edit stack data structures.7 It’s easy to make a mistake when editing stack data structures by hand, so the risk of causing an outage is high. You could write a script to implement the commands and test it in upstream environments. But these edits are not idempotent. They assume a particular starting state and running the script can be unpredictable if something differs. Viewing stack data structures can be useful for debugging, but you should avoid editing them. Arguably, it could be necessary to edit structures to resolve an outage. But the pressure of these situations often makes mistakes even likelier. You should not edit stack data routinely. Any time you resort to editing the structures, your team should follow up with a blameless postmortem to understand how to avoid repeating it. A safer way to make changes to live infrastructure is to expand and contract.
 
-ライブインフラストラクチャの変更　これらの技術と例は、インフラストラクチャのコードを変更する方法を説明しています。インフラストラクチャの実行中のインスタンスの変更は、他のインフラによって消費されているリソースを変更する場合など、よりトリッキーになることがあります。 例えば、「後方互換性のある変換」として説明されているように、ShopSpinnerチームがシングルVLANを3つのVLANに置き換える共有ネットワーキングスタックのコードに変更を適用した場合、「Figure 21-10」に示されているように、他のスタックに割り当てられているリソースはどうなるのでしょうか？
+ライブインフラストラクチャの変更　これらの技術と例は、インフラストラクチャのコードを変更する方法を説明しています。インフラストラクチャの実行中のインスタンスの変更は、他のインフラによって消費されているリソースを変更する場合など、よりトリッキーになることがあります。 例えば、「後方互換性のある変換」として説明されているように、ShopSpinner チームがシングル VLAN を 3 つの VLAN に置き換える共有ネットワーキングスタックのコードに変更を適用した場合、「Figure 21-10」に示されているように、他のスタックに割り当てられているリソースはどうなるのでしょうか？
 
-ネットワーキングコードを適用すると、3つのサーバインスタンスが含まれる「main_vlan」が破棄されます。ライブ環境では、これらのサーバを破棄するか、ネットワークから切り離すと、提供されるサービスが中断されます。ほとんどのインフラストラクチャプラットフォームでは、サーバインスタンスがアタッチされたネットワーキング構造を破棄することは拒否されるため、操作は失敗します。適用するコードの変更により、他のリソースが削除または変更される場合、操作はその変更をインスタンスに実装し、環境を古いバージョンと新しいバージョンのスタックコードの中間状態にする可能性があります。これはほとんど常に悪いことです。このようなライブインフラストラクチャの変更を扱ういくつかの方法があります。1つは、古いVLANである「main_vlan」を残し、2つの新しいVLAN「appserver_vlan_B」と「appserver_vlan_C」を追加する方法です。これにより、意図どおりに3つのVLANが残りますが、他の側面（IPアドレス範囲など）を変更することはできなくなります。同様に、元のVLANを新しいVLANよりも小さく保つことでも妥協するかもしれません。これらの妥協は悪い習慣であり、一貫性のないシステムやメンテナンスやデバッグの混乱を引き起こす可能性があります。他のテクニックを使用してライブシステムを変更し、クリーンで一貫性のある状態にすることもできます。1つは、インフラストラクチャ手術を行う方法です。Terraformなどの一部のスタック管理ツールでは、インフラストラクチャリソースをコードにマッピングするデータ構造にアクセスできます。これらは、依存関係の発見のためのスタックデータルックアップパターンで使用されるデータ構造です。いくつか（すべてではありませんが）、スタックツールにはデータ構造を編集するオプションがあります。この機能を利用して、ライブインフラストラクチャを変更できます。
-ShopSpinnerチームは、架空のスタックツールを使用してスタックのデータ構造を編集できます。チームのメンバーは、本番環境で新しい3つのVLANを使用するように彼らの環境を変更するために、これを利用します（図21-11参照）。
-これらの3つのスタックインスタンス、アプリケーションインフラストラクチャスタックインスタンス、および旧バージョンと新バージョンの共有ネットワーキングスタックの個々のインスタンスには、どのリソースがインフラストラクチャプラットフォームに属しているかを示すデータ構造があります（図21-12参照）。
-ShopSpinnerチームは、旧スタックインスタンスのデータ構造から「main_vlan」を新スタックインスタンスのデータ構造に移動します。チームはそれを使用して「appserver_vlan_A」を置き換えます。インフラストラクチャプラットフォーム上のVLANは何も変更されず、サーバインスタンスは完全に変更されません。これらの変更は、スタックツールのデータ構造でのブックキーピングの演習です。チームは、スタックツールのコマンドを実行して、旧スタックから「main_vlan」を新スタックインスタンスに移動させます。
-次のステップは、appserver_vlan_Aを削除することです。これを行う方法は、実際のスタック管理ツールによって異なります。架空のスタックコマンドの場合、この操作は非常に簡単です。以下のコマンドを実行すると、VLANがインフラストラクチャプラットフォームで破棄され、データ構造ファイルから削除されます。
+ネットワーキングコードを適用すると、3 つのサーバインスタンスが含まれる「main_vlan」が破棄されます。ライブ環境では、これらのサーバを破棄するか、ネットワークから切り離すと、提供されるサービスが中断されます。ほとんどのインフラストラクチャプラットフォームでは、サーバインスタンスがアタッチされたネットワーキング構造を破棄することは拒否されるため、操作は失敗します。適用するコードの変更により、他のリソースが削除または変更される場合、操作はその変更をインスタンスに実装し、環境を古いバージョンと新しいバージョンのスタックコードの中間状態にする可能性があります。これはほとんど常に悪いことです。このようなライブインフラストラクチャの変更を扱ういくつかの方法があります。1 つは、古い VLAN である「main_vlan」を残し、2 つの新しい VLAN「appserver_vlan_B」と「appserver_vlan_C」を追加する方法です。これにより、意図どおりに 3 つの VLAN が残りますが、他の側面（IP アドレス範囲など）を変更することはできなくなります。同様に、元の VLAN を新しい VLAN よりも小さく保つことでも妥協するかもしれません。これらの妥協は悪い習慣であり、一貫性のないシステムやメンテナンスやデバッグの混乱を引き起こす可能性があります。他のテクニックを使用してライブシステムを変更し、クリーンで一貫性のある状態にすることもできます。1 つは、インフラストラクチャ手術を行う方法です。Terraform などの一部のスタック管理ツールでは、インフラストラクチャリソースをコードにマッピングするデータ構造にアクセスできます。これらは、依存関係の発見のためのスタックデータルックアップパターンで使用されるデータ構造です。いくつか（すべてではありませんが）、スタックツールにはデータ構造を編集するオプションがあります。この機能を利用して、ライブインフラストラクチャを変更できます。
+ShopSpinner チームは、架空のスタックツールを使用してスタックのデータ構造を編集できます。チームのメンバーは、本番環境で新しい 3 つの VLAN を使用するように彼らの環境を変更するために、これを利用します（図 21-11 参照）。
+これらの 3 つのスタックインスタンス、アプリケーションインフラストラクチャスタックインスタンス、および旧バージョンと新バージョンの共有ネットワーキングスタックの個々のインスタンスには、どのリソースがインフラストラクチャプラットフォームに属しているかを示すデータ構造があります（図 21-12 参照）。
+ShopSpinner チームは、旧スタックインスタンスのデータ構造から「main_vlan」を新スタックインスタンスのデータ構造に移動します。チームはそれを使用して「appserver_vlan_A」を置き換えます。インフラストラクチャプラットフォーム上の VLAN は何も変更されず、サーバインスタンスは完全に変更されません。これらの変更は、スタックツールのデータ構造でのブックキーピングの演習です。チームは、スタックツールのコマンドを実行して、旧スタックから「main_vlan」を新スタックインスタンスに移動させます。
+次のステップは、appserver_vlan_A を削除することです。これを行う方法は、実際のスタック管理ツールによって異なります。架空のスタックコマンドの場合、この操作は非常に簡単です。以下のコマンドを実行すると、VLAN がインフラストラクチャプラットフォームで破棄され、データ構造ファイルから削除されます。
 $ stack datafile destroy-resource \
-    instance=shared-networking-stack-production-new \
-    resource=appserver_vlan_A
+ instance=shared-networking-stack-production-new \
+ resource=appserver_vlan_A
 成功：リソースが破棄され、データファイルから削除されました
 
-チームメンバーは、appserver_vlan_Aをスタックのソースコードから削除していないため、コードをインスタンスに適用すると再作成されます。しかし、彼らはそれをしないでしょう。代わりに、古いスタックインスタンスから移動した「main_vlan」リソースの名前を変更するコマンドを実行します。
+チームメンバーは、appserver_vlan_A をスタックのソースコードから削除していないため、コードをインスタンスに適用すると再作成されます。しかし、彼らはそれをしないでしょう。代わりに、古いスタックインスタンスから移動した「main_vlan」リソースの名前を変更するコマンドを実行します。
 $ stack datafile rename-resource \
-    instance=shared-networking-stack-production-new \
-    from=main_vlan \
-    to=appserver_vlan_A
+ instance=shared-networking-stack-production-new \
+ from=main_vlan \
+ to=appserver_vlan_A
 成功：データファイルでのリソース名の変更
 
 チームが共有ネットワーキングスタックのコードを新しいインスタンスに適用すると、何も変化しないはずです。コードでは、すべてがインスタンスに存在していると考えられます。リソースを編集したり、スタック間で移動させたりする機能は、スタック管理ツールに完全に依存します。少なくともこの時点では、クラウドベンダーが提供するほとんどのツールはスタックデータ構造を編集する機能を公開していません。手でスタックのデータ構造を編集すると、ミスを起こしやすいので、障害を引き起こすリスクが高くなります。コマンドを実装してテストするスクリプトを作成することができますが、これらの編集はアイデンポテントではありません。スクリプトの実行は、何かが異なる場合に予測できない結果になる可能性があります。スタックのデータ構造を表示することはデバッグに役立つ場合がありますが、それを編集することは避けるべきです。おそらく、障害を解決するために構造を編集する必要があるかもしれません。しかし、これらの状況のプレッシャーは、ミスをより起こしやすくします。スタックのデータを定期的に編集するべきではありません。構造を編集する必要がある場合、チームはそれを繰り返さない方法を理解するために無罪の殺人捜査を行うべきです。ライブインフラストラクチャへの変更を安全に行う方法は、インフラストラクチャリソースを拡張して縮小する方法です。
+
+- 考えまとめ
+- 環境を古いバージョンと新しいバージョンのスタックコードの中間状態にする可能性があります。これはほとんど常に悪いことです
+- よくわからんかったが，スタックのデータ構造とは？
+- コードの中と実際の構成が異なることを避けるために，実際のインフラの構成は変えずに，スタックのデータ構造を変えたいみたいな話か
+- 確かにこれはいい考えかも
+- こういうマイグレーションの細かい技術もしっかり覚えておくといいんだろうな
