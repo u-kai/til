@@ -27,12 +27,20 @@ pub fn main_js() -> Result<(), JsValue> {
         .get_context("2d")?
         .unwrap()
         .dyn_into::<web_sys::CanvasRenderingContext2d>()?;
+    draw_triangle(&context, [(300.0, 0.0), (0.0, 600.0), (600.0, 600.0)]);
+    draw_triangle(&context, [(300.0, 0.0), (150.0, 300.0), (450.0, 300.0)]);
+    draw_triangle(&context, [(150.0, 300.0), (0.0, 600.0), (300.0, 600.0)]);
+    draw_triangle(&context, [(450.0, 300.0), (300.0, 600.0), (600.0, 600.0)]);
+    Ok(())
+}
+
+fn draw_triangle(context: &web_sys::CanvasRenderingContext2d, points: [(f64, f64); 3]) {
+    let [top, left, right] = points;
+    context.move_to(top.0, top.1);
     context.begin_path();
-    context.line_to(0.0, 600.0);
-    context.line_to(600.0, 600.0);
-    context.line_to(300.0, 0.0);
+    context.line_to(left.0, left.1);
+    context.line_to(right.0, right.1);
+    context.line_to(top.0, top.1);
     context.close_path();
     context.stroke();
-    context.fill();
-    Ok(())
 }
