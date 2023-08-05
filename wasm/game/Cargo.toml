@@ -6,7 +6,7 @@ version = "0.1.0"
 authors = ["You <you@example.com>"]
 categories = ["wasm"]
 readme = "README.md"
-edition = "2018"
+edition = "2021"
 
 [lib]
 crate-type = ["cdylib"]
@@ -40,8 +40,7 @@ features = ["console"]
 # logging them with `console.error`. This is great for development, but requires
 # all the `std::fmt` and `std::panicking` infrastructure, so it's only enabled
 # in debug mode.
-[target."cfg(debug_assertions)".dependencies]
-console_error_panic_hook = "0.1.5"
+console_error_panic_hook = "0.1.7"
 
 # These crates are used for running unit tests.
 [dev-dependencies]
