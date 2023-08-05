@@ -1,3 +1,5 @@
+use rand::thread_rng;
+use rand::Rng;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
@@ -27,14 +29,67 @@ pub fn main_js() -> Result<(), JsValue> {
         .get_context("2d")?
         .unwrap()
         .dyn_into::<web_sys::CanvasRenderingContext2d>()?;
-    draw_triangle(&context, [(300.0, 0.0), (0.0, 600.0), (600.0, 600.0)]);
-    draw_triangle(&context, [(300.0, 0.0), (150.0, 300.0), (450.0, 300.0)]);
-    draw_triangle(&context, [(150.0, 300.0), (0.0, 600.0), (300.0, 600.0)]);
-    draw_triangle(&context, [(450.0, 300.0), (300.0, 600.0), (600.0, 600.0)]);
+    sierpinski(
+        &context,
+        [(300.0, 0.0), (0.0, 600.0), (600.0, 600.0)],
+        (0, 255, 0),
+        5,
+    );
+
     Ok(())
 }
 
-fn draw_triangle(context: &web_sys::CanvasRenderingContext2d, points: [(f64, f64); 3]) {
+fn sierpinski(
+    context: &web_sys::CanvasRenderingContext2d,
+    points: [(f64, f64); 3],
+    color: (u8, u8, u8),
+    depth: u8,
+) {
+    draw_triangle(&context, points, color);
+    let depth = depth - 1;
+    let [top, left, right] = points;
+    if depth > 0 {
+        let mut rng = thread_rng();
+        let next_color = (
+            rng.gen_range(0..255),
+            rng.gen_range(0..255),
+            rng.gen_range(0..255),
+        );
+        let left_middle = midpoint(top, left);
+        let right_middle = midpoint(top, right);
+        let bottom_middle = (top.0, right.1);
+        sierpinski(
+            &context,
+            [top, left_middle, right_middle],
+            next_color,
+            depth,
+        );
+        sierpinski(
+            &context,
+            [left_middle, left, bottom_middle],
+            next_color,
+            depth,
+        );
+        sierpinski(
+            &context,
+            [right_middle, bottom_middle, right],
+            next_color,
+            depth,
+        );
+    }
+}
+
+fn midpoint(point_1: (f64, f64), point_2: (f64, f64)) -> (f64, f64) {
+    ((point_1.0 + point_2.0) / 2.0, (point_1.1 + point_2.1) / 2.0)
+}
+
+fn draw_triangle(
+    context: &web_sys::CanvasRenderingContext2d,
+    points: [(f64, f64); 3],
+    color: (u8, u8, u8),
+) {
+    let color = format!("rgb({},{},{})", color.0, color.1, color.2);
+    context.set_fill_style(&JsValue::from_str(&color));
     let [top, left, right] = points;
     context.move_to(top.0, top.1);
     context.begin_path();
@@ -43,4 +98,5 @@ fn draw_triangle(context: &web_sys::CanvasRenderingContext2d, points: [(f64, f64
     context.line_to(top.0, top.1);
     context.close_path();
     context.stroke();
+    context.fill();
 }
