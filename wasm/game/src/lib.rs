@@ -18,24 +18,39 @@ pub fn main_js() -> Result<(), JsValue> {
     // It's disabled in release mode so it doesn't bloat up the file size.
     console_error_panic_hook::set_once();
 
-    let window = web_sys::window().unwrap();
-    let document = window.document().unwrap();
-    let canvas = document
-        .get_element_by_id("canvas")
-        .unwrap()
-        .dyn_into::<web_sys::HtmlCanvasElement>()?;
+    wasm_bindgen_futures::spawn_local(async move {
+        let window = web_sys::window().unwrap();
+        let document = window.document().unwrap();
+        let canvas = document
+            .get_element_by_id("canvas")
+            .unwrap()
+            .dyn_into::<web_sys::HtmlCanvasElement>()
+            .unwrap();
 
-    let context = canvas
-        .get_context("2d")?
-        .unwrap()
-        .dyn_into::<web_sys::CanvasRenderingContext2d>()?;
-    sierpinski(
-        &context,
-        [(300.0, 0.0), (0.0, 600.0), (600.0, 600.0)],
-        (0, 255, 0),
-        7,
-    );
-
+        let context = canvas
+            .get_context("2d")
+            .unwrap()
+            .unwrap()
+            .dyn_into::<web_sys::CanvasRenderingContext2d>()
+            .unwrap();
+        sierpinski(
+            &context,
+            [(300.0, 0.0), (0.0, 600.0), (600.0, 600.0)],
+            (0, 255, 0),
+            7,
+        );
+        let (tx, rx) = futures::channel::oneshot::channel::<()>();
+        let image = web_sys::HtmlImageElement::new().unwrap();
+        let callback = Closure::once(|| {
+            web_sys::console::log_1(&JsValue::from_str("Image loaded"));
+            tx.send(()).unwrap();
+        });
+        image.set_onload(Some(callback.as_ref().unchecked_ref()));
+        callback.forget();
+        image.set_src("images/Idle (1).png");
+        rx.await.unwrap();
+        context.draw_image_with_html_image_element(&image, 0.0, 0.0);
+    });
     Ok(())
 }
 
