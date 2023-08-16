@@ -1,11 +1,53 @@
+use std::cell::RefCell;
 use std::{rc::Rc, sync::Mutex};
 
 use anyhow::{anyhow, Result};
 use futures::channel::oneshot::channel;
 use wasm_bindgen::JsCast;
-use web_sys::HtmlImageElement;
+use wasm_bindgen::{closure::WasmClosure, prelude::Closure};
+use web_sys::{CanvasRenderingContext2d, HtmlImageElement};
 
-use crate::browser;
+use crate::browser::{self, context, window};
+
+pub trait Game {
+    fn update(&mut self);
+    fn draw(&self, context: &CanvasRenderingContext2d);
+}
+pub struct GameLoop;
+type SharedLoopClosure = Rc<RefCell<Option<LoopClosuer>>>;
+impl GameLoop {
+    pub async fn start(mut game: impl Game + 'static) -> Result<()> {
+        let f: SharedLoopClosure = Rc::new(RefCell::new(None));
+        let g = Rc::clone(&f);
+
+        *g.borrow_mut() = Some(create_raf_closure(move |time| {
+            game.update();
+            game.draw(&context().unwrap());
+            request_animation_frame(&g.borrow().as_ref().unwrap()).unwrap();
+        }));
+        request_animation_frame(
+            g.borrow()
+                .as_ref()
+                .ok_or_else(|| anyhow!("GameLoop: Loop is None"))?,
+        )?;
+        Ok(())
+    }
+}
+
+pub type LoopClosuer = Closure<dyn FnMut(f64)>;
+
+pub fn create_raf_closure(f: impl FnMut(f64) + 'static) -> LoopClosuer {
+    closure_wrap(Box::new(f) as Box<dyn FnMut(f64)>)
+}
+pub fn closure_wrap<T: WasmClosure + ?Sized>(data: Box<T>) -> Closure<T> {
+    Closure::wrap(data)
+}
+
+pub fn request_animation_frame(callback: &LoopClosuer) -> Result<i32> {
+    window()?
+        .request_animation_frame(callback.as_ref().unchecked_ref())
+        .map_err(|err| anyhow!("request_animation_frame error: {:#?}", err))
+}
 
 pub async fn load_image(source: &str) -> Result<HtmlImageElement> {
     let image = browser::new_image()?;

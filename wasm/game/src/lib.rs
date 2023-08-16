@@ -36,6 +36,7 @@ pub fn main_js() -> Result<(), JsValue> {
             .await
             .expect("Could not load image");
     });
+    Ok(())
 }
 
 #[derive(serde::Deserialize)]
