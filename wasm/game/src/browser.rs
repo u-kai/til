@@ -11,6 +11,12 @@ macro_rules! log {
         web_sys::console::log_1(&format!($($t)*).into());
     };
 }
+pub fn now() -> Result<f64> {
+    Ok(window()?
+        .performance()
+        .ok_or_else(|| anyhow!("no performance"))?
+        .now())
+}
 pub fn window() -> Result<Window> {
     web_sys::window().ok_or_else(|| anyhow!("no window"))
 }
