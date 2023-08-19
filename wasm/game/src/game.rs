@@ -6,7 +6,7 @@ use web_sys::HtmlImageElement;
 
 use crate::{
     browser::fetch_json,
-    engine::{load_image, Game, Rect, Renderer},
+    engine::{load_image, Game, KeyState, Rect, Renderer},
 };
 use serde::Deserialize;
 
@@ -14,7 +14,15 @@ pub struct WalkTheDog {
     image: Option<HtmlImageElement>,
     sheet: Option<Sheet>,
     frame: u8,
+    position: Point,
 }
+
+#[derive(serde::Deserialize, Debug, Clone, Copy)]
+pub struct Point {
+    pub x: f32,
+    pub y: f32,
+}
+
 #[derive(serde::Deserialize, Debug)]
 struct Sheet {
     frames: HashMap<String, Cell>,
@@ -30,6 +38,7 @@ impl WalkTheDog {
             image: None,
             sheet: None,
             frame: 0,
+            position: Point { x: 0.0, y: 0.0 },
         }
     }
 }
@@ -45,15 +54,26 @@ impl Game for WalkTheDog {
             image: Some(image),
             sheet: Some(sheet),
             frame: self.frame,
+            position: self.position,
         }))
     }
 
-    fn update(&mut self) {
-        if self.frame < 23 {
-            self.frame += 1;
-        } else {
-            self.frame = 0;
+    fn update(&mut self, keystate: &KeyState) {
+        let mut velocity = Point { x: 0.0, y: 0.0 };
+        if keystate.is_pressed("ArrowDown") {
+            velocity.y += 3.0;
         }
+        if keystate.is_pressed("ArrowUp") {
+            velocity.y -= 3.0;
+        }
+        if keystate.is_pressed("ArrowLeft") {
+            velocity.x -= 3.0;
+        }
+        if keystate.is_pressed("ArrowRight") {
+            velocity.x += 3.0;
+        }
+        self.position.x += velocity.x;
+        self.position.y += velocity.y;
     }
     fn draw(&self, renderer: &Renderer) {
         let current_sprite = (self.frame / 3) + 1;
@@ -79,8 +99,8 @@ impl Game for WalkTheDog {
                     height: sprite.frame.h.into(),
                 },
                 &Rect {
-                    x: 300.0,
-                    y: 300.0,
+                    x: self.position.x.into(),
+                    y: self.position.y.into(),
                     width: sprite.frame.w.into(),
                     height: sprite.frame.h.into(),
                 },

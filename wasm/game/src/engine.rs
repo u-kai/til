@@ -1,15 +1,17 @@
 use std::cell::RefCell;
+use std::collections::HashMap;
 use std::{rc::Rc, sync::Mutex};
 
 use anyhow::{anyhow, Result};
 use async_trait::async_trait;
+use futures::channel::mpsc::UnboundedReceiver;
 use futures::channel::oneshot::channel;
 use serde::Deserialize;
 use wasm_bindgen::JsCast;
 use wasm_bindgen::{closure::WasmClosure, prelude::Closure};
 use web_sys::{CanvasRenderingContext2d, HtmlImageElement};
 
-use crate::browser::{self, context, window};
+use crate::browser::{self, canvas, context, window};
 
 #[derive(Debug)]
 pub struct Renderer {
@@ -52,7 +54,7 @@ pub struct Rect {
 #[async_trait(?Send)]
 pub trait Game {
     async fn initialize(&self) -> Result<Box<dyn Game>>;
-    fn update(&mut self);
+    fn update(&mut self, keystate: &KeyState);
     fn draw(&self, renderer: &Renderer);
 }
 pub struct GameLoop {
@@ -64,8 +66,74 @@ pub type LoopClosure = Closure<dyn FnMut(f64)>;
 
 const FRAME_SIZE: f32 = 1.0 / 60.0 * 1000.0;
 
+pub struct KeyState {
+    pressed_keys: HashMap<String, web_sys::KeyboardEvent>,
+}
+impl KeyState {
+    pub fn new() -> Self {
+        Self {
+            pressed_keys: HashMap::new(),
+        }
+    }
+    pub fn is_pressed(&self, key: &str) -> bool {
+        self.pressed_keys.contains_key(key)
+    }
+    pub fn is_released(&self, key: &str) -> bool {
+        !self.is_pressed(key)
+    }
+    pub fn set_pressed(&mut self, key: &str, event: web_sys::KeyboardEvent) {
+        self.pressed_keys.insert(key.to_string(), event);
+    }
+    pub fn set_released(&mut self, key: &str) {
+        self.pressed_keys.remove(key);
+    }
+}
+
+fn process_input(state: &mut KeyState, keyevet_receiver: &mut UnboundedReceiver<KeyPress>) {
+    loop {
+        match keyevet_receiver.try_next() {
+            Ok(Some(KeyPress::KeyDown(keycode))) => {
+                state.set_released(&keycode.code());
+            }
+            Ok(Some(KeyPress::KeyUp(keycode))) => {
+                state.set_pressed(&keycode.code(), keycode);
+            }
+            Ok(None) => break,
+            Err(_) => break,
+        }
+    }
+}
+
+fn prepare_input() -> Result<UnboundedReceiver<KeyPress>> {
+    let (tx, rx) = futures::channel::mpsc::unbounded();
+    let keydown_sender = Rc::new(RefCell::new(tx.clone()));
+    let keyup_sender = Rc::new(RefCell::new(tx.clone()));
+    let onkeydown = closure_wrap(Box::new(move |keycode: web_sys::KeyboardEvent| {
+        keydown_sender
+            .borrow_mut()
+            .start_send(KeyPress::KeyDown(keycode));
+    }) as Box<dyn FnMut(web_sys::KeyboardEvent)>);
+    let onkeyup = closure_wrap(Box::new(move |keycode: web_sys::KeyboardEvent| {
+        keyup_sender
+            .borrow_mut()
+            .start_send(KeyPress::KeyUp(keycode));
+    }) as Box<dyn FnMut(web_sys::KeyboardEvent)>);
+
+    window()?.set_onkeydown(Some(onkeydown.as_ref().unchecked_ref()));
+    window()?.set_onkeyup(Some(onkeyup.as_ref().unchecked_ref()));
+    onkeydown.forget();
+    onkeyup.forget();
+    Ok(rx)
+}
+
+enum KeyPress {
+    KeyDown(web_sys::KeyboardEvent),
+    KeyUp(web_sys::KeyboardEvent),
+}
+
 impl GameLoop {
     pub async fn start(mut game: impl Game + 'static) -> Result<()> {
+        let mut keyevent_receiver = prepare_input()?;
         let mut game = game.initialize().await?;
         let mut game_loop = GameLoop {
             last_frame: browser::now()?,
@@ -76,11 +144,12 @@ impl GameLoop {
         let renderer = Renderer {
             context: context()?,
         };
-
+        let mut keystate = KeyState::new();
         *g.borrow_mut() = Some(create_raf_closure(move |time| {
+            process_input(&mut keystate, &mut keyevent_receiver);
             game_loop.accumulated_delta += (time - game_loop.last_frame) as f32;
             while game_loop.accumulated_delta > FRAME_SIZE {
-                game.update();
+                game.update(&keystate);
                 game_loop.accumulated_delta -= FRAME_SIZE;
             }
             game_loop.last_frame = time;
