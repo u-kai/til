@@ -11,7 +11,8 @@ use wasm_bindgen::JsCast;
 use wasm_bindgen::{closure::WasmClosure, prelude::Closure};
 use web_sys::{CanvasRenderingContext2d, HtmlImageElement};
 
-use crate::browser::{self, canvas, context, window};
+use crate::browser;
+//use crate::browser::{context, window};
 
 #[derive(Debug)]
 pub struct Renderer {
@@ -93,10 +94,10 @@ fn process_input(state: &mut KeyState, keyevet_receiver: &mut UnboundedReceiver<
     loop {
         match keyevet_receiver.try_next() {
             Ok(Some(KeyPress::KeyDown(keycode))) => {
-                state.set_released(&keycode.code());
+                state.set_pressed(&keycode.code(), keycode);
             }
             Ok(Some(KeyPress::KeyUp(keycode))) => {
-                state.set_pressed(&keycode.code(), keycode);
+                state.set_released(&keycode.code());
             }
             Ok(None) => break,
             Err(_) => break,
@@ -119,8 +120,8 @@ fn prepare_input() -> Result<UnboundedReceiver<KeyPress>> {
             .start_send(KeyPress::KeyUp(keycode));
     }) as Box<dyn FnMut(web_sys::KeyboardEvent)>);
 
-    window()?.set_onkeydown(Some(onkeydown.as_ref().unchecked_ref()));
-    window()?.set_onkeyup(Some(onkeyup.as_ref().unchecked_ref()));
+    browser::window()?.set_onkeydown(Some(onkeydown.as_ref().unchecked_ref()));
+    browser::window()?.set_onkeyup(Some(onkeyup.as_ref().unchecked_ref()));
     onkeydown.forget();
     onkeyup.forget();
     Ok(rx)
@@ -142,7 +143,7 @@ impl GameLoop {
         let f: SharedLoopClosure = Rc::new(RefCell::new(None));
         let g = Rc::clone(&f);
         let renderer = Renderer {
-            context: context()?,
+            context: browser::context()?,
         };
         let mut keystate = KeyState::new();
         *g.borrow_mut() = Some(create_raf_closure(move |time| {
@@ -169,7 +170,7 @@ pub fn closure_wrap<T: WasmClosure + ?Sized>(data: Box<T>) -> Closure<T> {
 }
 
 pub fn request_animation_frame(callback: &LoopClosure) -> Result<i32> {
-    window()?
+    browser::window()?
         .request_animation_frame(callback.as_ref().unchecked_ref())
         .map_err(|err| anyhow!("request_animation_frame error: {:#?}", err))
 }
