@@ -25,6 +25,10 @@ impl RedHatBoy {
             image,
         }
     }
+    fn slide(&mut self) {
+        self.state_machine = self.state_machine.transition(Event::Slide);
+    }
+
     fn run_right(&mut self) {
         self.state_machine = self.state_machine.transition(Event::Run)
     }
@@ -71,37 +75,35 @@ struct Running;
 enum RedHatBoyStateMachine {
     Idle(RedHatBoyState<Idle>),
     Running(RedHatBoyState<Running>),
+    Sliding(RedHatBoyState<Sliding>),
 }
 impl RedHatBoyStateMachine {
     fn transition(self, event: Event) -> Self {
         match (self, event) {
             (RedHatBoyStateMachine::Idle(state), Event::Run) => state.run().into(),
+            (RedHatBoyStateMachine::Running(state), Event::Slide) => state.slide().into(),
+            (RedHatBoyStateMachine::Idle(state), Event::Update) => state.update().into(),
+            (RedHatBoyStateMachine::Running(state), Event::Update) => state.update().into(),
+            (RedHatBoyStateMachine::Sliding(state), Event::Update) => state.update().into(),
             _ => self,
         }
     }
     fn update(self) -> Self {
-        match self {
-            RedHatBoyStateMachine::Idle(mut state) => {
-                state.update();
-                RedHatBoyStateMachine::Idle(state)
-            }
-            RedHatBoyStateMachine::Running(mut state) => {
-                state.update();
-                RedHatBoyStateMachine::Running(state)
-            }
-        }
+        self.transition(Event::Update)
     }
 
     fn frame_name(&self) -> &str {
         match self {
             RedHatBoyStateMachine::Idle(state) => state.frame_name(),
             RedHatBoyStateMachine::Running(state) => state.frame_name(),
+            RedHatBoyStateMachine::Sliding(state) => state.frame_name(),
         }
     }
     fn context(&self) -> &RedHatBoyContext {
         match self {
             RedHatBoyStateMachine::Idle(state) => state.context(),
             RedHatBoyStateMachine::Running(state) => state.context(),
+            RedHatBoyStateMachine::Sliding(state) => state.context(),
         }
     }
 }
@@ -110,14 +112,28 @@ impl From<RedHatBoyState<Running>> for RedHatBoyStateMachine {
         RedHatBoyStateMachine::Running(state)
     }
 }
+impl From<RedHatBoyState<Idle>> for RedHatBoyStateMachine {
+    fn from(state: RedHatBoyState<Idle>) -> Self {
+        RedHatBoyStateMachine::Idle(state)
+    }
+}
+impl From<RedHatBoyState<Sliding>> for RedHatBoyStateMachine {
+    fn from(state: RedHatBoyState<Sliding>) -> Self {
+        RedHatBoyStateMachine::Sliding(state)
+    }
+}
+#[derive(Debug, Copy, Clone)]
+struct Sliding;
 pub enum Event {
+    Update,
     Run,
+    Slide,
 }
 
 mod red_hat_boy_states {
     use crate::game::Point;
 
-    use super::{Idle, Running};
+    use super::{Idle, RedHatBoyStateMachine, Running, Sliding};
 
     const FLOOR: i16 = 475;
     const IDLE_FRAMES: u8 = 29;
@@ -125,6 +141,8 @@ mod red_hat_boy_states {
     const IDLE_FRAME_NAME: &str = "Idle";
     const RUN_FRAME_NAME: &str = "Run";
     const RUNNING_SPEED: i16 = 3;
+    const SLIDING_FRAMES: u8 = 14;
+    const SLIDING_FRAMES_NAME: &str = "Slide";
     #[derive(Debug, Clone, Copy)]
     pub struct RedHatBoyState<S> {
         pub context: RedHatBoyContext,
@@ -165,8 +183,46 @@ mod red_hat_boy_states {
         pub fn frame_name(&self) -> &str {
             RUN_FRAME_NAME
         }
-        pub fn update(&mut self) {
+        pub fn slide(self) -> RedHatBoyState<Sliding> {
+            RedHatBoyState {
+                context: self.context.reset_frame(),
+                _state: Sliding {},
+            }
+        }
+        pub fn update(mut self) -> Self {
             self.context = self.context.update(RUNNING_FRAMES);
+            self
+        }
+    }
+    impl From<SlidingEndState> for RedHatBoyStateMachine {
+        fn from(end_state: SlidingEndState) -> Self {
+            match end_state {
+                SlidingEndState::Sliding(sliding_state) => sliding_state.into(),
+                SlidingEndState::Complete(running_state) => running_state.into(),
+            }
+        }
+    }
+    pub enum SlidingEndState {
+        Complete(RedHatBoyState<Running>),
+        Sliding(RedHatBoyState<Sliding>),
+    }
+    impl RedHatBoyState<Sliding> {
+        pub fn stand(self) -> RedHatBoyState<Running> {
+            RedHatBoyState {
+                context: self.context.reset_frame(),
+                _state: Running,
+            }
+        }
+        pub fn frame_name(&self) -> &str {
+            SLIDING_FRAMES_NAME
+        }
+        pub fn update(mut self) -> SlidingEndState {
+            self.context = self.context.update(SLIDING_FRAMES);
+            if self.context.frame >= SLIDING_FRAMES {
+                SlidingEndState::Complete(self.stand())
+            } else {
+                SlidingEndState::Sliding(self)
+            }
         }
     }
     impl RedHatBoyState<Idle> {
@@ -189,8 +245,9 @@ mod red_hat_boy_states {
                 _state: Running,
             }
         }
-        pub fn update(&mut self) {
+        pub fn update(mut self) -> Self {
             self.context = self.context.update(IDLE_FRAMES);
+            self
         }
     }
 }
@@ -239,7 +296,7 @@ impl Game for WalkTheDog {
     fn update(&mut self, key_state: &KeyState) {
         let mut velocity = Point { x: 0, y: 0 };
         if key_state.is_pressed("ArrowDown") {
-            velocity.y += 3;
+            self.rhb.as_mut().unwrap().slide()
         }
         if key_state.is_pressed("ArrowUp") {
             velocity.y -= 3;
