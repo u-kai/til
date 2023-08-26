@@ -12,6 +12,7 @@ use wasm_bindgen::{closure::WasmClosure, prelude::Closure};
 use web_sys::{CanvasRenderingContext2d, HtmlImageElement};
 
 use crate::browser;
+use crate::game::Point;
 //use crate::browser::{context, window};
 
 #[derive(Debug)]
@@ -26,6 +27,11 @@ impl Renderer {
             rect.width.into(),
             rect.height.into(),
         );
+    }
+    pub fn draw_entire_image(&self, image: &HtmlImageElement, position: &Point) {
+        self.context
+            .draw_image_with_html_image_element(image, position.x.into(), position.y.into())
+            .expect("Drawing is throwing exceptions! Unrecoverable error.");
     }
     pub fn draw_image(&self, image: &HtmlImageElement, frame: &Rect, destination: &Rect) {
         self.context
@@ -105,6 +111,18 @@ fn process_input(state: &mut KeyState, keyevet_receiver: &mut UnboundedReceiver<
     }
 }
 
+pub struct Image {
+    element: HtmlImageElement,
+    position: Point,
+}
+impl Image {
+    pub fn new(element: HtmlImageElement, position: Point) -> Self {
+        Self { element, position }
+    }
+    pub fn draw(&self, renderer: &Renderer) {
+        renderer.draw_entire_image(&self.element, &self.position)
+    }
+}
 fn prepare_input() -> Result<UnboundedReceiver<KeyPress>> {
     let (tx, rx) = futures::channel::mpsc::unbounded();
     let keydown_sender = Rc::new(RefCell::new(tx.clone()));

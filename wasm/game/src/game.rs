@@ -6,7 +6,7 @@ use web_sys::HtmlImageElement;
 
 use crate::{
     browser::fetch_json,
-    engine::{load_image, Game, KeyState, Rect, Renderer},
+    engine::{load_image, Game, Image, KeyState, Rect, Renderer},
 };
 use serde::Deserialize;
 
@@ -327,7 +327,12 @@ mod red_hat_boy_states {
 
 pub enum WalkTheDog {
     Loading,
-    Loaded(RedHatBoy),
+    Loaded(Walk),
+}
+
+pub struct Walk {
+    boy: RedHatBoy,
+    background: Image,
 }
 
 #[derive(serde::Deserialize, Debug, Clone, Copy)]
@@ -360,25 +365,29 @@ impl Game for WalkTheDog {
                 let sheet: Sheet =
                     serde_wasm_bindgen::from_value(json).expect("Could not deserialize json");
                 let image = load_image("images/rhb.png").await?;
+                let background = load_image("images/BG.png").await?;
                 let rhb = RedHatBoy::new(sheet, image);
-                Ok(Box::new(WalkTheDog::Loaded(rhb)))
+                Ok(Box::new(WalkTheDog::Loaded(Walk {
+                    boy: rhb,
+                    background: Image::new(background, Point { x: 0, y: 0 }),
+                })))
             }
             Self::Loaded(_) => Err(anyhow!("Error: Game is already initialized!")),
         }
     }
 
     fn update(&mut self, key_state: &KeyState) {
-        if let WalkTheDog::Loaded(rhb) = self {
+        if let WalkTheDog::Loaded(walk) = self {
             if key_state.is_pressed("ArrowRight") {
-                rhb.run_right();
+                walk.boy.run_right()
             }
             if key_state.is_pressed("ArrowDown") {
-                rhb.slide();
+                walk.boy.slide();
             }
             if key_state.is_pressed("Space") {
-                rhb.jump();
+                walk.boy.jump();
             }
-            rhb.update();
+            walk.boy.update();
         }
     }
     fn draw(&self, renderer: &Renderer) {
@@ -388,8 +397,9 @@ impl Game for WalkTheDog {
             width: 600.0,
             height: 600.0,
         });
-        if let WalkTheDog::Loaded(rhb) = self {
-            rhb.draw(renderer)
+        if let WalkTheDog::Loaded(walk) = self {
+            walk.background.draw(renderer);
+            walk.boy.draw(renderer)
         }
     }
 }
