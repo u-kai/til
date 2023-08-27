@@ -333,6 +333,7 @@ pub enum WalkTheDog {
 pub struct Walk {
     boy: RedHatBoy,
     background: Image,
+    stone: Image,
 }
 
 #[derive(serde::Deserialize, Debug, Clone, Copy)]
@@ -366,10 +367,12 @@ impl Game for WalkTheDog {
                     serde_wasm_bindgen::from_value(json).expect("Could not deserialize json");
                 let image = load_image("images/rhb.png").await?;
                 let background = load_image("images/BG.png").await?;
+                let stone = load_image("images/Stone.png").await?;
                 let rhb = RedHatBoy::new(sheet, image);
                 Ok(Box::new(WalkTheDog::Loaded(Walk {
                     boy: rhb,
                     background: Image::new(background, Point { x: 0, y: 0 }),
+                    stone: Image::new(stone, Point { x: 150, y: 546 }),
                 })))
             }
             Self::Loaded(_) => Err(anyhow!("Error: Game is already initialized!")),
@@ -399,6 +402,7 @@ impl Game for WalkTheDog {
         });
         if let WalkTheDog::Loaded(walk) = self {
             walk.background.draw(renderer);
+            walk.stone.draw(renderer);
             walk.boy.draw(renderer)
         }
     }
