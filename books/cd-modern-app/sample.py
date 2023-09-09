@@ -1,9 +1,19 @@
 def main():
-    tik_tak_toe()
-
-
-def tik_tak_toe():
+    inputs = []
+    result_flag = False
     print("Start")
+    while !result_flag:
+        input_x = input("Please enter x")
+        input_y = input("Please enter y")
+        inputs.append([input_x, input_y])
+        (result,player) = tik_tak_toe(inputs)
+        if result :
+            print("Player" + player + "win")
+            result_flag = True
+
+
+
+def tik_tak_toe(inputs):
     flag = True
     player1 = True
     player2 = False
@@ -15,11 +25,10 @@ def tik_tak_toe():
             tmp.append(0)
         filed.append(tmp)
 
-    while flag:
-        print("Enter x:")
-        input_x = input()
-        print("Enter y:")
-        input_y = input()
+    # while flag:
+    for input in inputs:
+        input_x = input[0]
+        input_y = input[1]
 
         if int(input_x) > 2 or int(input_y) > 7:
             print("Invalid input")
@@ -61,9 +70,13 @@ def tik_tak_toe():
                 if filed[i][j] == mark and j == 2:
                     flag = False
                     if mark == 1:
-                        print("Player1 win")
+                        #print("Player1 win")
+                        # 値を返すように変更
+                        return (True,1)
                     else:
-                        print("Player2 win")
+                        #print("Player2 win")
+                        # 値を返すように変更
+                        return (True,2)
                     break
 
         for j in range(3):
@@ -76,9 +89,13 @@ def tik_tak_toe():
                 if filed[i][j] == mark and i == 2:
                     flag = False
                     if mark == 1:
-                        print("Player1 win")
+                        #print("Player1 win")
+                        # 値を返すように変更
+                        return (True,1)
                     else:
-                        print("Player2 win")
+                        #print("Player2 win")
+                        # 値を返すように変更
+                        return (True,2)
                     break
 
         for i in range(3):
@@ -89,11 +106,18 @@ def tik_tak_toe():
                 break
             if filed[i][i] == mark and i == 2:
                 flag = False
-                if mark == 1:
-                    print("Player1 win")
-                else:
-                    print("Player2 win")
-                break
+                    if mark == 1:
+                        #print("Player1 win")
+                        # 値を返すように変更
+                        return (True,1)
+                    else:
+                        #print("Player2 win")
+                        # 値を返すように変更
+                        return (True,2)
+                    break
+
+    # ここまで来たら勝敗が決まっていないのでFalseを返す
+    return (False,0)
 
 
 if __name__ == "__main__":
