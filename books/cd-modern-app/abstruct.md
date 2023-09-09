@@ -471,6 +471,14 @@ class TestTicTakToe(unittest.TestCase):
 ## もちろん is_win_diagonal_of でしょ
 
 - 修正したらテストで確認
+- 通った!!
+
+---
+
+- こんな感じでどんどんやっていく...
+- 入力値の検証
+- ユーザーの切り替え
+- マスの出力
 
 ---
 
