@@ -22,23 +22,34 @@ def make_tic_tak_toe_field():
     return filed
 
 
+def is_win_at_row_of(filed):
+    for i in range(3):
+        mark = filed[i][0]
+        if mark == 0:
+            continue
+        for j in range(3):
+            if filed[i][j] != mark:
+                break
+            if filed[i][j] == mark and j == 2:
+                if mark == 1:
+                    # print("Player1 win")
+                    # 値を返すように変更
+                    return (True, 1)
+                else:
+                    # print("Player2 win")
+                    # 値を返すように変更
+                    return (True, 2)
+                break
+    return (False, 0)
+
+
 def tic_tak_toe(inputs):
     flag = True
     player1 = True
     player2 = False
-    # 関数として抽出
-    # よりコードが抽象的に，かつ修正や再利用性が高くなる
 
-    # filed = []
-
-    # for i in range(3):
-    #     tmp = []
-    #     for j in range(3):
-    #         tmp.append(0)
-    #     filed.append(tmp)
     filed = make_tic_tak_toe_field()
 
-    # while flag:
     for input in inputs:
         input_x = input[0]
         input_y = input[1]
@@ -73,24 +84,11 @@ def tic_tak_toe(inputs):
             row_str += "|"
             print(row_str)
 
-        for i in range(3):
-            mark = filed[i][0]
-            if mark == 0:
-                continue
-            for j in range(3):
-                if filed[i][j] != mark:
-                    break
-                if filed[i][j] == mark and j == 2:
-                    flag = False
-                    if mark == 1:
-                        # print("Player1 win")
-                        # 値を返すように変更
-                        return (True, 1)
-                    else:
-                        # print("Player2 win")
-                        # 値を返すように変更
-                        return (True, 2)
-                    break
+        # 勝敗判定
+        # 行
+        (result, player) = is_win_at_row_of(filed)
+        if result:
+            return (result, player)
 
         for j in range(3):
             mark = filed[0][j]
