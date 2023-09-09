@@ -2,34 +2,31 @@ def main():
     inputs = []
     result_flag = False
     print("Start")
+    player1 = TicTakToePlayer(
+        "Player1",
+        "■",
+    )
+    player2 = TicTakToePlayer(
+        "Player2",
+        "●",
+    )
     while not result_flag:
         input_x = input("Please enter x")
         input_y = input("Please enter y")
         inputs.append([input_x, input_y])
-        (result, player) = tic_tak_toe(inputs)
+        (result, player) = tic_tak_toe(inputs, player1, player2)
         if result:
-            print("Player" + player + "win")
+            print(result.name + "win")
             result_flag = True
 
 
-def switch_player(player1, player2):
-    if player1:
-        player1 = False
-        player2 = True
-    elif player2:
-        player1 = True
-        player2 = False
-
-
-def field_str(filed):
+def field_str(masu):
     result = ""
-    for i in range(3):
+    for i in range(masu.masu_num):
         row_str = ""
-        for j in range(3):
-            if filed[i][j] == 1:
-                row_str += "|■"
-            elif filed[i][j] == 2:
-                row_str += "|●"
+        for j in range(masu.masu_num):
+            if masu.filed[i][j] != 0:
+                row_str += "|" + str(masu.filed[i][j])
             else:
                 row_str += "|□"
         row_str += "|"
@@ -62,8 +59,8 @@ class Masu:
                 if self.filed[j][i] != mark:
                     break
                 if j == self.masu_num - 1:
-                    return (True, mark)
-        return (False, 0)
+                    return mark
+        return None
 
     def align_row(self):
         for i in range(self.masu_num):
@@ -74,8 +71,8 @@ class Masu:
                 if self.filed[i][j] != mark:
                     break
                 if j == self.masu_num - 1:
-                    return (True, mark)
-        return (False, 0)
+                    return mark
+        return None
 
     def align_diagonal(self):
         mark = self.filed[0][0]
@@ -85,24 +82,17 @@ class Masu:
             if self.filed[i][i] != mark:
                 break
             if i == self.masu_num - 1:
-                if mark == 1:
-                    return (True, 1)
-                else:
-                    return (True, 2)
-                break
+                return mark
 
         mark = self.filed[0][self.masu_num - 1]
         for i in range(self.masu_num):
             if mark == 0:
-                return (False, 0)
+                return None
             if self.filed[i][self.masu_num - 1 - i] != mark:
-                return (False, 0)
+                return None
             if i == self.masu_num - 1:
-                if mark == 1:
-                    return (True, 1)
-                else:
-                    return (True, 2)
-        return (False, 0)
+                return mark
+        return None
 
     def validate_inputs(self, input_x, input_y):
         if int(input_x) > self.masu_num - 1 or int(input_y) > self.masu_num - 1:
@@ -112,11 +102,23 @@ class Masu:
         return True
 
 
-def tic_tak_toe(inputs, masu_num=3):
-    player1 = True
-    player2 = False
+class TicTakToePlayer:
+    def __init__(
+        self,
+        name,
+        mark,
+    ):
+        self.name = name
+        self.mark = mark
+
+    def is_player_mark(self, mark):
+        return self.mark == mark
+
+
+def tic_tak_toe(player1, player2, inputs, masu_num=3):
 
     masu = Masu(masu_num)
+    player1_flag = True
 
     for input in inputs:
         input_x = input[0]
@@ -129,29 +131,38 @@ def tic_tak_toe(inputs, masu_num=3):
             continue
 
         # フィールドに入力値を入れる
-        if player1:
-            masu.put(input_x, input_y, 1)
+        if player1_flag:
+            masu.put(input_x, input_y, player1.mark)
         elif player2:
-            masu.put(input_x, input_y, 2)
+            masu.put(input_x, input_y, player2.mark)
 
         # プレイヤーの切り替え
-        switch_player(player1, player2)
+        player1_flag = not player1_flag
 
-        print(field_str(masu.filed))
+        print(field_str(masu))
 
         # 勝敗判定
         # 行
-        (result, player) = masu.align_row()
-        if result:
-            return (result, player)
+        mark = masu.align_row()
+        if mark is not None:
+            if player1.is_player_mark(mark):
+                return player1
+            else:
+                return player2
         # 列
-        (result, player) = masu.align_column()
-        if result:
-            return (result, player)
+        mark = masu.align_column()
+        if mark is not None:
+            if player1.is_player_mark(mark):
+                return player1
+            else:
+                return player2
 
-        (result, player) = masu.align_diagonal()
-        if result:
-            return (result, player)
+        mark = masu.align_diagonal()
+        if mark is not None:
+            if player1.is_player_mark(mark):
+                return player1
+            else:
+                return player2
 
     # ここまで来たら勝敗が決まっていないのでFalseを返す
-    return (False, 0)
+    return None
