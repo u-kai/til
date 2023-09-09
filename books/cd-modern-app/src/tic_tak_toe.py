@@ -96,6 +96,22 @@ def validate_inputs(filed, input_x, input_y):
     return True
 
 
+def put(filed, input_x, input_y, player1, player2):
+    if player1:
+        filed[int(input_x)][int(input_y)] = 1
+    elif player2:
+        filed[int(input_x)][int(input_y)] = 2
+
+
+def switch_player(player1, player2):
+    if player1:
+        player1 = False
+        player2 = True
+    elif player2:
+        player1 = True
+        player2 = False
+
+
 def tic_tak_toe(inputs):
     flag = True
     player1 = True
@@ -111,14 +127,11 @@ def tic_tak_toe(inputs):
         if not validate_inputs(filed, input_x, input_y):
             continue
 
-        if player1:
-            filed[int(input_x)][int(input_y)] = 1
-            player1 = False
-            player2 = True
-        elif player2:
-            filed[int(input_x)][int(input_y)] = 2
-            player1 = True
-            player2 = False
+        # フィールドに入力値を入れる
+        put(filed, input_x, input_y, player1, player2)
+
+        # プレイヤーの切り替え
+        switch_player(player1, player2)
 
         for i in range(3):
             row_str = ""
