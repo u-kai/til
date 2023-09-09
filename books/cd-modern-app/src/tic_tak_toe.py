@@ -112,6 +112,22 @@ def switch_player(player1, player2):
         player2 = False
 
 
+def field_str(filed):
+    result = ""
+    for i in range(3):
+        row_str = ""
+        for j in range(3):
+            if filed[i][j] == 1:
+                row_str += "|■"
+            elif filed[i][j] == 2:
+                row_str += "|●"
+            else:
+                row_str += "|□"
+        row_str += "|"
+        result += row_str + "\n"
+    return result
+
+
 def tic_tak_toe(inputs):
     flag = True
     player1 = True
@@ -133,17 +149,7 @@ def tic_tak_toe(inputs):
         # プレイヤーの切り替え
         switch_player(player1, player2)
 
-        for i in range(3):
-            row_str = ""
-            for j in range(3):
-                if filed[i][j] == 1:
-                    row_str += "|■"
-                elif filed[i][j] == 2:
-                    row_str += "|●"
-                else:
-                    row_str += "|□"
-            row_str += "|"
-            print(row_str)
+        print(field_str(filed))
 
         # 勝敗判定
         # 行
