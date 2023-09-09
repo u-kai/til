@@ -43,6 +43,27 @@ def is_win_at_row_of(filed):
     return (False, 0)
 
 
+def is_win_at_column_of(filed):
+    for j in range(3):
+        mark = filed[0][j]
+        if mark == 0:
+            continue
+        for i in range(3):
+            if filed[i][j] != mark:
+                break
+            if filed[i][j] == mark and i == 2:
+                if mark == 1:
+                    # print("Player1 win")
+                    # 値を返すように変更
+                    return (True, 1)
+                else:
+                    # print("Player2 win")
+                    # 値を返すように変更
+                    return (True, 2)
+                break
+    return (False, 0)
+
+
 def tic_tak_toe(inputs):
     flag = True
     player1 = True
@@ -89,25 +110,10 @@ def tic_tak_toe(inputs):
         (result, player) = is_win_at_row_of(filed)
         if result:
             return (result, player)
-
-        for j in range(3):
-            mark = filed[0][j]
-            if mark == 0:
-                continue
-            for i in range(3):
-                if filed[i][j] != mark:
-                    break
-                if filed[i][j] == mark and i == 2:
-                    flag = False
-                    if mark == 1:
-                        # print("Player1 win")
-                        # 値を返すように変更
-                        return (True, 1)
-                    else:
-                        # print("Player2 win")
-                        # 値を返すように変更
-                        return (True, 2)
-                    break
+        # 列
+        (result, player) = is_win_at_column_of(filed)
+        if result:
+            return (result, player)
 
         for i in range(3):
             mark = filed[i][i]
