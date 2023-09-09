@@ -32,12 +32,8 @@ def is_win_at_row_of(filed):
                 break
             if filed[i][j] == mark and j == 2:
                 if mark == 1:
-                    # print("Player1 win")
-                    # 値を返すように変更
                     return (True, 1)
                 else:
-                    # print("Player2 win")
-                    # 値を返すように変更
                     return (True, 2)
                 break
     return (False, 0)
@@ -53,36 +49,38 @@ def is_win_at_column_of(filed):
                 break
             if filed[i][j] == mark and i == 2:
                 if mark == 1:
-                    # print("Player1 win")
-                    # 値を返すように変更
                     return (True, 1)
                 else:
-                    # print("Player2 win")
-                    # 値を返すように変更
                     return (True, 2)
                 break
     return (False, 0)
 
 
 def is_win_at_diagonal_of(filed):
-
+    mark = filed[0][0]
     for i in range(3):
-        mark = filed[i][i]
         if mark == 0:
-            continue
+            break
         if filed[i][i] != mark:
             break
-        if filed[i][i] == mark and i == 2:
+        if i == 2:
             if mark == 1:
-                # print("Player1 win")
-                # 値を返すように変更
                 return (True, 1)
             else:
-                # print("Player2 win")
-                # 値を返すように変更
                 return (True, 2)
             break
 
+    mark = filed[0][2]
+    for i in range(3):
+        if mark == 0:
+            return (False, 0)
+        if filed[i][2 - i] != mark:
+            return (False, 0)
+        if i == 2:
+            if mark == 1:
+                return (True, 1)
+            else:
+                return (True, 2)
     return (False, 0)
 
 
