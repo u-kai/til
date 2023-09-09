@@ -187,6 +187,6 @@ marp: true
 
 モジュラー性（modularity）,凝集度（一体性、cohesion）,関心の分離（separation of concerns）,抽象化（abstraction）,疎結合（loose coupling）
 
-これらは全て正しく重要で保守性を高めるために必要な項目
+これらは全て正しく重要で保守性を高めるために必要な項目で，それぞれの特性同士は強く関連している
 
 ---
