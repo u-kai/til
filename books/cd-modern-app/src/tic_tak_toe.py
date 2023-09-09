@@ -12,87 +12,6 @@ def main():
             result_flag = True
 
 
-def is_win_at_row_of(filed):
-    for i in range(3):
-        mark = filed[i][0]
-        if mark == 0:
-            continue
-        for j in range(3):
-            if filed[i][j] != mark:
-                break
-            if filed[i][j] == mark and j == 2:
-                if mark == 1:
-                    return (True, 1)
-                else:
-                    return (True, 2)
-                break
-    return (False, 0)
-
-
-def is_win_at_column_of(filed):
-    for j in range(3):
-        mark = filed[0][j]
-        if mark == 0:
-            continue
-        for i in range(3):
-            if filed[i][j] != mark:
-                break
-            if filed[i][j] == mark and i == 2:
-                if mark == 1:
-                    return (True, 1)
-                else:
-                    return (True, 2)
-                break
-    return (False, 0)
-
-
-def is_win_at_diagonal_of(filed):
-    mark = filed[0][0]
-    for i in range(3):
-        if mark == 0:
-            break
-        if filed[i][i] != mark:
-            break
-        if i == 2:
-            if mark == 1:
-                return (True, 1)
-            else:
-                return (True, 2)
-            break
-
-    mark = filed[0][2]
-    for i in range(3):
-        if mark == 0:
-            return (False, 0)
-        if filed[i][2 - i] != mark:
-            return (False, 0)
-        if i == 2:
-            if mark == 1:
-                return (True, 1)
-            else:
-                return (True, 2)
-    return (False, 0)
-
-
-def validate_inputs(filed, input_x, input_y):
-    if int(input_x) > 2 or int(input_y) > 2:
-        print("Invalid input")
-        print("Please enter again x and y")
-        return False
-    if filed[int(input_x)][int(input_y)] == 1:
-        print("Already input")
-        print("Please enter again x and y")
-        return False
-    return True
-
-
-def put(filed, input_x, input_y, player1, player2):
-    if player1:
-        filed[int(input_x)][int(input_y)] = 1
-    elif player2:
-        filed[int(input_x)][int(input_y)] = 2
-
-
 def switch_player(player1, player2):
     if player1:
         player1 = False
@@ -134,19 +53,79 @@ class Masu:
     def put(self, x, y, data):
         self.filed[x][y] = data
 
+    def align_column(self):
+        for i in range(self.masu_num):
+            mark = self.filed[0][i]
+            if mark == 0:
+                continue
+            for j in range(self.masu_num):
+                if self.filed[j][i] != mark:
+                    break
+                if j == self.masu_num - 1:
+                    return (True, mark)
+        return (False, 0)
 
-def tic_tak_toe(inputs):
+    def align_row(self):
+        for i in range(self.masu_num):
+            mark = self.filed[i][0]
+            if mark == 0:
+                continue
+            for j in range(self.masu_num):
+                if self.filed[i][j] != mark:
+                    break
+                if j == self.masu_num - 1:
+                    return (True, mark)
+        return (False, 0)
+
+    def align_diagonal(self):
+        mark = self.filed[0][0]
+        for i in range(self.masu_num):
+            if mark == 0:
+                break
+            if self.filed[i][i] != mark:
+                break
+            if i == self.masu_num - 1:
+                if mark == 1:
+                    return (True, 1)
+                else:
+                    return (True, 2)
+                break
+
+        mark = self.filed[0][self.masu_num - 1]
+        for i in range(self.masu_num):
+            if mark == 0:
+                return (False, 0)
+            if self.filed[i][self.masu_num - 1 - i] != mark:
+                return (False, 0)
+            if i == self.masu_num - 1:
+                if mark == 1:
+                    return (True, 1)
+                else:
+                    return (True, 2)
+        return (False, 0)
+
+    def validate_inputs(self, input_x, input_y):
+        if int(input_x) > self.masu_num - 1 or int(input_y) > self.masu_num - 1:
+            return False
+        if self.filed[int(input_x)][int(input_y)] != 0:
+            return False
+        return True
+
+
+def tic_tak_toe(inputs, masu_num=3):
     player1 = True
     player2 = False
 
-    masu = Masu(3)
+    masu = Masu(masu_num)
 
     for input in inputs:
         input_x = input[0]
         input_y = input[1]
 
         # 入力値のバリデーション
-        if not validate_inputs(masu.filed, input_x, input_y):
+        if not masu.validate_inputs(input_x, input_y):
+            print("Invalid input")
+            print("Please enter again x and y")
             continue
 
         # フィールドに入力値を入れる
@@ -154,7 +133,6 @@ def tic_tak_toe(inputs):
             masu.put(input_x, input_y, 1)
         elif player2:
             masu.put(input_x, input_y, 2)
-        # put(filed, input_x, input_y, player1, player2)
 
         # プレイヤーの切り替え
         switch_player(player1, player2)
@@ -163,15 +141,15 @@ def tic_tak_toe(inputs):
 
         # 勝敗判定
         # 行
-        (result, player) = is_win_at_row_of(masu.filed)
+        (result, player) = masu.align_row()
         if result:
             return (result, player)
         # 列
-        (result, player) = is_win_at_column_of(masu.filed)
+        (result, player) = masu.align_column()
         if result:
             return (result, player)
 
-        (result, player) = is_win_at_diagonal_of(masu.filed)
+        (result, player) = masu.align_diagonal()
         if result:
             return (result, player)
 
