@@ -64,6 +64,28 @@ def is_win_at_column_of(filed):
     return (False, 0)
 
 
+def is_win_at_diagonal_of(filed):
+
+    for i in range(3):
+        mark = filed[i][i]
+        if mark == 0:
+            continue
+        if filed[i][i] != mark:
+            break
+        if filed[i][i] == mark and i == 2:
+            if mark == 1:
+                # print("Player1 win")
+                # 値を返すように変更
+                return (True, 1)
+            else:
+                # print("Player2 win")
+                # 値を返すように変更
+                return (True, 2)
+            break
+
+    return (False, 0)
+
+
 def tic_tak_toe(inputs):
     flag = True
     player1 = True
@@ -115,23 +137,9 @@ def tic_tak_toe(inputs):
         if result:
             return (result, player)
 
-        for i in range(3):
-            mark = filed[i][i]
-            if mark == 0:
-                continue
-            if filed[i][i] != mark:
-                break
-            if filed[i][i] == mark and i == 2:
-                flag = False
-                if mark == 1:
-                    # print("Player1 win")
-                    # 値を返すように変更
-                    return (True, 1)
-                else:
-                    # print("Player2 win")
-                    # 値を返すように変更
-                    return (True, 2)
-                break
+        (result, player) = is_win_at_diagonal_of(filed)
+        if result:
+            return (result, player)
 
     # ここまで来たら勝敗が決まっていないのでFalseを返す
     return (False, 0)
