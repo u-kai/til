@@ -84,9 +84,13 @@ def is_win_at_diagonal_of(filed):
     return (False, 0)
 
 
-def validate_inputs(input_x, input_y):
+def validate_inputs(filed, input_x, input_y):
     if int(input_x) > 2 or int(input_y) > 2:
         print("Invalid input")
+        print("Please enter again x and y")
+        return False
+    if filed[int(input_x)][int(input_y)] == 1:
+        print("Already input")
         print("Please enter again x and y")
         return False
     return True
@@ -104,17 +108,9 @@ def tic_tak_toe(inputs):
         input_y = input[1]
 
         # 入力値のバリデーション
-        if not validate_inputs(input_x, input_y):
+        if not validate_inputs(filed, input_x, input_y):
             continue
-        # if int(input_x) > 2 or int(input_y) > 7:
-        #    print("Invalid input")
-        #    print("Please enter again x and y")
-        #    continue
 
-        if filed[int(input_x)][int(input_y)] == 1:
-            print("Already input")
-            print("Please enter again x and y")
-            continue
         if player1:
             filed[int(input_x)][int(input_y)] = 1
             player1 = False
