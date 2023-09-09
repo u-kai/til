@@ -12,17 +12,31 @@ def main():
             result_flag = True
 
 
-def tic_tak_toe(inputs):
-    flag = True
-    player1 = True
-    player2 = False
+def make_tic_tak_toe_field():
     filed = []
-
     for i in range(3):
         tmp = []
         for j in range(3):
             tmp.append(0)
         filed.append(tmp)
+    return filed
+
+
+def tic_tak_toe(inputs):
+    flag = True
+    player1 = True
+    player2 = False
+    # 関数として抽出
+    # よりコードが抽象的に，かつ修正や再利用性が高くなる
+
+    # filed = []
+
+    # for i in range(3):
+    #     tmp = []
+    #     for j in range(3):
+    #         tmp.append(0)
+    #     filed.append(tmp)
+    filed = make_tic_tak_toe_field()
 
     # while flag:
     for input in inputs:
