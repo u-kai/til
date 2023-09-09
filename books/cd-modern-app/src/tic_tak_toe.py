@@ -12,16 +12,6 @@ def main():
             result_flag = True
 
 
-def make_tic_tak_toe_field():
-    filed = []
-    for i in range(3):
-        tmp = []
-        for j in range(3):
-            tmp.append(0)
-        filed.append(tmp)
-    return filed
-
-
 def is_win_at_row_of(filed):
     for i in range(3):
         mark = filed[i][0]
@@ -128,40 +118,60 @@ def field_str(filed):
     return result
 
 
+class Masu:
+    # __init__はコンストラクタ呼ばれるもので、インスタンス生成時に呼ばれる
+    # そのため初期化処理を記述することが多い
+    def __init__(self, masu_num):
+        self.masu_num = masu_num
+
+        self.filed = []
+        for i in range(self.masu_num):
+            tmp = []
+            for j in range(self.masu_num):
+                tmp.append(0)
+            self.filed.append(tmp)
+
+    def put(self, x, y, data):
+        self.filed[x][y] = data
+
+
 def tic_tak_toe(inputs):
-    flag = True
     player1 = True
     player2 = False
 
-    filed = make_tic_tak_toe_field()
+    masu = Masu(3)
 
     for input in inputs:
         input_x = input[0]
         input_y = input[1]
 
         # 入力値のバリデーション
-        if not validate_inputs(filed, input_x, input_y):
+        if not validate_inputs(masu.filed, input_x, input_y):
             continue
 
         # フィールドに入力値を入れる
-        put(filed, input_x, input_y, player1, player2)
+        if player1:
+            masu.put(input_x, input_y, 1)
+        elif player2:
+            masu.put(input_x, input_y, 2)
+        # put(filed, input_x, input_y, player1, player2)
 
         # プレイヤーの切り替え
         switch_player(player1, player2)
 
-        print(field_str(filed))
+        print(field_str(masu.filed))
 
         # 勝敗判定
         # 行
-        (result, player) = is_win_at_row_of(filed)
+        (result, player) = is_win_at_row_of(masu.filed)
         if result:
             return (result, player)
         # 列
-        (result, player) = is_win_at_column_of(filed)
+        (result, player) = is_win_at_column_of(masu.filed)
         if result:
             return (result, player)
 
-        (result, player) = is_win_at_diagonal_of(filed)
+        (result, player) = is_win_at_diagonal_of(masu.filed)
         if result:
             return (result, player)
 
