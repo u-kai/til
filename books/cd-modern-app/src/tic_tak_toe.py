@@ -1,5 +1,4 @@
 def main():
-    inputs = []
     result_flag = False
     print("Start")
     player1 = TicTakToePlayer(
@@ -10,28 +9,51 @@ def main():
         "Player2",
         "●",
     )
+    game = TicTakToeGame(player1, player2, 3)
     while not result_flag:
-        input_x = input("Please enter x")
-        input_y = input("Please enter y")
-        inputs.append([input_x, input_y])
-        (result, player) = tic_tak_toe(inputs, player1, player2)
-        if result:
+        input_x = int(input("Please enter x"))
+        input_y = int(input("Please enter y"))
+        result = game.turn(input_x, input_y)
+        if result is not None:
             print(result.name + "win")
             result_flag = True
 
 
-def field_str(masu):
-    result = ""
-    for i in range(masu.masu_num):
-        row_str = ""
-        for j in range(masu.masu_num):
-            if masu.filed[i][j] != 0:
-                row_str += "|" + str(masu.filed[i][j])
-            else:
-                row_str += "|□"
-        row_str += "|"
-        result += row_str + "\n"
-    return result
+class TicTakToeGame:
+    def __init__(self, player1, player2, masu_num):
+        self.player_index = 0
+        self.players = [player1, player2]
+        self.masu = Masu(masu_num)
+
+    def turn(self, input_x, input_y):
+        if not self.masu.validate_inputs(input_x, input_y):
+            self.invalid_input_alert()
+            return None
+
+        self.masu.put(input_x, input_y, self.players[self.player_index].mark)
+        self.display_field()
+        if self.is_finished():
+            return self.players[self.player_index]
+
+        self.switch_player()
+        return None
+
+    def is_finished(self):
+        return (
+            self.masu.align_column() is not None
+            or self.masu.align_row() is not None
+            or self.masu.align_diagonal() is not None
+        )
+
+    def invalid_input_alert(self):
+        print("Invalid input")
+        print("Please enter again x and y")
+
+    def display_field(self):
+        print(self.masu.field_str())
+
+    def switch_player(self):
+        self.player_index = (self.player_index + 1) % 2
 
 
 class Masu:
@@ -49,6 +71,19 @@ class Masu:
 
     def put(self, x, y, data):
         self.filed[x][y] = data
+
+    def field_str(self):
+        result = ""
+        for i in range(self.masu_num):
+            row_str = ""
+            for j in range(self.masu_num):
+                if self.filed[i][j] != 0:
+                    row_str += "|" + str(self.filed[i][j])
+                else:
+                    row_str += "|□"
+            row_str += "|"
+            result += row_str + "\n"
+        return result
 
     def align_column(self):
         for i in range(self.masu_num):
@@ -139,7 +174,7 @@ def tic_tak_toe(player1, player2, inputs, masu_num=3):
         # プレイヤーの切り替え
         player1_flag = not player1_flag
 
-        print(field_str(masu))
+        # print(field_str(masu))
 
         # 勝敗判定
         # 行
