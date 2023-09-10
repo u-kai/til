@@ -641,11 +641,23 @@ def use_class():
 ---
 
 - turn というメソッドで一回のターンで行う全てを記述できた
-- テストもクリアし，main を変更
+  - turn 内の記述は抽象度が高く，わかりやすい
+  - 何かが起きても修正が用意
+- テストもクリアし，main を変更，tic_tak_toe 関数は不要になったので削除
+- 現在残っているのは，TicTakToePlayer,Masu,TicTakToeGame,main だけで，それぞれが各々の役割持っている
 - game には masu と player をどう相互作用させるのか？勝敗はどうか？ゲームとして，表示はどうするかがある
 - masu,player にはそのような情報はなく，ゲームという関心ごとは分離されていて，疎結合ということになる
-- ただ，turn ロジックを勝敗がつくまで loop させる責務は game クラスにあるように見えるが，現在は main の中で loop を行っている
-- この loop をどうにか持っていきたいが，最初のモチベーションであった，input と game の分離がどうしても難しくなる
+
+---
+
+# main の責務について
+
+- 現状はデータの初期化や外部からの入力受付，game の結果が終わっているかどうかを確認している
+- ただ，turn ロジックを勝敗がつくまで loop させる責務は game クラスにあるようにも思える
+- main は game に必要な情報を作成し，game を実行するだけにしたい
+- そして game は自分で loop を回して，自分で game の終了や結果表示を行わせたい
+- この loop をどうにか持っていきたいが，そうすると，game が input をループのたびに受け付ける必要がある
+- そうすると最初のモチベーションであった，input と game の分離がどうしても難しくなる
 - そこで input の仕組みを少し変えて game の中に取り込むようにする
 
 ---
@@ -654,6 +666,206 @@ def use_class():
 
 - 現在は外部から input を受け取る，という仕組みと game の仕組みは関心ごとが違うということで分けていたが，何かしらの input を提供する仕組みから game はデータを受け取るといった疎結合な仕組みにすれば，外部から受け取るといったことにならなくなる
 - そのようにするとテストも書くことができるようになる
+- つまり，game を外部からの input に依存させるのではなく，どこかしらかの input に依存させれば良い
+- input interface をもった何かに依存させるようにする
+
+---
+
+# interface?
+
+- メソッドの定義が書かれているもので実態ではない
+- python には言語としての機能がないが他の言語だと interface があったり似たような機能もある
+- 他のクラスや関数が，クラスや関数そのものに依存するのではなく，interface という定義に依存するようにすれば，その interface を身につけている物であればなんでも良いということになり，実質したいことだけに依存するようになる
+- これにより，テストもしやすくなる
+
+---
+
+# やっていく
+
+- まずは input のインターフェイスとして，以下のようなメソッドを持つことを想定する
+- python では interface がないので，心で定義する
+- 今回は InputProvider という interface を使う
+- これは provide_x と provide_y というメソッドを持つ interface ということ
+- ただし，interface は実装しないことには意味がないので，実際に実装するクラスを定義する
+- まずは今まで通りに Terminal から取得する方法として，メソッドに provide_x,provide_y を持つ TerminalInputProvider を作成
+- ただしこれだと意味がないので，FakeInputProvider も作成する
+- これはテストように利用するクラスで，初期化時に返す値を設定すると，その通りに返してくれる物
+- Game クラスは TerminalInputProvider ではなく，InputProvider に依存しているので，TerminalInputProvider を使おうが，FakeInputProvider をつかおおうが Game クラスからしたら問題ない
+- これにより外部入力ではなく，InputProvider という開発者がコントロールしやすい形に依存するようにしたことで，ずっと扱いやすくなった
+- これは試験性，要はテスト容易性と，関心ごとの分離に役に立っている
+
+---
+
+# 最終成果物:main
+
+```python
+
+# main
+def main():
+    player1 = TicTakToePlayer(
+        "Player1",
+        "■",
+    )
+    player2 = TicTakToePlayer(
+        "Player2",
+        "●",
+    )
+    game = TicTakToeGame(player1, player2, 3, TerminalInputProvider())
+    game.start()
+
+```
+
+---
+
+# 最終成果物:TicTakToeGame
+
+```python
+class TicTakToeGame:
+    def __init__(self, player1, player2, masu_num):
+        self.player_index = 0
+        self.players = [player1, player2]
+        self.masu = Masu(masu_num)
+
+    def start(self, provider):
+        self.display_start()
+        while not self.is_finished():
+            x = provider.provide_x()
+            y = provider.provide_y()
+            result = self.turn(x, y)
+            if result is not None:
+                self.display_end(result)
+                return result
+        return None
+
+    def turn(self, input_x, input_y):
+        if not self.masu.validate_inputs(input_x, input_y):
+            self.invalid_input_alert()
+            return None
+
+        self.masu.put(input_x, input_y, self.players[self.player_index].mark)
+        self.display_field()
+        if self.is_finished():
+            return self.players[self.player_index]
+
+        self.switch_player()
+        return None
+
+    def is_finished(self):
+        return (
+            self.masu.align_column() is not None
+            or self.masu.align_row() is not None
+            or self.masu.align_diagonal() is not None
+        )
+
+    def switch_player(self):
+        self.player_index = (self.player_index + 1) % 2
+
+    ...
+```
+
+---
+
+# 最終成果物:Masu
+
+```python
+class Masu:
+    def __init__(self, masu_num):
+        self.masu_num = masu_num
+        self.filed = []
+        for i in range(self.masu_num):
+            tmp = []
+            for j in range(self.masu_num):
+                tmp.append(0)
+            self.filed.append(tmp)
+
+    def put(self, x, y, data):
+        self.filed[x][y] = data
+
+    def align_column(self):
+        for i in range(self.masu_num):
+            mark = self.filed[0][i]
+            if mark == 0:
+                continue
+            for j in range(self.masu_num):
+                if self.filed[j][i] != mark:
+                    break
+                if j == self.masu_num - 1:
+                    return mark
+        return None
+
+    def align_row(self):
+        for i in range(self.masu_num):
+            mark = self.filed[i][0]
+            if mark == 0:
+                continue
+            for j in range(self.masu_num):
+                if self.filed[i][j] != mark:
+                    break
+                if j == self.masu_num - 1:
+                    return mark
+        return None
+
+    def align_diagonal(self):
+        mark = self.filed[0][0]
+        for i in range(self.masu_num):
+            if mark == 0:
+                break
+            if self.filed[i][i] != mark:
+                break
+            if i == self.masu_num - 1:
+                return mark
+
+        mark = self.filed[0][self.masu_num - 1]
+        for i in range(self.masu_num):
+            if mark == 0:
+                return None
+            if self.filed[i][self.masu_num - 1 - i] != mark:
+                return None
+            if i == self.masu_num - 1:
+                return mark
+        return None
+
+    def validate_inputs(self, input_x, input_y):
+        if int(input_x) > self.masu_num - 1 or int(input_y) > self.masu_num - 1:
+            return False
+        if self.filed[int(input_x)][int(input_y)] != 0:
+            return False
+        return True
+
+    ...
+
+```
+
+---
+
+# 最終成果物:Player
+
+```python
+class TicTakToePlayer:
+    def __init__(
+        self,
+        name,
+        mark,
+    ):
+        self.name = name
+        self.mark = mark
+
+    def is_player_mark(self, mark):
+        return self.mark == mark
+```
+
+---
+
+# どうなったか？
+
+- 行数は 200 行ほどになり，元の行数よりも増えている
+- ただし，とても可読性が上がった
+  - 可読性が上がることは，チームメンバーや半年後の自分にとっても良いこと
+- 関心の分離ができた
+- テスト容易な構造になった
+  - リファクタリングを恐れずにすることができる
+  - バグが生じても，自動テストによるバグの再現および，そっからの修正が可能になった
+- 何かが起きてもすぐに修正，機能追加できるようになった
 
 ---
 

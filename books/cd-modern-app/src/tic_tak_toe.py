@@ -1,6 +1,4 @@
 def main():
-    result_flag = False
-    print("Start")
     player1 = TicTakToePlayer(
         "Player1",
         "■",
@@ -9,14 +7,47 @@ def main():
         "Player2",
         "●",
     )
-    game = TicTakToeGame(player1, player2, 3)
-    while not result_flag:
-        input_x = int(input("Please enter x"))
-        input_y = int(input("Please enter y"))
-        result = game.turn(input_x, input_y)
-        if result is not None:
-            print(result.name + "win")
-            result_flag = True
+    masu_num = 3
+    game = TicTakToeGame(
+        player1,
+        player2,
+        masu_num,
+    )
+    game.start(TerminalInputProvider())
+
+
+# InputProviderを実装した具象クラス
+class TerminalInputProvider:
+    def provide_x(self):
+        return int(input("Please enter x"))
+
+    def provide_y(self):
+        return int(input("Please enter y"))
+
+
+# InputProviderを実装した具象クラス
+# テスト用に入力値を事前に設定できるようにした
+class FakeInputProvider:
+    def __init__(self, all_inputs):
+        self.all_inputs = all_inputs
+        self.index = 0
+
+    def provide_x(self):
+        return self.all_inputs[self.index][0]
+
+    def provide_y(self):
+        result = self.all_inputs[self.index][1]
+        self.index += 1
+        return result
+
+
+"""
+interface InputProvider {
+    provide_x():int
+    provide_y():int
+}
+
+"""
 
 
 class TicTakToeGame:
@@ -24,6 +55,23 @@ class TicTakToeGame:
         self.player_index = 0
         self.players = [player1, player2]
         self.masu = Masu(masu_num)
+
+    def start(self, provider):
+        self.display_start()
+        while not self.is_finished():
+            x = provider.provide_x()
+            y = provider.provide_y()
+            result = self.turn(x, y)
+            if result is not None:
+                self.display_end(result)
+                return result
+        return None
+
+    def display_start(self):
+        print("Start")
+
+    def display_end(self, player):
+        print(player.name + "win")
 
     def turn(self, input_x, input_y):
         if not self.masu.validate_inputs(input_x, input_y):
@@ -148,56 +196,3 @@ class TicTakToePlayer:
 
     def is_player_mark(self, mark):
         return self.mark == mark
-
-
-def tic_tak_toe(player1, player2, inputs, masu_num=3):
-
-    masu = Masu(masu_num)
-    player1_flag = True
-
-    for input in inputs:
-        input_x = input[0]
-        input_y = input[1]
-
-        # 入力値のバリデーション
-        if not masu.validate_inputs(input_x, input_y):
-            print("Invalid input")
-            print("Please enter again x and y")
-            continue
-
-        # フィールドに入力値を入れる
-        if player1_flag:
-            masu.put(input_x, input_y, player1.mark)
-        elif player2:
-            masu.put(input_x, input_y, player2.mark)
-
-        # プレイヤーの切り替え
-        player1_flag = not player1_flag
-
-        # print(field_str(masu))
-
-        # 勝敗判定
-        # 行
-        mark = masu.align_row()
-        if mark is not None:
-            if player1.is_player_mark(mark):
-                return player1
-            else:
-                return player2
-        # 列
-        mark = masu.align_column()
-        if mark is not None:
-            if player1.is_player_mark(mark):
-                return player1
-            else:
-                return player2
-
-        mark = masu.align_diagonal()
-        if mark is not None:
-            if player1.is_player_mark(mark):
-                return player1
-            else:
-                return player2
-
-    # ここまで来たら勝敗が決まっていないのでFalseを返す
-    return None

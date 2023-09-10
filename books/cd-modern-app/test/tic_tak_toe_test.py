@@ -1,13 +1,31 @@
 import unittest
-from src.tic_tak_toe import tic_tak_toe, TicTakToePlayer, TicTakToeGame
+from src.tic_tak_toe import TicTakToePlayer, TicTakToeGame, FakeInputProvider
 
 
 class TestTicTakToe(unittest.TestCase):
+    def test_input_providerから入力値を受け取りgameを進めることが可能(self):
+        masu_num = 3
+        player1 = TicTakToePlayer("player1", "■")
+        player2 = TicTakToePlayer("player2", "●")
+        game = TicTakToeGame(
+            player1,
+            player2,
+            masu_num,
+        )
+        provider = FakeInputProvider([[0, 0], [1, 0], [1, 1], [0, 1], [2, 2]])
+        result = game.start(provider)
+        self.assertEqual(result.name, player1.name)
+        self.assertEqual(result.mark, player1.mark)
+
     def test_turnは勝敗を返却する(self):
         masu_num = 3
         player1 = TicTakToePlayer("player1", "■")
         player2 = TicTakToePlayer("player2", "●")
-        game = TicTakToeGame(player1, player2, masu_num)
+        game = TicTakToeGame(
+            player1,
+            player2,
+            masu_num,
+        )
         # put player1
         result = game.turn(0, 0)
         self.assertEqual(result, None)
@@ -29,7 +47,11 @@ class TestTicTakToe(unittest.TestCase):
         masu_num = 8
         player1 = TicTakToePlayer("player1", "■")
         player2 = TicTakToePlayer("player2", "●")
-        game = TicTakToeGame(player1, player2, masu_num)
+        game = TicTakToeGame(
+            player1,
+            player2,
+            masu_num,
+        )
         # put player1
         result = game.turn(0, 7)
         self.assertEqual(result, None)
@@ -41,7 +63,12 @@ class TestTicTakToe(unittest.TestCase):
         def test_マス目が8の場合_勝敗がつかない(self):
             player1 = TicTakToePlayer("player1", "■")
             player2 = TicTakToePlayer("player2", "●")
-            game = TicTakToeGame(player1, player2, 8)
+
+            game = TicTakToeGame(
+                player1,
+                player2,
+                8,
+            )
             # put player1
             result = game.turn(0, 0)
             self.assertEqual(result, None)
