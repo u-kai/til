@@ -14,4 +14,6 @@ func TestCurry(t *testing.T) {
 	if len(wordsToWords) != 1 {
 		t.Errorf("Expected 1 word, got %d", len(wordsToWords))
 	}
+	words = []string{"football"}
+	wordsToWords = pkg.WordsWithScoreHitherThan()(0)(words)
 }
