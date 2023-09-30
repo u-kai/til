@@ -2,6 +2,18 @@ package pkg
 
 import "strings"
 
+type Option[T any] struct {
+	value *T
+}
+
+type Result[T any] struct {
+	Ok  *T
+	Err error
+}
+type IO[T any] struct {
+	Result T
+}
+
 type LargerThan func(int) bool
 
 func LargerThanN(n int) LargerThan {
