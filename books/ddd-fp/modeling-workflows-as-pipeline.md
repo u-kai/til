@@ -26,3 +26,10 @@
   - TimeStamp はわかるけど，それ以外の設計はしっかりしないと難しそう
   - 逆にいうと Workflow のクリティカルな部分が Command の共通部分が依存することはよくなさそう
   - log とか結構どの workflow でも共通で行われているものであれば Command へ依存しても問題ないのでは？
+
+## State Machines
+
+- 状態自体がどきゅめんとになる
+- エッジケースを抑えることができる
+
+## Modeling Each Step in the Workflow with Types
