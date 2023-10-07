@@ -1,5 +1,7 @@
 package pkg
 
+import "fmt"
+
 type Turn func(Throw, Bowling) Bowling
 
 type Throw func(Rounds) Rounds
@@ -8,31 +10,19 @@ func ThrowByAnyLogic(logic func() ThrowResult) Throw {
 	return func(rounds Rounds) Rounds {
 		throwed := logic()
 		result := NewDefaultRounds()
+	loop:
 		for i, round := range rounds.Early {
-			if !round.throwedFirst() {
-				result.Early[i].FirstThrow = throwed
-				break
-			}
-			result.Early[i].FirstThrow = round.FirstThrow
-			if !round.throwedSecond() {
-				result.Early[i].SecondThrow = throwed
-				break
-			}
-			result.Early[i].SecondThrow = round.SecondThrow
-			// case of last round
-			if i == len(rounds.Early)-1 {
-				if !rounds.Final.throwedFirst() {
-					result.Final.FirstThrow = throwed
-					break
-				}
-				if !rounds.Final.throwedSecond() {
-					result.Final.SecondThrow = throwed
-					break
-				}
-				if !rounds.Final.throwedThird() {
-					result.Final.ThirdThrow = throwed
-					break
-				}
+			switch round.throw.(type) {
+			case NotThrow:
+				result.Early[i].throw = round.throw.(NotThrow).firstThrow(throwed)
+				break loop
+			case ThrowFirst:
+				result.Early[i].throw = round.throw.(ThrowFirst).secondThrow(throwed)
+				break loop
+
+			default:
+				result.Early[i].throw = round.throw
+
 			}
 		}
 		return result
@@ -40,11 +30,6 @@ func ThrowByAnyLogic(logic func() ThrowResult) Throw {
 }
 
 type ThrowResult int
-
-const (
-	Strike ThrowResult = 10
-	Gutter ThrowResult = 0
-)
 
 type Bowling struct {
 	Players         []Player
@@ -58,32 +43,19 @@ type Rounds struct {
 
 func (r Rounds) Score() Score {
 	result := 0
-	beforeSpare := false
+loop:
 	for _, round := range r.Early {
-		if !round.throwedFirst() {
-			break
+		switch round.throw.(type) {
+		case Strike:
+			result += 10
+		case ThrowFirst:
+			result += round.throw.(ThrowFirst).score
+		case ThrowSecond:
+			result += round.throw.(ThrowSecond).score()
+		case NotThrow:
+			break loop
 		}
-		if beforeSpare {
-			result += int(round.FirstThrow)
-		}
-		result += int(round.FirstThrow)
-		if !round.throwedSecond() {
-			break
-		}
-		result += int(round.SecondThrow)
-		beforeSpare = round.isSpare()
 	}
-
-	if r.Final.throwedFirst() {
-		result += int(r.Final.FirstThrow)
-	}
-	if r.Final.throwedSecond() {
-		result += int(r.Final.SecondThrow)
-	}
-	if r.Final.throwedThird() {
-		result += int(r.Final.ThirdThrow)
-	}
-
 	return Score(result)
 }
 
@@ -99,29 +71,12 @@ func NewDefaultRounds() Rounds {
 }
 
 type Round struct {
-	FirstThrow  ThrowResult
-	SecondThrow ThrowResult
-}
-
-func (r Round) isStrike() bool {
-	return r.FirstThrow == Strike
-}
-func (r Round) isSpare() bool {
-	return r.FirstThrow != Strike && r.FirstThrow+r.SecondThrow == 10
-}
-
-func (r Round) throwedFirst() bool {
-	return r.FirstThrow != -1
-}
-
-func (r Round) throwedSecond() bool {
-	return r.SecondThrow != -1
+	throw ThrowState
 }
 
 func newRound() Round {
 	return Round{
-		FirstThrow:  -1,
-		SecondThrow: -1,
+		throw: NotThrow{},
 	}
 }
 
@@ -155,5 +110,60 @@ type Player struct {
 
 type PlayerName string
 
-type CalcScore func(Rounds) Score
 type Score int
+type RoundScore int
+
+const NotFilled RoundScore = -1
+
+type ThrowState interface {
+	ToString() string
+}
+
+type Strike struct {
+}
+type ThrowFirst struct {
+	score int
+}
+
+func (t ThrowFirst) secondThrow(throwResult ThrowResult) ThrowState {
+	if t.score+int(throwResult) == 10 {
+		return Spare{}
+	}
+	return ThrowSecond{t.score, int(throwResult)}
+}
+
+type ThrowSecond struct {
+	first  int
+	second int
+}
+
+func (t ThrowSecond) score() int {
+	return t.first + t.second
+}
+
+type Spare struct{}
+
+type NotThrow struct{}
+
+func (n NotThrow) firstThrow(throwResult ThrowResult) ThrowState {
+	if throwResult == 10 {
+		return Strike{}
+	}
+	return ThrowFirst{int(throwResult)}
+}
+
+func (s Strike) ToString() string {
+	return "X"
+}
+func (s NotThrow) ToString() string {
+	return "-"
+}
+func (s ThrowFirst) ToString() string {
+	return fmt.Sprint(s.score)
+}
+func (s ThrowSecond) ToString() string {
+	return fmt.Sprintf("%d %d", s.first, s.second)
+}
+func (s Spare) ToString() string {
+	return "/"
+}
