@@ -47,33 +47,33 @@ func TestBowling(t *testing.T) {
 		//		t.Errorf("Expected score to be 23, but got %d", score)
 		//	}
 		//})
-		//t.Run("for a spare", func(t *testing.T) {
-		//	rounds := pkg.NewDefaultRounds()
-		//	throw6 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(6)))
-		//	throwed6 := throw6(rounds)
-		//	throw4 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(4)))
-		//	throwedSpareRounds := throw4(throwed6)
-		//	score := throwedSpareRounds.Score()
+		t.Run("for a spare", func(t *testing.T) {
+			rounds := pkg.NewDefaultRounds()
+			throw6 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(6)))
+			throwed6 := throw6(rounds)
+			throw4 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(4)))
+			throwedSpareRounds := throw4(throwed6)
+			score := throwedSpareRounds.Score()
 
-		//	if score != 0 {
-		//		t.Errorf("Expected score to be 0, but got %d", score)
-		//	}
+			if score != 0 {
+				t.Errorf("Expected score to be 0, but got %d", score)
+			}
 
-		//	throw7 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(7)))
-		//	throwed7 := throw7(throwedSpareRounds)
-		//	score = throwed7.Score()
+			throw7 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(7)))
+			throwed7 := throw7(throwedSpareRounds)
+			score = throwed7.Score()
 
-		//	if score != 24 {
-		//		t.Errorf("Expected score to be 24, but got %d", score)
-		//	}
+			if score != 24 {
+				t.Errorf("Expected score to be 24, but got %d", score)
+			}
 
-		//	throw2 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(2)))
-		//	throwed2 := throw2(throwed7)
+			throw2 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(2)))
+			throwed2 := throw2(throwed7)
 
-		//	if throwed2.Score() != 26 {
-		//		t.Errorf("Expected score to be 26, but got %d", score)
-		//	}
-		//})
+			if throwed2.Score() != 26 {
+				t.Errorf("Expected score to be 26, but got %d", score)
+			}
+		})
 		t.Run("for a simple throw", func(t *testing.T) {
 			rounds := pkg.NewDefaultRounds()
 			throw := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(5)))

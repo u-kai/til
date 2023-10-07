@@ -44,10 +44,12 @@ type Rounds struct {
 func (r Rounds) Score() Score {
 	result := 0
 loop:
-	for _, round := range r.Early {
+	for i, round := range r.Early {
 		switch round.throw.(type) {
 		case Strike:
 			result += 10
+		case Spare:
+			result += round.throw.(Spare).score(r, i)
 		case ThrowFirst:
 			result += round.throw.(ThrowFirst).score
 		case ThrowSecond:
@@ -127,7 +129,10 @@ type ThrowFirst struct {
 
 func (t ThrowFirst) secondThrow(throwResult ThrowResult) ThrowState {
 	if t.score+int(throwResult) == 10 {
-		return Spare{}
+		return Spare{
+			first:  t.score,
+			second: int(throwResult),
+		}
 	}
 	return ThrowSecond{t.score, int(throwResult)}
 }
@@ -141,7 +146,30 @@ func (t ThrowSecond) score() int {
 	return t.first + t.second
 }
 
-type Spare struct{}
+type Spare struct {
+	first  int
+	second int
+}
+
+func (s Spare) score(rounds Rounds, i int) int {
+	if i == len(rounds.Early)-1 {
+		return 10 + int(rounds.Final.FirstThrow)
+	}
+	switch rounds.Early[i+1].throw.(type) {
+	case Strike:
+		return 20
+	case ThrowFirst:
+		return 10 + rounds.Early[i+1].throw.(ThrowFirst).score
+	case ThrowSecond:
+		return 10 + rounds.Early[i+1].throw.(ThrowSecond).first
+	case Spare:
+		return 10 + rounds.Early[i+1].throw.(Spare).first
+	case NotThrow:
+		return 0
+	default:
+		return 0
+	}
+}
 
 type NotThrow struct{}
 
