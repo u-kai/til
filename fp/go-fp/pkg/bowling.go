@@ -58,15 +58,20 @@ type Rounds struct {
 
 func (r Rounds) Score() Score {
 	result := 0
+	beforeSpare := false
 	for _, round := range r.Early {
 		if !round.throwedFirst() {
 			break
+		}
+		if beforeSpare {
+			result += int(round.FirstThrow)
 		}
 		result += int(round.FirstThrow)
 		if !round.throwedSecond() {
 			break
 		}
 		result += int(round.SecondThrow)
+		beforeSpare = round.isSpare()
 	}
 
 	if r.Final.throwedFirst() {
@@ -96,6 +101,13 @@ func NewDefaultRounds() Rounds {
 type Round struct {
 	FirstThrow  ThrowResult
 	SecondThrow ThrowResult
+}
+
+func (r Round) isStrike() bool {
+	return r.FirstThrow == Strike
+}
+func (r Round) isSpare() bool {
+	return r.FirstThrow != Strike && r.FirstThrow+r.SecondThrow == 10
 }
 
 func (r Round) throwedFirst() bool {
