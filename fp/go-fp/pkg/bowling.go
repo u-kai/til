@@ -240,7 +240,6 @@ func (s Strike) score(r Rounds, index int) RoundScore {
 	case ThrowSecond:
 		return DeterminableScore{value: 10 + nextThrow.(ThrowSecond).score()}
 	case Strike:
-		// TODO index
 		if index == len(r.Early)-2 {
 			final := r.Final
 			switch final.(type) {
@@ -298,7 +297,17 @@ func (s Spare) score(rounds Rounds, i int) RoundScore {
 		case FinalRoundNotThrow:
 			return NotDeterminableScore{}
 		default:
-			return DeterminableScore{10 + int(rounds.Final.score())}
+			final := rounds.Final
+			switch final.(type) {
+			case FinalRoundFirst:
+				return DeterminableScore{10 + int(final.(FinalRoundFirst).score())}
+			case FinalRoundSecond:
+				return DeterminableScore{10 + int(final.(FinalRoundSecond).first)}
+			case FinalRoundThird:
+				return DeterminableScore{10 + int(final.(FinalRoundThird).first)}
+			default:
+				return NotDeterminableScore{}
+			}
 		}
 	}
 	switch rounds.Early[i+1].throw.(type) {
