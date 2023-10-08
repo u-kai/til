@@ -23,20 +23,24 @@ func ThrowByAnyLogic(logic func() ThrowResult) Throw {
 			default:
 				result.Early[i].throw = round.throw
 			}
-			// case end of early round
-			// so we need to add final round
-			if i == len(rounds.Early)-1 {
-				final := rounds.Final
-				switch final.(type) {
-				case FinalRoundNotThrow:
-					result.Final = FinalRoundFirst{value: throwed}
-				case FinalRoundFirst:
-					result.Final = final.(FinalRoundFirst).toSecond(throwed)
-				case FinalRoundSecond:
-					if final.(FinalRoundSecond).canThirdThrow() {
-						result.Final = final.(FinalRoundSecond).toThird(throwed)
-					}
-				}
+		}
+		final := rounds.Final
+		switch final.(type) {
+		case FinalRoundNotThrow:
+			switch rounds.Early[len(rounds.Early)-1].throw.(type) {
+			case NotThrow:
+				return result
+			case ThrowFirst:
+				return result
+			default:
+				result.Final = FinalRoundFirst{value: throwed}
+				return result
+			}
+		case FinalRoundFirst:
+			result.Final = final.(FinalRoundFirst).toSecond(throwed)
+		case FinalRoundSecond:
+			if final.(FinalRoundSecond).canThirdThrow() {
+				result.Final = final.(FinalRoundSecond).toThird(throwed)
 			}
 		}
 		return result

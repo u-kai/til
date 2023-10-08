@@ -2,6 +2,7 @@ package pkg_test
 
 import (
 	"example/pkg"
+	"fmt"
 	"testing"
 )
 
@@ -20,6 +21,7 @@ func TestBowling(t *testing.T) {
 			for i := 0; i < 18; i++ {
 				rounds = throw(rounds)
 			}
+			fmt.Printf("rounds: %+v\n", rounds)
 			score := rounds.Score()
 			if score != 54 {
 				t.Errorf("Expected score to be 54, but got %d", score)
