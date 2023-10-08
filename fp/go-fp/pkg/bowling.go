@@ -47,9 +47,21 @@ loop:
 	for i, round := range r.Early {
 		switch round.throw.(type) {
 		case Strike:
-			result += 10
+			score := round.throw.(Strike).score(r, i)
+			switch score.(type) {
+			case DeterminableScore:
+				result += score.(DeterminableScore).score()
+			case NotDeterminableScore:
+				break loop
+			}
 		case Spare:
-			result += round.throw.(Spare).score(r, i)
+			score := round.throw.(Spare).score(r, i)
+			switch score.(type) {
+			case DeterminableScore:
+				result += score.(DeterminableScore).score()
+			case NotDeterminableScore:
+				break loop
+			}
 		case ThrowFirst:
 			result += round.throw.(ThrowFirst).score
 		case ThrowSecond:
@@ -113,9 +125,40 @@ type Player struct {
 type PlayerName string
 
 type Score int
-type RoundScore int
+type RoundScore interface {
+	score() int
+}
+type DeterminableScore struct {
+	value int
+}
 
-const NotFilled RoundScore = -1
+func triple() DeterminableScore {
+	return DeterminableScore{value: 30}
+}
+func double(nextThrowState ThrowState) RoundScore {
+	switch nextThrowState.(type) {
+	case ThrowFirst:
+		return DeterminableScore{value: 20 + nextThrowState.(ThrowFirst).score}
+	case ThrowSecond:
+		return DeterminableScore{value: 20 + nextThrowState.(ThrowSecond).first}
+	case Spare:
+		return DeterminableScore{value: 20 + nextThrowState.(Spare).first}
+	case Strike:
+		return triple()
+	default:
+		return NotDeterminableScore{}
+	}
+}
+
+func (d DeterminableScore) score() int {
+	return d.value
+}
+
+type NotDeterminableScore struct{}
+
+func (n NotDeterminableScore) score() int {
+	return 0
+}
 
 type ThrowState interface {
 	ToString() string
@@ -123,6 +166,34 @@ type ThrowState interface {
 
 type Strike struct {
 }
+
+func (s Strike) score(r Rounds, index int) RoundScore {
+	if index == len(r.Early)-1 {
+		return DeterminableScore{
+			value: 10 + int(r.Final.FirstThrow) + int(r.Final.SecondThrow),
+		}
+	}
+	nextThrow := r.Early[index+1].throw
+	switch nextThrow.(type) {
+	case NotThrow:
+		// can not determined
+		return NotDeterminableScore{}
+	case ThrowFirst:
+		// can not determined
+		return NotDeterminableScore{}
+		// case Double or Triple
+	case ThrowSecond:
+		return DeterminableScore{value: 10 + nextThrow.(ThrowSecond).score()}
+	case Strike:
+		// TODO index
+		return double(r.Early[index+2].throw)
+	case Spare:
+		return DeterminableScore{value: 20}
+	default:
+		panic(fmt.Sprintf("unknown type %T", nextThrow))
+	}
+}
+
 type ThrowFirst struct {
 	score int
 }
@@ -151,23 +222,23 @@ type Spare struct {
 	second int
 }
 
-func (s Spare) score(rounds Rounds, i int) int {
+func (s Spare) score(rounds Rounds, i int) RoundScore {
 	if i == len(rounds.Early)-1 {
-		return 10 + int(rounds.Final.FirstThrow)
+		return DeterminableScore{10 + int(rounds.Final.FirstThrow)}
 	}
 	switch rounds.Early[i+1].throw.(type) {
 	case Strike:
-		return 20
+		return DeterminableScore{value: 20}
 	case ThrowFirst:
-		return 10 + rounds.Early[i+1].throw.(ThrowFirst).score
+		return DeterminableScore{value: 10 + rounds.Early[i+1].throw.(ThrowFirst).score}
 	case ThrowSecond:
-		return 10 + rounds.Early[i+1].throw.(ThrowSecond).first
+		return DeterminableScore{value: 10 + rounds.Early[i+1].throw.(ThrowSecond).first}
 	case Spare:
-		return 10 + rounds.Early[i+1].throw.(Spare).first
+		return DeterminableScore{value: 10 + rounds.Early[i+1].throw.(Spare).first}
 	case NotThrow:
-		return 0
+		return NotDeterminableScore{}
 	default:
-		return 0
+		return NotDeterminableScore{}
 	}
 }
 
