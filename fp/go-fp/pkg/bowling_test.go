@@ -36,17 +36,17 @@ func TestBowling(t *testing.T) {
 				t.Errorf("Expected score to be 60, but got %d", finalSecondScore)
 			}
 		})
-		//	t.Run("all strike before final round", func(t *testing.T) {
-		//		rounds := pkg.NewDefaultRounds()
-		//		strikeThrow := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(10)))
-		//		for i := 0; i < 9; i++ {
-		//			rounds = strikeThrow(rounds)
-		//		}
-		//		score := rounds.Score()
-		//		if score != 270 {
-		//			t.Errorf("Expected score to be 270, but got %d", score)
-		//		}
-		//	})
+		t.Run("all strike", func(t *testing.T) {
+			rounds := pkg.NewDefaultRounds()
+			strikeThrow := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(10)))
+			for i := 0; i < 12; i++ {
+				rounds = strikeThrow(rounds)
+			}
+			score := rounds.Score()
+			if score != 300 {
+				t.Errorf("Expected score to be 300, but got %d", score)
+			}
+		})
 		t.Run("for a strike", func(t *testing.T) {
 			rounds := pkg.NewDefaultRounds()
 			throw10 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(10)))

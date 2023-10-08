@@ -214,8 +214,18 @@ type Strike struct {
 
 func (s Strike) score(r Rounds, index int) RoundScore {
 	if index == len(r.Early)-1 {
-		return DeterminableScore{
-			value: 10 + r.Final.score(),
+		final := r.Final
+		switch final.(type) {
+		case FinalRoundNotThrow:
+			return NotDeterminableScore{}
+		case FinalRoundFirst:
+			return NotDeterminableScore{}
+		case FinalRoundSecond:
+			return DeterminableScore{value: 10 + int(final.(FinalRoundSecond).second)}
+		case FinalRoundThird:
+			return DeterminableScore{value: 10 + int(final.(FinalRoundThird).first) + int(final.(FinalRoundThird).second)}
+		default:
+			return NotDeterminableScore{}
 		}
 	}
 	nextThrow := r.Early[index+1].throw
@@ -232,7 +242,19 @@ func (s Strike) score(r Rounds, index int) RoundScore {
 	case Strike:
 		// TODO index
 		if index == len(r.Early)-2 {
-			return NotDeterminableScore{}
+			final := r.Final
+			switch final.(type) {
+			case FinalRoundNotThrow:
+				return NotDeterminableScore{}
+			case FinalRoundFirst:
+				return DeterminableScore{value: 20 + final.(FinalRoundFirst).score()}
+			case FinalRoundSecond:
+				return DeterminableScore{value: 20 + int(final.(FinalRoundSecond).first)}
+			case FinalRoundThird:
+				return DeterminableScore{value: 20 + int(final.(FinalRoundThird).first)}
+			default:
+				return NotDeterminableScore{}
+			}
 		}
 		return double(r.Early[index+2].throw)
 	case Spare:
