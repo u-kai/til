@@ -22,7 +22,21 @@ func ThrowByAnyLogic(logic func() ThrowResult) Throw {
 
 			default:
 				result.Early[i].throw = round.throw
-
+			}
+			// case end of early round
+			// so we need to add final round
+			if i == len(rounds.Early)-1 {
+				final := rounds.Final
+				switch final.(type) {
+				case FinalRoundNotThrow:
+					result.Final = FinalRoundFirst{value: throwed}
+				case FinalRoundFirst:
+					result.Final = final.(FinalRoundFirst).toSecond(throwed)
+				case FinalRoundSecond:
+					if final.(FinalRoundSecond).canThirdThrow() {
+						result.Final = final.(FinalRoundSecond).toThird(throwed)
+					}
+				}
 			}
 		}
 		return result
@@ -70,6 +84,7 @@ loop:
 			break loop
 		}
 	}
+	result += r.Final.score()
 	return Score(result)
 }
 
@@ -80,7 +95,7 @@ func NewDefaultRounds() Rounds {
 	}
 	return Rounds{
 		Early: early,
-		Final: newFinalRound(),
+		Final: FinalRoundNotThrow{},
 	}
 }
 
@@ -94,27 +109,57 @@ func newRound() Round {
 	}
 }
 
-type FinalRound struct {
-	FirstThrow  ThrowResult
-	SecondThrow ThrowResult
-	ThirdThrow  ThrowResult
+type FinalRound interface {
+	score() int
 }
 
-func newFinalRound() FinalRound {
-	return FinalRound{
-		FirstThrow:  -1,
-		SecondThrow: -1,
-		ThirdThrow:  -1,
+type FinalRoundNotThrow struct{}
+
+func (f FinalRoundNotThrow) score() int {
+	return 0
+}
+
+type FinalRoundFirst struct {
+	value ThrowResult
+}
+
+func (f FinalRoundFirst) score() int {
+	return int(f.value)
+}
+func (f FinalRoundFirst) toSecond(throwedSecond ThrowResult) FinalRoundSecond {
+	return FinalRoundSecond{
+		first:  f.value,
+		second: throwedSecond,
 	}
 }
-func (r FinalRound) throwedFirst() bool {
-	return r.FirstThrow != -1
+
+type FinalRoundSecond struct {
+	first  ThrowResult
+	second ThrowResult
 }
-func (r FinalRound) throwedSecond() bool {
-	return r.SecondThrow != -1
+
+func (f FinalRoundSecond) score() int {
+	return int(f.first) + int(f.second)
 }
-func (r FinalRound) throwedThird() bool {
-	return r.ThirdThrow != -1
+func (f FinalRoundSecond) canThirdThrow() bool {
+	return f.score() >= 10
+}
+func (f FinalRoundSecond) toThird(throwedThird ThrowResult) FinalRoundThird {
+	return FinalRoundThird{
+		first:  f.first,
+		second: f.second,
+		third:  throwedThird,
+	}
+}
+
+type FinalRoundThird struct {
+	first  ThrowResult
+	second ThrowResult
+	third  ThrowResult
+}
+
+func (f FinalRoundThird) score() int {
+	return int(f.first) + int(f.second) + int(f.third)
 }
 
 type Player struct {
@@ -170,7 +215,7 @@ type Strike struct {
 func (s Strike) score(r Rounds, index int) RoundScore {
 	if index == len(r.Early)-1 {
 		return DeterminableScore{
-			value: 10 + int(r.Final.FirstThrow) + int(r.Final.SecondThrow),
+			value: 10 + r.Final.score(),
 		}
 	}
 	nextThrow := r.Early[index+1].throw
@@ -186,6 +231,9 @@ func (s Strike) score(r Rounds, index int) RoundScore {
 		return DeterminableScore{value: 10 + nextThrow.(ThrowSecond).score()}
 	case Strike:
 		// TODO index
+		if index == len(r.Early)-2 {
+			return NotDeterminableScore{}
+		}
 		return double(r.Early[index+2].throw)
 	case Spare:
 		return DeterminableScore{value: 20}
@@ -224,7 +272,12 @@ type Spare struct {
 
 func (s Spare) score(rounds Rounds, i int) RoundScore {
 	if i == len(rounds.Early)-1 {
-		return DeterminableScore{10 + int(rounds.Final.FirstThrow)}
+		switch rounds.Final.(type) {
+		case FinalRoundNotThrow:
+			return NotDeterminableScore{}
+		default:
+			return DeterminableScore{10 + int(rounds.Final.score())}
+		}
 	}
 	switch rounds.Early[i+1].throw.(type) {
 	case Strike:
