@@ -2,7 +2,6 @@ package pkg_test
 
 import (
 	"example/pkg"
-	"fmt"
 	"testing"
 )
 
@@ -13,6 +12,18 @@ func fakeThrow(anyThrowResult pkg.ThrowResult) func() pkg.ThrowResult {
 }
 
 func TestBowling(t *testing.T) {
+	t.Run("Game", func(t *testing.T) {
+		player := pkg.NewPlayer("John")
+		game := pkg.NewGame(player)
+		throw := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(3)))
+		game = game.Throw(throw)
+		score := game.Scores()
+
+		if score[player.Name] != 3 {
+			t.Errorf("Expected score to be 3, but got %d", score[player.Name])
+		}
+
+	})
 
 	t.Run("Can calculate score", func(t *testing.T) {
 		t.Run("add final round case not spare", func(t *testing.T) {
@@ -21,7 +32,6 @@ func TestBowling(t *testing.T) {
 			for i := 0; i < 18; i++ {
 				rounds = throw(rounds)
 			}
-			fmt.Printf("rounds: %+v\n", rounds)
 			score := rounds.Score()
 			if score != 54 {
 				t.Errorf("Expected score to be 54, but got %d", score)

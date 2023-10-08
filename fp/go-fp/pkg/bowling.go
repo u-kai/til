@@ -2,7 +2,62 @@ package pkg
 
 import "fmt"
 
-type Turn func(Throw, Bowling) Bowling
+type Bowling struct {
+	Players         []Player
+	throwPlayerTurn int
+}
+
+func (b Bowling) Scores() map[PlayerName]Score {
+	result := make(map[PlayerName]Score, len(b.Players))
+	for _, player := range b.Players {
+		result[player.Name] = player.Score()
+	}
+	return result
+}
+
+func (b Bowling) throwPlayer() Player {
+	return b.Players[b.throwPlayerTurn]
+}
+func (b Bowling) Throw(throw Throw) Bowling {
+	player := b.throwPlayer().throw(throw)
+	players := b.Players
+	players[b.throwPlayerTurn] = player
+
+	nextPlayerIndex := (b.throwPlayerTurn + 1) % len(b.Players)
+	return Bowling{
+		Players:         players,
+		throwPlayerTurn: nextPlayerIndex,
+	}
+}
+
+func NewGame(players ...Player) Bowling {
+	return Bowling{
+		Players:         players,
+		throwPlayerTurn: 0,
+	}
+}
+
+type Player struct {
+	Name PlayerName
+	Rounds
+}
+type PlayerName string
+
+func (p Player) throw(throw Throw) Player {
+	return Player{
+		Name:   p.Name,
+		Rounds: throw(p.Rounds),
+	}
+}
+func (p Player) Score() Score {
+	return p.Rounds.Score()
+}
+func NewPlayer(name string) Player {
+	return Player{
+		Name:   PlayerName(name),
+		Rounds: NewDefaultRounds(),
+	}
+}
 
 type Throw func(Rounds) Rounds
 
@@ -48,11 +103,6 @@ func ThrowByAnyLogic(logic func() ThrowResult) Throw {
 }
 
 type ThrowResult int
-
-type Bowling struct {
-	Players         []Player
-	throwPlayerTurn int
-}
 
 type Rounds struct {
 	Early []Round
@@ -165,13 +215,6 @@ type FinalRoundThird struct {
 func (f FinalRoundThird) score() int {
 	return int(f.first) + int(f.second) + int(f.third)
 }
-
-type Player struct {
-	Name PlayerName
-	Rounds
-}
-
-type PlayerName string
 
 type Score int
 type RoundScore interface {
