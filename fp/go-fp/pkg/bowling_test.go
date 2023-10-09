@@ -22,6 +22,31 @@ func TestBowling(t *testing.T) {
 			t.Errorf("Expected score to be 300, but got %d", scores[player.Name])
 		}
 	})
+	t.Run("case double", func(t *testing.T) {
+		player := pkg.NewPlayer("John")
+		game := pkg.NewGame(player)
+
+		for i := 0; i < 2; i++ {
+			game = pkg.Play(game, func() pkg.HitPin {
+				return pkg.HitPin(10)
+			})
+		}
+
+		game = pkg.Play(game, func() pkg.HitPin {
+			return pkg.HitPin(5)
+		})
+		game = pkg.Play(game, func() pkg.HitPin {
+			return pkg.HitPin(3)
+		})
+
+		fmt.Printf("game: %+v\n", game)
+		scores := pkg.AllScore(game)
+
+		if scores[player.Name] != 48 {
+			t.Errorf("Expected score to be 48, but got %d", scores[player.Name])
+		}
+
+	})
 	t.Run("case all spare", func(t *testing.T) {
 		player := pkg.NewPlayer("John")
 		game := pkg.NewGame(player)
@@ -146,7 +171,6 @@ func TestBowling(t *testing.T) {
 		game = pkg.Play(game, func() pkg.HitPin {
 			return pkg.HitPin(4)
 		})
-		fmt.Printf("game: %+v\n", game)
 		scores = pkg.AllScore(game)
 
 		if scores[player1.Name] != 16 {

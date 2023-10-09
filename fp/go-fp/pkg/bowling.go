@@ -19,6 +19,7 @@ func (p HitPin) toScore() Score {
 
 type FrameState interface {
 	toString() string
+	firstScore() HitPin
 }
 
 // impl FrameState
@@ -27,6 +28,9 @@ type NotThrow struct{}
 
 func (n NotThrow) toString() string {
 	return ""
+}
+func (n NotThrow) firstScore() HitPin {
+	return 0
 }
 
 func firstThrow(init NotThrow, first HitPin) FrameState {
@@ -56,13 +60,37 @@ func throwSecond(first ThrowedFirst, second HitPin) FrameState {
 		second: second,
 	}
 }
+func (t ThrowedFirst) firstScore() HitPin {
+	return t.first
+}
+
+// impl FrameState
+type ThrowedSecond struct {
+	first  HitPin
+	second HitPin
+}
+
+func (t ThrowedSecond) toString() string {
+	return fmt.Sprintf("%d %d", t.first, t.second)
+}
+
+func (t ThrowedSecond) firstScore() HitPin {
+	return t.first
+}
+func (t ThrowedSecond) score() Score {
+	return t.first.add(t.second).toScore()
+}
 
 type FinalFrameState interface {
 	score() Score
+	firstScore() HitPin
 }
 type FinalRoundNotThrow struct{}
 
 func (n FinalRoundNotThrow) score() Score {
+	return 0
+}
+func (n FinalRoundNotThrow) firstScore() HitPin {
 	return 0
 }
 
@@ -73,10 +101,17 @@ type FinalRoundFirst struct {
 func (f FinalRoundFirst) score() Score {
 	return f.first.toScore()
 }
+func (f FinalRoundFirst) firstScore() HitPin {
+	return f.first
+}
 
 type FinalRoundSecond struct {
 	first  HitPin
 	second HitPin
+}
+
+func (f FinalRoundSecond) firstScore() HitPin {
+	return f.first
 }
 
 func (f FinalRoundSecond) score() Score {
@@ -103,18 +138,8 @@ type FinalRoundThird struct {
 func (f FinalRoundThird) score() Score {
 	return f.first.add(f.second).add(f.third).toScore()
 }
-
-// impl FrameState
-type ThrowedSecond struct {
-	first  HitPin
-	second HitPin
-}
-
-func (t ThrowedSecond) toString() string {
-	return fmt.Sprintf("%d %d", t.first, t.second)
-}
-func (t ThrowedSecond) score() Score {
-	return t.first.add(t.second).toScore()
+func (f FinalRoundThird) firstScore() HitPin {
+	return f.first
 }
 
 // impl FrameState
@@ -127,12 +152,20 @@ func (s Spare) toString() string {
 	return fmt.Sprintf("%d /", s.first)
 }
 
+func (s Spare) firstScore() HitPin {
+	return s.first
+}
+
 type Strike struct {
 	value int
 }
 
 func (s Strike) toString() string {
 	return "X"
+}
+
+func (s Strike) firstScore() HitPin {
+	return 10
 }
 
 type Frame struct {
@@ -192,36 +225,20 @@ func spareScore(frames Frames, frameIndex int) FrameScore {
 		switch final.(type) {
 		case FinalRoundNotThrow:
 			return NotDeterminableScore{}
-		case FinalRoundFirst:
-			return DeterminableScore{
-				value: final.(FinalRoundFirst).first.add10().toScore(),
-			}
-		case FinalRoundSecond:
-			return DeterminableScore{
-				value: final.(FinalRoundSecond).first.add10().toScore(),
-			}
-		case FinalRoundThird:
-			return DeterminableScore{
-				value: final.(FinalRoundThird).first.add10().toScore(),
-			}
 		default:
-			return NotDeterminableScore{}
+			return DeterminableScore{
+				value: final.firstScore().add10().toScore(),
+			}
 		}
 	}
 	frameState := frames.normals[frameIndex+1].state
 	switch frameState.(type) {
-	case Strike:
-		return DeterminableScore{value: 20}
-	case ThrowedFirst:
-		return DeterminableScore{value: frameState.(ThrowedFirst).first.add10().toScore()}
-	case ThrowedSecond:
-		return DeterminableScore{value: frameState.(ThrowedSecond).first.add10().toScore()}
-	case Spare:
-		return DeterminableScore{value: frameState.(Spare).first.add10().toScore()}
 	case NotThrow:
 		return NotDeterminableScore{}
+	case Strike:
+		return DeterminableScore{value: 20}
 	default:
-		return NotDeterminableScore{}
+		return DeterminableScore{value: frameState.firstScore().add10().toScore()}
 	}
 }
 
@@ -230,16 +247,13 @@ func double(nextState FrameState) FrameScore {
 		return DeterminableScore{value: 30}
 	}
 	switch nextState.(type) {
-	case ThrowedFirst:
-		return DeterminableScore{value: nextState.(ThrowedFirst).first.addDouble().toScore()}
-	case ThrowedSecond:
-		return DeterminableScore{value: nextState.(ThrowedSecond).first.addDouble().toScore()}
-	case Spare:
-		return DeterminableScore{value: nextState.(Spare).first.addDouble().toScore()}
+	case NotThrow:
+		return DeterminableScore{}
 	case Strike:
 		return triple()
 	default:
-		return NotDeterminableScore{}
+		return DeterminableScore{value: nextState.firstScore().addDouble().toScore()}
+
 	}
 }
 
@@ -269,7 +283,7 @@ func strikeScore(f Frames, index int) FrameScore {
 		return NotDeterminableScore{}
 		// case Double or Triple
 	case ThrowedSecond:
-		return DeterminableScore{value: nextThrow.(ThrowedSecond).first.add10().toScore()}
+		return DeterminableScore{value: nextThrow.firstScore().add10().toScore()}
 	case Strike:
 		if index == len(f.normals)-2 {
 			final := f.final
