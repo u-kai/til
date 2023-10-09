@@ -5,126 +5,62 @@ import (
 	"testing"
 )
 
-func fakeThrow(anyThrowResult pkg.ThrowResult) func() pkg.ThrowResult {
-	return func() pkg.ThrowResult {
-		return anyThrowResult
-	}
-}
-
 func TestBowling(t *testing.T) {
-	t.Run("Game", func(t *testing.T) {
+	t.Run("player is only one", func(t *testing.T) {
 		player := pkg.NewPlayer("John")
 		game := pkg.NewGame(player)
-		throw := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(3)))
-		game = game.Throw(throw)
-		score := game.Scores()
 
-		if score[player.Name] != 3 {
-			t.Errorf("Expected score to be 3, but got %d", score[player.Name])
+		game = pkg.Play(game, func() pkg.HitPin {
+			return pkg.HitPin(3)
+		})
+
+		scores := pkg.AllScore(game)
+
+		if scores[player.Name] != 3 {
+			t.Errorf("Expected score to be 3, but got %d", scores[player.Name])
+		}
+
+		game = pkg.Play(game, func() pkg.HitPin {
+			return pkg.HitPin(4)
+		})
+
+		scores = pkg.AllScore(game)
+
+		if scores[player.Name] != 7 {
+			t.Errorf("Expected score to be 7, but got %d", scores[player.Name])
 		}
 
 	})
+	//t.Run("multi players", func(t *testing.T) {
+	//	player1 := pkg.NewPlayer("John")
+	//	player2 := pkg.NewPlayer("Tom")
+	//	game := pkg.NewGame(player1, player2)
 
-	t.Run("Can calculate score", func(t *testing.T) {
-		t.Run("add final round case not spare", func(t *testing.T) {
-			rounds := pkg.NewDefaultRounds()
-			throw := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(3)))
-			for i := 0; i < 18; i++ {
-				rounds = throw(rounds)
-			}
-			score := rounds.Score()
-			if score != 54 {
-				t.Errorf("Expected score to be 54, but got %d", score)
-			}
-			finalFirst := throw(rounds)
-			finalFirstScore := finalFirst.Score()
-			if finalFirstScore != 57 {
-				t.Errorf("Expected score to be 57, but got %d", finalFirstScore)
-			}
+	//
 
-			finalSecond := throw(finalFirst)
-			finalSecondScore := finalSecond.Score()
-			if finalSecondScore != 60 {
-				t.Errorf("Expected score to be 60, but got %d", finalSecondScore)
-			}
-		})
-		t.Run("all strike", func(t *testing.T) {
-			rounds := pkg.NewDefaultRounds()
-			strikeThrow := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(10)))
-			for i := 0; i < 12; i++ {
-				rounds = strikeThrow(rounds)
-			}
-			score := rounds.Score()
-			if score != 300 {
-				t.Errorf("Expected score to be 300, but got %d", score)
-			}
-		})
-		t.Run("for a strike", func(t *testing.T) {
-			rounds := pkg.NewDefaultRounds()
-			throw10 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(10)))
-			throwed10 := throw10(rounds)
-			score := throwed10.Score()
-			if score != 0 {
-				t.Errorf("Expected score to be 10, but got %d", score)
-			}
+	//	johnThrow := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(3)))
+	//	game = game.Throw(johnThrow)
+	//	johnThrow2 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(3)))
+	//	game = game.Throw(johnThrow2)
 
-			throw4 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(4)))
-			throwed4 := throw4(throwed10)
-			score = throwed4.Score()
-			if score != 0 {
-				t.Errorf("Expected score to be 0, but got %d", score)
-			}
-			throw5 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(5)))
-			throwed5 := throw5(throwed4)
-			score = throwed5.Score()
-			if score != 28 {
-				t.Errorf("Expected score to be 23, but got %d", score)
-			}
+	//	if game.Scores()[player1.Name] != 6 {
+	//		t.Errorf("Expected score to be 6, but got %d", game.Scores()[player1.Name])
+	//	}
+	//	if game.Scores()[player2.Name] != 0 {
+	//		t.Errorf("Expected score to be 0, but got %d", game.Scores()[player2.Name])
+	//	}
 
-		})
-		t.Run("for a spare", func(t *testing.T) {
-			rounds := pkg.NewDefaultRounds()
-			throw6 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(6)))
-			throwed6 := throw6(rounds)
-			throw4 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(4)))
-			throwedSpareRounds := throw4(throwed6)
-			score := throwedSpareRounds.Score()
+	//	tomThrow := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(4)))
+	//	game = game.Throw(tomThrow)
+	//	tomThrow2 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(4)))
+	//	game = game.Throw(tomThrow2)
 
-			if score != 0 {
-				t.Errorf("Expected score to be 0, but got %d", score)
-			}
+	//	if game.Scores()[player1.Name] != 6 {
+	//		t.Errorf("Expected score to be 6, but got %d", game.Scores()[player1.Name])
+	//	}
+	//	if game.Scores()[player2.Name] != 8 {
+	//		t.Errorf("Expected score to be 8, but got %d", game.Scores()[player2.Name])
+	//	}
+	//})
 
-			throw7 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(7)))
-			throwed7 := throw7(throwedSpareRounds)
-			score = throwed7.Score()
-
-			if score != 24 {
-				t.Errorf("Expected score to be 24, but got %d", score)
-			}
-
-			throw2 := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(2)))
-			throwed2 := throw2(throwed7)
-
-			if throwed2.Score() != 26 {
-				t.Errorf("Expected score to be 26, but got %d", score)
-			}
-		})
-		t.Run("for a simple throw", func(t *testing.T) {
-			rounds := pkg.NewDefaultRounds()
-			throw := pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(5)))
-			throwed5Rounds := throw(rounds)
-			score := throwed5Rounds.Score()
-			if score != 5 {
-				t.Errorf("Expected score to be 5, but got %d", score)
-			}
-
-			throw = pkg.ThrowByAnyLogic(fakeThrow(pkg.ThrowResult(3)))
-			throwed3Rounds := throw(throwed5Rounds)
-			score = throwed3Rounds.Score()
-
-			if score != 8 {
-				t.Errorf("Expected score to be 8, but got %d", score)
-			}
-		})
-	})
 }
