@@ -188,27 +188,24 @@ func (n NotDeterminableScore) score() Score {
 
 func spareScore(frames Frames, frameIndex int) FrameScore {
 	if frameIndex == len(frames.normals)-1 {
-		switch frames.final.(type) {
+		final := frames.final
+		switch final.(type) {
 		case FinalRoundNotThrow:
 			return NotDeterminableScore{}
-		default:
-			final := frames.final
-			switch final.(type) {
-			case FinalRoundFirst:
-				return DeterminableScore{
-					value: final.(FinalRoundFirst).first.add10().toScore(),
-				}
-			case FinalRoundSecond:
-				return DeterminableScore{
-					value: final.(FinalRoundSecond).first.add10().toScore(),
-				}
-			case FinalRoundThird:
-				return DeterminableScore{
-					value: final.(FinalRoundThird).first.add10().toScore(),
-				}
-			default:
-				return NotDeterminableScore{}
+		case FinalRoundFirst:
+			return DeterminableScore{
+				value: final.(FinalRoundFirst).first.add10().toScore(),
 			}
+		case FinalRoundSecond:
+			return DeterminableScore{
+				value: final.(FinalRoundSecond).first.add10().toScore(),
+			}
+		case FinalRoundThird:
+			return DeterminableScore{
+				value: final.(FinalRoundThird).first.add10().toScore(),
+			}
+		default:
+			return NotDeterminableScore{}
 		}
 	}
 	frameState := frames.normals[frameIndex+1].state
