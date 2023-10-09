@@ -6,6 +6,21 @@ import (
 )
 
 func TestBowling(t *testing.T) {
+	t.Run("case all strike", func(t *testing.T) {
+		player := pkg.NewPlayer("John")
+		game := pkg.NewGame(player)
+
+		for i := 0; i < 12; i++ {
+			game = pkg.Play(game, func() pkg.HitPin {
+				return pkg.HitPin(10)
+			})
+		}
+
+		scores := pkg.AllScore(game)
+		if scores[player.Name] != 300 {
+			t.Errorf("Expected score to be 300, but got %d", scores[player.Name])
+		}
+	})
 	t.Run("player is only one", func(t *testing.T) {
 		player := pkg.NewPlayer("John")
 		game := pkg.NewGame(player)
