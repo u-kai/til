@@ -395,25 +395,34 @@ func Play(b Bowling, throwFn ThrowBall) Bowling {
 	// update
 	players := b.Players
 	players[b.throwPlayerTurn] = throwedPlayer
-
+	updated := updatePlayersState(b.Players)
 	return Bowling{
-		Players:         players,
-		throwPlayerTurn: updatePlayerIndex(b),
+		Players:         updated,
+		throwPlayerTurn: nextThrowPlayerTurn(updated),
 	}
 }
-func updatePlayerIndex(b Bowling) int {
-	for i, player := range b.Players {
+
+func nextThrowPlayerTurn(players []Player) int {
+	for i, player := range players {
 		if player.state == Playing {
 			return i
 		}
-		if player.state == Finished {
-			player.state = Waiting
-			result := (i + 1) % len(b.Players)
-			b.Players[result].state = Playing
-			return result
-		}
 	}
 	return 0
+}
+func updatePlayersState(players []Player) []Player {
+	for i, player := range players {
+		if player.state == Playing {
+			return players
+		}
+		if player.state == Finished {
+			player.state = Waiting
+			next := (i + 1) % len(players)
+			players[next].state = Playing
+			return players
+		}
+	}
+	return players
 }
 
 // has side effect function
