@@ -136,7 +136,7 @@ func (s Strike) toString() string {
 }
 
 type Frame struct {
-	State FrameState
+	state FrameState
 }
 type Frames struct {
 	normals []Frame
@@ -146,7 +146,7 @@ type Frames struct {
 func newDefaultGameFrame() Frames {
 	frames := make([]Frame, 9)
 	for i := 0; i < 9; i++ {
-		frames[i] = Frame{State: NotThrow{}}
+		frames[i] = Frame{state: NotThrow{}}
 	}
 	return Frames{
 		normals: frames,
@@ -211,7 +211,7 @@ func spareScore(frames Frames, frameIndex int) FrameScore {
 			}
 		}
 	}
-	frameState := frames.normals[frameIndex+1].State
+	frameState := frames.normals[frameIndex+1].state
 	switch frameState.(type) {
 	case Strike:
 		return DeterminableScore{value: 20}
@@ -262,7 +262,7 @@ func strikeScore(f Frames, index int) FrameScore {
 			return NotDeterminableScore{}
 		}
 	}
-	nextThrow := f.normals[index+1].State
+	nextThrow := f.normals[index+1].state
 	switch nextThrow.(type) {
 	case NotThrow:
 		// can not determined
@@ -289,7 +289,7 @@ func strikeScore(f Frames, index int) FrameScore {
 				return NotDeterminableScore{}
 			}
 		}
-		return double(f.normals[index+2].State)
+		return double(f.normals[index+2].state)
 	case Spare:
 		return DeterminableScore{value: 20}
 	default:
@@ -324,7 +324,7 @@ func NewPlayer(name PlayerName) Player {
 	}
 }
 func (p Player) firstThrow(n NotThrow, hitPin HitPin, frameIndex int) Player {
-	p.Frames.normals[frameIndex].State = firstThrow(n, hitPin)
+	p.Frames.normals[frameIndex].state = firstThrow(n, hitPin)
 	if hitPin == 10 {
 		p.state = Finished
 	} else {
@@ -334,7 +334,7 @@ func (p Player) firstThrow(n NotThrow, hitPin HitPin, frameIndex int) Player {
 }
 
 func (p Player) secondThrow(f ThrowedFirst, hitPin HitPin, frameIndex int) Player {
-	p.Frames.normals[frameIndex].State = throwSecond(f, hitPin)
+	p.Frames.normals[frameIndex].state = throwSecond(f, hitPin)
 	p.state = Finished
 	return p
 }
@@ -364,13 +364,13 @@ func throw(p Player, fn ThrowBall) Player {
 	result := p
 	hitPin := fn()
 	for i, frame := range p.Frames.normals {
-		switch frame.State.(type) {
+		switch frame.state.(type) {
 		case NotThrow:
-			return result.firstThrow(frame.State.(NotThrow), hitPin, i)
+			return result.firstThrow(frame.state.(NotThrow), hitPin, i)
 		case ThrowedFirst:
-			return result.secondThrow(frame.State.(ThrowedFirst), hitPin, i)
+			return result.secondThrow(frame.state.(ThrowedFirst), hitPin, i)
 		default:
-			result.Frames.normals[i].State = frame.State
+			result.Frames.normals[i].state = frame.state
 		}
 	}
 	final := p.Frames.final
@@ -451,7 +451,7 @@ func (f Frames) Score() Score {
 	result := Score(0)
 loop:
 	for i, frame := range f.normals {
-		switch frame.State.(type) {
+		switch frame.state.(type) {
 		case Strike:
 			score := strikeScore(f, i)
 			switch score.(type) {
@@ -469,9 +469,9 @@ loop:
 				break loop
 			}
 		case ThrowedFirst:
-			result = frame.State.(ThrowedFirst).first.toScore().add(result)
+			result = frame.state.(ThrowedFirst).first.toScore().add(result)
 		case ThrowedSecond:
-			result = frame.State.(ThrowedSecond).score().add(result)
+			result = frame.state.(ThrowedSecond).score().add(result)
 		case NotThrow:
 			break loop
 		}
