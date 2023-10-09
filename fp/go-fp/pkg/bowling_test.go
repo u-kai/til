@@ -61,6 +61,19 @@ func TestBowling(t *testing.T) {
 		if scores[player2.Name] != 0 {
 			t.Errorf("Expected score to be 0, but got %d", scores[player2.Name])
 		}
+
+		game = pkg.Play(game, func() pkg.HitPin {
+			return pkg.HitPin(4)
+		})
+
+		scores = pkg.AllScore(game)
+
+		if scores[player1.Name] != 7 {
+			t.Errorf("Expected score to be 7, but got %d", scores[player1.Name])
+		}
+		if scores[player2.Name] != 4 {
+			t.Errorf("Expected score to be 4, but got %d", scores[player2.Name])
+		}
 	})
 
 }

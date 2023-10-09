@@ -296,128 +296,92 @@ func strikeScore(f Frames, index int) FrameScore {
 }
 
 type PlayerName string
-type Player interface {
-	Name() PlayerName
-	Frames() Frames
-	Update(int, FrameState) Player
-}
-type ThrowedPlayer struct {
-	name   PlayerName
-	frames Frames
+type Player struct {
+	Name   PlayerName
+	Frames Frames
+	state  PlayerState
 }
 
-func (p ThrowedPlayer) Name() PlayerName {
-	return p.name
-}
-func (p ThrowedPlayer) Frames() Frames {
-	return p.frames
-}
-func (p ThrowedPlayer) Update(frameIndex int, state FrameState) Player {
-	normals := p.frames.normals
-	normals[frameIndex].State = state
-	return ThrowedPlayer{
-		name: p.name,
-		frames: Frames{
-			normals: normals,
-			final:   p.frames.final,
-		},
-	}
+func (p Player) Score() Score {
+	return p.Frames.Score()
 }
 
-type ThrowingPlayer struct {
-	name   PlayerName
-	frames Frames
-}
+type PlayerState int
 
-func (p ThrowingPlayer) Name() PlayerName {
-	return p.name
-}
-func (p ThrowingPlayer) Frames() Frames {
-	return p.frames
-}
-
-func (p ThrowingPlayer) Update(frameIndex int, state FrameState) Player {
-	normals := p.frames.normals
-	normals[frameIndex].State = state
-	return ThrowingPlayer{
-		name: p.name,
-		frames: Frames{
-			normals: normals,
-			final:   p.frames.final,
-		},
-	}
-}
-
-type WaitingPlayer struct {
-	name   PlayerName
-	frames Frames
-}
-
-func (p WaitingPlayer) Name() PlayerName {
-	return p.name
-}
-func (p WaitingPlayer) Frames() Frames {
-	return p.frames
-}
-
-func (p WaitingPlayer) Update(frameIndex int, state FrameState) Player {
-	normals := p.frames.normals
-	normals[frameIndex].State = state
-	return WaitingPlayer{
-		name: p.name,
-		frames: Frames{
-			normals: normals,
-			final:   p.frames.final,
-		},
-	}
-}
+const (
+	Waiting PlayerState = iota
+	Playing
+	Finished
+)
 
 func NewPlayer(name PlayerName) Player {
-	return WaitingPlayer{
-		name:   name,
-		frames: newDefaultGameFrame(),
+	return Player{
+		Name:   name,
+		Frames: newDefaultGameFrame(),
+		state:  Waiting,
 	}
 }
+func (p Player) firstThrow(n NotThrow, hitPin HitPin, frameIndex int) Player {
+	p.Frames.normals[frameIndex].State = firstThrow(n, hitPin)
+	if hitPin == 10 {
+		p.state = Finished
+	} else {
+		p.state = Playing
+	}
+	return p
+}
 
+func (p Player) secondThrow(f ThrowedFirst, hitPin HitPin, frameIndex int) Player {
+	p.Frames.normals[frameIndex].State = throwSecond(f, hitPin)
+	p.state = Finished
+	return p
+}
+func (p Player) finalFirstThrow(n FinalRoundNotThrow, hitPin HitPin) Player {
+	p.Frames.final = FinalRoundFirst{first: hitPin}
+	p.state = Playing
+	return p
+}
+func (p Player) finalSecondThrow(f FinalRoundFirst, hitPin HitPin) Player {
+	p.Frames.final = FinalRoundSecond{first: f.first, second: hitPin}
+	if hitPin == 10 {
+		p.state = Finished
+	} else {
+		p.state = Playing
+	}
+	return p
+}
+
+func (p Player) finalThirdThrow(f FinalRoundSecond, hitPin HitPin) Player {
+	if canThirdThrow(f) {
+		p.Frames.final = FinalRoundThird{first: f.first, second: f.second, third: hitPin}
+	}
+	p.state = Finished
+	return p
+}
 func throw(p Player, fn ThrowBall) Player {
-	result := NewPlayer(p.Name())
-loop:
-	for i, frame := range p.Frames().normals {
+	result := p
+	hitPin := fn()
+	for i, frame := range p.Frames.normals {
 		switch frame.State.(type) {
 		case NotThrow:
-			result.Frames().normals[i].State = firstThrow(frame.State.(NotThrow), fn())
-			break loop
+			return result.firstThrow(frame.State.(NotThrow), hitPin, i)
 		case ThrowedFirst:
-			result.Frames().normals[i].State = throwSecond(frame.State.(ThrowedFirst), fn())
-			break loop
-
+			return result.secondThrow(frame.State.(ThrowedFirst), hitPin, i)
 		default:
-			result.Update(i, frame.State)
+			result.Frames.normals[i].State = frame.State
 		}
 	}
-	final := p.Frames().final
+	final := p.Frames.final
 	switch final.(type) {
 	case FinalRoundNotThrow:
-		switch p.normals[len(p.normals)-1].State.(type) {
-		case NotThrow:
-			return result
-		case ThrowedFirst:
-			return result
-		default:
-			result.final = FinalRoundFirst{first: fn()}
-			return result
-		}
+		return result.finalFirstThrow(final.(FinalRoundNotThrow), hitPin)
 	case FinalRoundFirst:
-		result.final = FinalRoundSecond{
-			first:  final.(FinalRoundFirst).first,
-			second: fn(),
-		}
+		return result.finalSecondThrow(final.(FinalRoundFirst), hitPin)
 	case FinalRoundSecond:
-		if canThirdThrow(final.(FinalRoundSecond)) {
-			result.final = toFinalRoundThird(final.(FinalRoundSecond), fn())
-		}
+		return result.finalThirdThrow(final.(FinalRoundSecond), hitPin)
+	default:
+		panic(fmt.Sprintf("unknown type %T", final))
 	}
-	return result
 
 }
 
@@ -438,8 +402,18 @@ func Play(b Bowling, throwFn ThrowBall) Bowling {
 	}
 }
 func updatePlayerIndex(b Bowling) int {
-	result := b.throwPlayerTurn
-	return result
+	for i, player := range b.Players {
+		if player.state == Playing {
+			return i
+		}
+		if player.state == Finished {
+			player.state = Waiting
+			result := (i + 1) % len(b.Players)
+			b.Players[result].state = Playing
+			return result
+		}
+	}
+	return 0
 }
 
 // has side effect function
