@@ -127,7 +127,9 @@ func (s Spare) toString() string {
 	return fmt.Sprintf("%d /", s.first)
 }
 
-type Strike struct{}
+type Strike struct {
+	value int
+}
 
 func (s Strike) toString() string {
 	return "X"
@@ -412,11 +414,8 @@ func nextThrowPlayerTurn(players []Player) int {
 }
 func updatePlayersState(players []Player) []Player {
 	for i, player := range players {
-		if player.state == Playing {
-			return players
-		}
 		if player.state == Finished {
-			player.state = Waiting
+			players[i].state = Waiting
 			next := (i + 1) % len(players)
 			players[next].state = Playing
 			return players
