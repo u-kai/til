@@ -1,6 +1,9 @@
 package pkg
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type HitPin int
 
@@ -27,7 +30,7 @@ type FrameState interface {
 type NotThrow struct{}
 
 func (n NotThrow) toString() string {
-	return ""
+	return "0"
 }
 func (n NotThrow) firstScore() HitPin {
 	return 0
@@ -176,6 +179,15 @@ type Frames struct {
 	final   FinalFrameState
 }
 
+func (f Frames) String() string {
+	result := "|  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10  |\n|"
+
+	for i := 0; i < len(f.normals); i++ {
+		result += fmt.Sprintf("  %s  |", f.normals[i].state.toString())
+	}
+	return result
+}
+
 func newDefaultGameFrame() Frames {
 	frames := make([]Frame, 9)
 	for i := 0; i < 9; i++ {
@@ -286,18 +298,11 @@ func strikeScore(f Frames, index int) FrameScore {
 		return DeterminableScore{value: nextThrow.firstScore().add10().toScore()}
 	case Strike:
 		if index == len(f.normals)-2 {
-			final := f.final
-			switch final.(type) {
+			switch f.final.(type) {
 			case FinalRoundNotThrow:
 				return NotDeterminableScore{}
-			case FinalRoundFirst:
-				return DeterminableScore{value: final.(FinalRoundFirst).first.addDouble().toScore()}
-			case FinalRoundSecond:
-				return DeterminableScore{value: final.(FinalRoundSecond).first.add10().addDouble().toScore()}
-			case FinalRoundThird:
-				return DeterminableScore{value: final.(FinalRoundThird).first.addDouble().toScore()}
 			default:
-				return NotDeterminableScore{}
+				return DeterminableScore{value: f.final.firstScore().addDouble().toScore()}
 			}
 		}
 		return double(f.normals[index+2].state)
@@ -313,6 +318,11 @@ type Player struct {
 	Name   PlayerName
 	Frames Frames
 	state  PlayerState
+}
+
+func (p Player) stringWithLength(l int) string {
+	addSpaceNum := l - len(p.Name)
+	return fmt.Sprintf("%s%s", p.Name, strings.Repeat(" ", addSpaceNum))
 }
 
 func (p Player) Score() Score {
@@ -401,6 +411,21 @@ func throw(p Player, fn ThrowBall) Player {
 type Bowling struct {
 	Players         []Player
 	throwPlayerTurn int
+}
+
+func (b Bowling) String() string {
+	result := ""
+	maxNameLen := 0
+	for _, player := range b.Players {
+		if len(player.Name) > maxNameLen {
+			maxNameLen = len(player.Name)
+		}
+	}
+	for _, player := range b.Players {
+		result += fmt.Sprintf("%s %s%s\n", player.stringWithLength(maxNameLen), strings.Repeat(" ", maxNameLen), player.Frames.String())
+	}
+	return result
+
 }
 
 func Play(b Bowling, throwFn ThrowBall) Bowling {
