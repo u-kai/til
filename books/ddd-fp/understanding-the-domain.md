@@ -7,25 +7,25 @@
 ### Thinking About Inputs and Outputs
 
 - workflow の output を考える時に，最終的に何かの状態を変えた副作用だったとしても，workflow としては常に event を産むことになるので，output は event ということになる
-- そしてその event が別のコンテキスト教会のトリガーになる
+- そしてその event が別のコンテキスト境界のトリガーになる
 
 ## Fighting the Impulse to Do Database Driven Design
 
 - 低レベルな実装のスケッチを始めないこと
-- DB の設計ではなく DDD である
-- DB は中央的存在ではない,user はその存在に気を使わない
+- DB の設計ではなく DDD をまずはやるべき
+- DB は中央的存在ではない,実際の利用者は DB の存在に気を使わない
 - DDD では persistence ignorance とよぶ
 
 ## Fighting the Impulse to Do Class Driven Design
 
-- OOP のひとは Domain ではなく objects のデザインを行う
+- OOP は Domain ではなく objects のデザインを行う
 - これは DB 設計の話と同様に危険
 - 本当の要求を聞いていない
-- まずは要求を集めることで，私たちの技術アイデアを Domain に押し付けることでない
+- まずは要求を集めることが重要で，開発者たちの技術アイデアを Domain に押し付けることでない
 
 ## Documenting the Domain
 
-- UML とかむずいやつよりも普通のテキストベースのもので domain model をキャプチャする
+- UML とかよりも普通のテキストベースのもので domain model をキャプチャする
 - 下のように Place Order workflow を書く
 
 ```
@@ -69,8 +69,6 @@ data BillingAddress = ??? // don't know yet
 
 - ここら辺まできたら詳しく workflow について尋ねてみる
 
-## Representing Complexity in Our Domain Model
-
 ### Representing Constraints
 
 - new type まで作ると変更が厳しくなるが，自由に作りすぎると一生 design されない
@@ -90,7 +88,7 @@ data UnitQuantity = integer between 1 and 1000
   - と思ったけど，少し違う気もする
   - 全く違うデータ構造として定義している感じ
 
-- validated や un validate といった情報は異なる
+- validated や unvalidate といった情報は異なる
 - これによって，不整合が起きないようにしている
 
 ### Fleshing out the Steps in the Workflow
