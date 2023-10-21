@@ -32,12 +32,39 @@
     - Subnet 移動不可
       - Lambda
       - EC2
+      - ECS
+        - CreateService
+        - CreateTask
+        - CreateTaskSet
+        - RunTask
+        - StartTask
   - RouteTable を変更するなどして Public Subnet の条件に変更された時に，その Subnet 内の Instance 全てが PublicInstance になる
     - これをどうやって Instance の方を調べるか(Public Subnet かどうかは Event から簡単に補足できるはず)
     - すべての Instance の Describe を行って，Subnet と紐づいているのかを見る
       - これって Too Many Request エラーとか出ないよな？(サービス同士の依存度は少ないんよな？AWS は)
 
 - RDS
+
   - CreateDBSubnetGroup
   - CreateDBInstance
   - CreateDBCluster
+
+  - all list
+
+- Amazon EC2 (Elastic Compute Cloud): 仮想サーバー
+- Amazon RDS (Relational Database Service): リレーショナルデータベースサービス
+- Amazon Redshift: データウェアハウスサービス
+- Amazon Elasticache: インメモリデータストアおよびキャッシュサービス
+- Amazon Neptune: グラフデータベースサービス
+- Amazon DocumentDB: MongoDB と互換性のあるドキュメントデータベース
+- Amazon ECS (Elastic Container Service): コンテナオーケストレーションサービス
+- Amazon EKS (Elastic Kubernetes Service): Kubernetes オーケストレーションサービス
+- AWS Fargate: ECS および EKS のサーバーレスコンピューティングエンジン
+- Amazon EMR (Elastic MapReduce): ビッグデータ処理サービス
+- Amazon MSK (Managed Streaming for Apache Kafka): Kafka クラスターサービス
+- AWS App Runner: コンテナベースのアプリケーションデプロイメントサービス
+- AWS Lambda: イベントドリブンのサーバーレスコンピューティングサービス（VPC 内のリソースへのアクセスが可能）
+- Amazon Elastic File System (EFS): マネージドファイルストレージ
+- AWS Batch: バッチコンピューティングワークロードの実行
+- AWS Outposts: オンプレミス環境での AWS サービスの実行
+- AWS Snow Family: エッジロケーションやオンプレミスでのデータ処理および移行
