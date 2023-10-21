@@ -17,3 +17,27 @@
     - おそらく新しい RouteTableId も拾える
   - ReplaceRoute
     - コンソールでは CreateRoute が実行されたが，API ドキュメントとして存在するのでおそらく必要
+
+## Public Subnet に Instance があるかどうか
+
+- 一番安直なのが Instance の状態変更を Config などで常に監視すること
+  - ただし，関係ない操作についても発行することや，Config がややこしいこと，Terminate した時もそのイベントを Config が取得してしまう
+  - Config は高額で様々な機能が面倒
+- できれば EventBridge で補足したいが，EC2 以外の Instance についても記述するのがめんどくさい(勉強にはなるかも)
+
+- 大まかな考え方
+
+  - 構築された時に何らかの形で紐づいている Subnet が Public な Subnet かどうかを調べる
+  - 構築された後に Subnet を移動できないのであれば Create した時だけ考えれば良い
+    - Subnet 移動不可
+      - Lambda
+      - EC2
+  - RouteTable を変更するなどして Public Subnet の条件に変更された時に，その Subnet 内の Instance 全てが PublicInstance になる
+    - これをどうやって Instance の方を調べるか(Public Subnet かどうかは Event から簡単に補足できるはず)
+    - すべての Instance の Describe を行って，Subnet と紐づいているのかを見る
+      - これって Too Many Request エラーとか出ないよな？(サービス同士の依存度は少ないんよな？AWS は)
+
+- RDS
+  - CreateDBSubnetGroup
+  - CreateDBInstance
+  - CreateDBCluster
