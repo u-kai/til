@@ -5,6 +5,8 @@
   - CreateRouteTable
 
     - Main かつ IGW と接続していて，Subnet に RouteTable が紐づいてない場合は RouteTable と明示的な紐付けがない全ての Subnet が PublicSubnet になる
+    - でも Create した瞬間に Route って紐づくっけ？
+      - 紐づかないのであれば不要
 
   - CreateRoute
 
