@@ -13,6 +13,9 @@
     - Create された Route が igw かどうか & 左の Route が紐づいている RouteTable と Subnet が紐づいているかどうか
     - RouteTable への Route 追加がコンソール上の動き
 
+  - AssociationRouteTable
+    - あたらしく紐づけられた RouteTable に IGW があればダメ
+    - おそらく，VPC の Main テーブルを使っていた Subnet とかが新しく Public な RouteTable をつけられるとダメ
   - ReplaceRouteTableAssociation
     - RouteTable の関連付けを変更したとき
     - 新しい AssociationId が Event で拾える
