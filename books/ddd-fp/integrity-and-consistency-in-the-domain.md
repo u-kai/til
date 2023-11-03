@@ -11,6 +11,12 @@ type UnitQuantity = private UnitQuantity of int
 - これによって同じモジュール内のコード以外は UnitQuantity を作成できなくすることができる
 - 絶対一つ以上の要素が入っている必要があるなど，できるだけ型として定義してあげることで，ドキュメント性が向上する
 
+## The Integrity of Simple Values
+
+## Units of Measure
+
+## Enforcing Invariants with the Type System
+
 ## Capturing Business Rules in the Type System
 
 - flag による型はいくつもの問題がある
