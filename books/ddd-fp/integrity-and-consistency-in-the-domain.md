@@ -1,5 +1,10 @@
 # Integrity and Consistency in the Domain
 
+## The Integrity of Simple Values
+
+- ほとんどのケースで文字列や数値と言ったものはない
+- 何かしらのドメインルールが存在しているはず
+- データはイミュータブルなのでデータが作成されたらチェックのしても意味ない(作成される前にチェックして OK の時のみ作成するべき)
 - FP には smart constructor っていうアプローチがあるっぽい
 
 ```fs
@@ -11,11 +16,14 @@ type UnitQuantity = private UnitQuantity of int
 - これによって同じモジュール内のコード以外は UnitQuantity を作成できなくすることができる
 - 絶対一つ以上の要素が入っている必要があるなど，できるだけ型として定義してあげることで，ドキュメント性が向上する
 
-## The Integrity of Simple Values
-
 ## Units of Measure
 
+- 単位をしっかり考慮することでミスを少なくできるよねということ
+
 ## Enforcing Invariants with the Type System
+
+- NotEmptyList などを作成すれば値の正常性を型で示すことができるようになる
+- 徹底的に上記のような活動をしていけば相当堅牢なコードができる気がする
 
 ## Capturing Business Rules in the Type System
 
@@ -34,7 +42,9 @@ type UnitQuantity = private UnitQuantity of int
 - 様々な Aggregate での一貫性が書かれていておもろい
 - 一つの Aggregate につき一つのトランザクションが好ましい
 - もし難しいかつ，コンテキスト境界外であれば Event などを飛ばして，結果整合性を目指すのもあり
-- もしおなじコンテキスト境界で 2 つの Aggregate に一つのトランザクションが必要になった時，Aggregate の観察が足りないかもしれない
+- もし同じコンテキスト境界で 2 つの Aggregate に一つのトランザクションが必要になった時，Aggregate の観察が足りないかもしれない
 - 関数型の関数を使い回すことは OOP のそれよりも影響が少ない？
   - なぜなら関数は特定のオブジェクトに紐づいていなく，グローバルな状態にも依存していないから
-  - ここはよくわからん
+  - おそらく，関数は状態を保持することがないので，透明性は増す
+  - OOP の使い回しは知らない間に状態も使い回す可能性もあり，知らない間によくわからんことになっているとか？
+    - やっぱ OOP って所有権の考えありきやん
