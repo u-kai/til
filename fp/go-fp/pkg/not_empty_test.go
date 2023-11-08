@@ -32,10 +32,10 @@ func TestNotEmpty(t *testing.T) {
 	})
 	t.Run("from array", func(t *testing.T) {
 		for _, tt := range []struct {
-			name    string
-			args    []string
-			want    pkg.NotEmpty[string]
-			wantErr error
+			name   string
+			args   []string
+			want   pkg.NotEmpty[string]
+			wantOk bool
 		}{
 			{
 				name: "two elements",
@@ -44,22 +44,22 @@ func TestNotEmpty(t *testing.T) {
 					First: "a",
 					Left:  []string{"b"},
 				},
-				wantErr: nil,
+				wantOk: true,
 			},
 			{
-				name:    "no elements",
-				args:    []string{},
-				want:    pkg.NotEmpty[string]{},
-				wantErr: pkg.NewErrEmptyArray(),
+				name:   "no elements",
+				args:   []string{},
+				want:   pkg.NotEmpty[string]{},
+				wantOk: false,
 			},
 		} {
 			t.Run(tt.name, func(t *testing.T) {
-				got, err := pkg.FromArrayToNotEmpty(tt.args)
+				got, ok := pkg.FromArrayToNotEmpty(tt.args)
 				if !reflect.DeepEqual(got, tt.want) {
 					t.Errorf("FromArrayToNotEmpty() got = %v, want %v", got, tt.want)
 				}
-				if err != tt.wantErr {
-					t.Errorf("FromArrayToNotEmpty() error = %v, wantErr %v", err, tt.wantErr)
+				if ok != tt.wantOk {
+					t.Errorf("FromArrayToNotEmpty() ok = %v, want %v", ok, tt.wantOk)
 				}
 			})
 		}
