@@ -20,3 +20,6 @@ func FromArrayToNotEmpty[T any](arr []T) (NotEmpty[T], error) {
 	}
 	return NotEmpty[T]{First: arr[0], Left: arr[1:]}, nil
 }
+func ToArray[T any](ne NotEmpty[T]) []T {
+	return append([]T{ne.First}, ne.Left...)
+}

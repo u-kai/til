@@ -7,6 +7,29 @@ import (
 )
 
 func TestNotEmpty(t *testing.T) {
+	t.Run("to array", func(t *testing.T) {
+		for _, tt := range []struct {
+			name string
+			args pkg.NotEmpty[string]
+			want []string
+		}{
+			{
+				name: "two elements",
+				args: pkg.NotEmpty[string]{
+					First: "a",
+					Left:  []string{"b"},
+				},
+				want: []string{"a", "b"},
+			},
+		} {
+			t.Run(tt.name, func(t *testing.T) {
+				got := pkg.ToArray(tt.args)
+				if !reflect.DeepEqual(got, tt.want) {
+					t.Errorf("ToArray() got = %v, want %v", got, tt.want)
+				}
+			})
+		}
+	})
 	t.Run("from array", func(t *testing.T) {
 		for _, tt := range []struct {
 			name    string
