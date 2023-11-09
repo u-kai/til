@@ -14,6 +14,14 @@ func TestNotEmpty(t *testing.T) {
 			want []string
 		}{
 			{
+				name: "one element",
+				args: pkg.NotEmpty[string]{
+					First: "a",
+					Left:  []string{},
+				},
+				want: []string{"a"},
+			},
+			{
 				name: "two elements",
 				args: pkg.NotEmpty[string]{
 					First: "a",
