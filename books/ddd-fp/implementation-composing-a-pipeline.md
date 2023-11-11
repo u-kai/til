@@ -8,6 +8,14 @@
   - Result 型などのは直接 input として利用しないことが望ましいので，Result 型などを output にする関数はどうにかしなければいけない
   - adapter function がそれかもしれない
 
+## Working with Simple Types
+
+## Using Function Types to Guide the Implementation
+
+## Implementation the Validation Step
+
+## Implementation the Rest of the Step
+
 ## Composing the Pipeline Steps Together
 
 - 異なる input とかを合わせる技として monad がある??

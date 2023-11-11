@@ -3,7 +3,6 @@
 - ECS
 
   - CreateService
-  - CreateTask
   - CreateTaskSet
 
 - RDS
