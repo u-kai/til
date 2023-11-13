@@ -2,6 +2,8 @@ on:
   push:
     branches:
       - main
+env:
+  BRANCH: "echo ${{github.ref_name}}"
 
 jobs:
   build:
@@ -20,7 +22,7 @@ jobs:
           npx md-to-pdf
       - name: git commit
         run: |
+          git config --global user.name "github-actions"
           git add .
           git commit -m "add pdf"
-          git config --global user.name "github-actions"
           git push origin main
