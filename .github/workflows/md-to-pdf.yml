@@ -18,8 +18,8 @@ jobs:
         run: npm install md-to-pdf
       - name: md to pdf
         run: |
-          cd mds
-          npx md-to-pdf
+          echo ${{env.BRANCH}}
+          npx md-to-pdf mds
       - name: git commit
         run: |
           git config --global user.name "github-actions"
