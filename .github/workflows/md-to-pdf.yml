@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup nodejs
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+      - name: install
+        run: npm install md-to-pdf
+      - name: md to pdf
+        run: |
+          cd mds
+          npx md-to-pdf mds
+      - name: git commit
+        run: |
+          git add .
+          git commit -m "add pdf"
+          git config --global user.name "github-actions"
+          git push origin main
