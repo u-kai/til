@@ -5,8 +5,9 @@ type VpcId string
 type ResourceType string
 
 const (
-	EKSCluster   ResourceType = "EKSCluster"
-	EKSNodeGroup ResourceType = "EKSNodeGroup"
+	EKSCluster        ResourceType = "EKSCluster"
+	EKSNodeGroup      ResourceType = "EKSNodeGroup"
+	EKSFargateProfile ResourceType = "EKSFargateProfile"
 )
 
 type PublicResourceReference[Id ResourceIdentifier] struct {
