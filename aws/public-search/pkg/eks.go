@@ -104,10 +104,10 @@ func SearchPublicSubnetsEKSFargateActionByClient(client *eks.Client) SearchPubli
 				if err != nil {
 					return nil, err
 				}
-                pubSubnetIds := FilterPublicSubnets(subnets, fargateProfileInfo.FargateProfile.Subnets),
-                if len(pubSubnetIds) == 0 {
-                    continue
-                }
+				pubSubnetIds := FilterPublicSubnets(subnets, fargateProfileInfo.FargateProfile.Subnets)
+				if len(pubSubnetIds) == 0 {
+					continue
+				}
 				resources = append(resources, PublicResourceReference[EKSFargateProfileId]{
 
 					ResourceType:    EKSFargateProfile,
@@ -171,9 +171,9 @@ func SearchPublicSubnetsEKSNodeGroupActionByClient(client *eks.Client) SearchPub
 					return nil, err
 				}
 				publicSubnets := FilterPublicSubnets(subnets, nodeGroupInfo.Nodegroup.Subnets)
-                if len(publicSubnets) == 0 {
-                    continue
-                }
+				if len(publicSubnets) == 0 {
+					continue
+				}
 
 				resources = append(resources, PublicResourceReference[EKSNodeGroupId]{
 					ResourceType:    EKSNodeGroup,
