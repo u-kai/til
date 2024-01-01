@@ -1,3 +1,13 @@
+- Azure の基本
+
+  - Learn
+  - Landing Zone の資料
+    - 戦略
+    - 基盤
+
+- 英語
+  - スタサプ無料 1 週間
+- k8s pattern 6
 - サービスメッシュ
 - Nginx Ingress がよくわからん
   - host を消したらうまくいった
@@ -9,7 +19,6 @@
   - キークローク
 
 - qiita の記事
-  - 毎日 GitHub
   - k8s
 - AWS の動画
   - CICD をどうやって計測するのかなど
@@ -25,6 +34,7 @@
 
 ## DONE
 
+~~- 毎日 GitHub~~
 ~~- k8s pattern の 5 章をまとめる~~
 ~~- SRE の本を 1 章までまとめる~~
 ~~- SRE の本を 2 章までまとめる~~
