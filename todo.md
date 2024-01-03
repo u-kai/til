@@ -1,16 +1,14 @@
 ## K8s
 
+- k8s pattern 7
 - セキュリティ本
 - コンテナセキュリティ本
-- k8s 知識図鑑
-- k8s pattern 6
 - custom controller
   - まず何かを本で読みつつ、実装して覚えていきたい
 - サービスメッシュ
 - Nginx Ingress がよくわからん
 
   - host を消したらうまくいった
-  - そもそも Controller 一つで多くの Ingress をデプロイすることって可能？
   - Node が一つでもうまくいくもんなん？
 
 ## データ
@@ -43,6 +41,19 @@
 
 ## DONE
 
+~~- k8s 知識図鑑 4~~
+
+~~ - Cluster Autoscaler~~
+~~ - node 自体のスケーリングができる~~
+~~ - リクエストされた pod の値によってスケールするので、消費量が少ないと必要のない node を起きあげることがある~~
+~~ - クラウドベンダーに依存している機能なので、利用するクラウドベンダーが Cluster Autoscaler に対応している必要がある~~
+~~ - https://kubernetes.io/docs/reference/using-api/#api-groups~~
+~~ - API Group~~
+~~ - https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/~~
+~~ - API Reference
+~~- k8s 知識図鑑 3~~
+~~- k8s 知識図鑑 2~~
+~~- k8s pattern 6~~
 ~~- Docker 実践ガイド~~
 ~~- エンジニアの思考法~~
 ~~- CNCF Whitepaper~~
