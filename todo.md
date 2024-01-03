@@ -1,6 +1,5 @@
 ## K8s
 
-- k8s pattern 7
 - セキュリティ本
 - コンテナセキュリティ本でコンテナの仕組みおさらい
 - custom controller
@@ -47,6 +46,7 @@
 ## DONE
 
 ~~- k8s 知識図鑑 4~~
+~~- k8s pattern 7~~
 
 ~~ - Cluster Autoscaler~~
 ~~ - node 自体のスケーリングができる~~
