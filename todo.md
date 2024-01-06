@@ -1,6 +1,5 @@
 ## Today
 
-- Data Mesh 2
 - Data Mesh 3
 - データ指向アプリケーション 3 章まとめる
 - k8s pattern 8
@@ -57,6 +56,7 @@
 
 ## DONE
 
+~~- Data Mesh 2~~
 ~~- Data Mesh prologue~~
 ~~- データ指向アプリケーション 2 章まとめる~~
 ~~- k8s 知識図鑑 4~~
