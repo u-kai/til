@@ -8,6 +8,7 @@
 - custom controller
   - まず何かを本で読みつつ、実装して覚えていきたい
 - サービスメッシュ
+  - Istio
 - Nginx Ingress がよくわからん
 
   - host を消したらうまくいった
