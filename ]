@@ -1,0 +1,23 @@
+# DataMesh まとめと今後の展望
+
+## 目次
+
+- 本資料の目的
+- そもそもデータ活用とは
+- DataMesh とは
+- 今までのデータ基盤
+- DataMesh のメリット
+- DataMesh を実現するための考え方/役割/手段
+- 考察/今後の展望
+
+## 本資料の目的
+
+- [こちらの本](https://www.amazon.co.jp/-/en/Zhamak-Dehghani-ebook/dp/B09V4KWWJ8/ref=sr_1_1?crid=3PCPAQ4MKVW2X&keywords=datamesh&qid=1705707189&s=english-books&sprefix=datamesh%2Cenglish-books%2C220&sr=1-1)で記載されていた内容について共有し、以下を達成すること
+  - DataMesh とは何か, どのようなメリットがあるのかを理解してもらう
+  - 今後どのようにデータ基盤のプロジェクトを進めていくかの判断材料にしてもらう
+
+## そもそもデータ活用とは
+
+- データを活用して価値を生み出すのがデータ活用の目的
+
+### 価値とは？
